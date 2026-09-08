@@ -1402,8 +1402,13 @@ document
             const post =
                 event.target.closest(".post");
 
+            const textElement =
+                 post.querySelector("p");
+
             const postText =
-                post.querySelector("p").textContent;
+                 textElement
+                      ? textElement.textContent
+                      : "📸 Zuno Photo Post";
 
             if (navigator.share) {
 
