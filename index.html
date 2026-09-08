@@ -100,9 +100,7 @@
 </div>
 
 <script>
-
 function createPost() {
-
     const text = document.getElementById("postText").value;
 
     if (text.trim() === "") {
@@ -111,7 +109,6 @@ function createPost() {
     }
 
     const post = document.createElement("div");
-
     post.className = "post";
 
     post.innerHTML = `
@@ -119,27 +116,25 @@ function createPost() {
         <p>${text}</p>
 
         <div class="actions">
-            <button onclick="likePost(this)">❤️ Like</button>
+            <button class="like-btn">❤️ Like</button>
             <button>💬 Comment</button>
             <button>↗️ Share</button>
         </div>
     `;
 
     document.getElementById("posts").prepend(post);
-
     document.getElementById("postText").value = "";
 }
 
-function likePost(button) {
-
-    if (button.innerText.includes("Like")) {
-        button.innerText = "❤️ Liked";
-    } else {
-        button.innerText = "❤️ Like";
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("like-btn")) {
+        if (event.target.textContent.includes("Liked")) {
+            event.target.textContent = "❤️ Like";
+        } else {
+            event.target.textContent = "❤️ Liked";
+        }
     }
-
-}
-
+});
 </script>
 
 </body>
