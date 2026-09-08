@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuno</title>
+    <title>Zuno Social Media</title>
 
     <style>
         body {
@@ -42,7 +42,8 @@
             font-size: 16px;
         }
 
-        .create-btn {
+        .create-btn,
+        .comment-btn {
             margin-top: 10px;
             padding: 10px 18px;
             background: #1877f2;
@@ -62,6 +63,18 @@
             border: none;
             background: none;
             font-size: 16px;
+        }
+
+        .comment-box {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .comment {
+            background: #f2f2f2;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -87,20 +100,35 @@
 <div id="posts">
 
     <div class="post">
+
         <strong>👤 Zuno User</strong>
         <p>🎉 Welcome to Zuno!</p>
-        <button class="like-btn">❤️ Like</button>
+
         <div class="actions">
-            
-            <button>💬 Comment</button>
+            <button class="like-btn">❤️ Like</button>
+            <button class="comment-open">💬 Comment</button>
             <button>↗️ Share</button>
         </div>
+
+        <div class="comment-box">
+            <textarea rows="2"
+                placeholder="Comment लिखें..."></textarea>
+
+            <button class="comment-btn">
+                Post Comment
+            </button>
+
+            <div class="comments"></div>
+        </div>
+
     </div>
 
 </div>
 
 <script>
+
 function createPost() {
+
     const text = document.getElementById("postText").value;
 
     if (text.trim() === "") {
@@ -117,8 +145,19 @@ function createPost() {
 
         <div class="actions">
             <button class="like-btn">❤️ Like</button>
-            <button>💬 Comment</button>
+            <button class="comment-open">💬 Comment</button>
             <button>↗️ Share</button>
+        </div>
+
+        <div class="comment-box">
+            <textarea rows="2"
+                placeholder="Comment लिखें..."></textarea>
+
+            <button class="comment-btn">
+                Post Comment
+            </button>
+
+            <div class="comments"></div>
         </div>
     `;
 
@@ -126,15 +165,61 @@ function createPost() {
     document.getElementById("postText").value = "";
 }
 
+
 document.addEventListener("click", function(event) {
+
+    /* LIKE */
+
     if (event.target.classList.contains("like-btn")) {
+
         if (event.target.textContent.includes("Liked")) {
             event.target.textContent = "❤️ Like";
         } else {
             event.target.textContent = "❤️ Liked";
         }
     }
+
+
+    /* OPEN COMMENT */
+
+    if (event.target.classList.contains("comment-open")) {
+
+        const post = event.target.closest(".post");
+        const box = post.querySelector(".comment-box");
+
+        if (box.style.display === "block") {
+            box.style.display = "none";
+        } else {
+            box.style.display = "block";
+        }
+    }
+
+
+    /* POST COMMENT */
+
+    if (event.target.classList.contains("comment-btn")) {
+
+        const box = event.target.closest(".comment-box");
+        const input = box.querySelector("textarea");
+        const comments = box.querySelector(".comments");
+
+        if (input.value.trim() === "") {
+            alert("पहले Comment लिखें!");
+            return;
+        }
+
+        const comment = document.createElement("div");
+        comment.className = "comment";
+
+        comment.innerHTML = "👤 Zuno User: " + input.value;
+
+        comments.appendChild(comment);
+
+        input.value = "";
+    }
+
 });
+
 </script>
 
 </body>
