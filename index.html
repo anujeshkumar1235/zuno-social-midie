@@ -9,10 +9,82 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f2f2f2;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* AUTH PAGE */
+
+        #authPage {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .auth-logo {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .auth-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #1877f2;
+            color: white;
+            font-size: 17px;
+        }
+
+        .switch-btn {
+            margin-top: 18px;
+            border: none;
+            background: none;
+            color: #1877f2;
+            font-size: 15px;
+        }
+
+        /* HOME */
+
+        #homePage {
+            display: none;
         }
 
         header {
@@ -22,6 +94,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
@@ -33,7 +108,6 @@
             border: none;
             background: none;
             font-size: 25px;
-            cursor: pointer;
         }
 
         .post-box,
@@ -46,7 +120,6 @@
 
         textarea {
             width: 100%;
-            box-sizing: border-box;
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -54,32 +127,30 @@
             font-size: 16px;
         }
 
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            margin-top: 8px;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
         .create-btn,
         .comment-btn,
         .edit-profile,
         .save-profile,
-        .follow-btn {
+        .follow-btn,
+        .logout-btn {
             margin-top: 10px;
             padding: 10px 18px;
-            background: #1877f2;
-            color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
+        }
+
+        .create-btn,
+        .comment-btn,
+        .save-profile,
+        .follow-btn {
+            background: #1877f2;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #e53935;
+            color: white;
         }
 
         .actions {
@@ -105,6 +176,8 @@
             margin-top: 8px;
             border-radius: 8px;
         }
+
+        /* PROFILE */
 
         .profile-page {
             display: none;
@@ -160,6 +233,15 @@
             font-weight: bold;
         }
 
+        .profile-editor input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
     </style>
 
 </head>
@@ -167,102 +249,209 @@
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================
+     LOGIN / SIGN UP
+========================= -->
 
-<header>
+<div id="authPage">
 
-    <div class="logo">
-        Zuno
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            Zuno
+        </div>
+
+        <p>
+            आपका Social Media 🚀
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginBox">
+
+            <h2>
+                Login
+            </h2>
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="auth-btn"
+                onclick="login()"
+            >
+                🔐 Login
+            </button>
+
+            <button
+                class="switch-btn"
+                onclick="showSignup()"
+            >
+                नया account बनाएँ
+            </button>
+
+        </div>
+
+
+        <!-- SIGN UP -->
+
+        <div
+            id="signupBox"
+            style="display:none;"
+        >
+
+            <h2>
+                Create Account
+            </h2>
+
+            <input
+                id="signupName"
+                type="text"
+                placeholder="आपका Name"
+            >
+
+            <input
+                id="signupEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="signupPassword"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="auth-btn"
+                onclick="signup()"
+            >
+                🚀 Sign Up
+            </button>
+
+            <button
+                class="switch-btn"
+                onclick="showLogin()"
+            >
+                पहले से account है? Login
+            </button>
+
+        </div>
+
     </div>
 
-    <div>
+</div>
 
-        🔔
+
+<!-- =========================
+     HOME PAGE
+========================= -->
+
+<div id="homePage">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Zuno
+        </div>
+
+        <div>
+
+            🔔
+
+            <button
+                class="profile-btn"
+                onclick="openProfile()"
+            >
+                👤
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- CREATE POST -->
+
+    <div class="post-box">
+
+        <strong>
+            क्या चल रहा है?
+        </strong>
+
+        <textarea
+            id="postText"
+            rows="3"
+            placeholder="अपनी पोस्ट लिखें..."
+        ></textarea>
 
         <button
-            class="profile-btn"
-            onclick="openProfile()"
+            class="create-btn"
+            onclick="createPost()"
         >
-            👤
+            ➕ Create Post
         </button>
 
     </div>
 
-</header>
 
+    <!-- POSTS -->
 
-<!-- CREATE POST -->
+    <div id="posts">
 
-<div class="post-box">
+        <div class="post">
 
-    <strong>
-        क्या चल रहा है?
-    </strong>
+            <strong>
+                👤 Zuno
+            </strong>
 
-    <textarea
-        id="postText"
-        rows="3"
-        placeholder="अपनी पोस्ट लिखें..."
-    ></textarea>
+            <p>
+                🎉 Welcome to Zuno!
+            </p>
 
-    <button
-        class="create-btn"
-        onclick="createPost()"
-    >
-        ➕ Create Post
-    </button>
+            <div class="actions">
 
-</div>
+                <button class="like-btn">
+                    ❤️ Like
+                </button>
 
+                <button class="comment-open">
+                    💬 Comment
+                </button>
 
-<!-- POSTS -->
+                <button>
+                    ↗️ Share
+                </button>
 
-<div id="posts">
+            </div>
 
+            <div class="comment-box">
 
-    <!-- WELCOME POST -->
+                <textarea
+                    rows="2"
+                    placeholder="Comment लिखें..."
+                ></textarea>
 
-    <div class="post">
+                <button class="comment-btn">
+                    Post Comment
+                </button>
 
-        <strong>
-            👤 Zuno User
-        </strong>
+                <div class="comments"></div>
 
-        <p>
-            🎉 Welcome to Zuno!
-        </p>
-
-        <div class="actions">
-
-            <button class="like-btn">
-                ❤️ Like
-            </button>
-
-            <button class="comment-open">
-                💬 Comment
-            </button>
-
-            <button>
-                ↗️ Share
-            </button>
-
-        </div>
-
-
-        <!-- COMMENT BOX -->
-
-        <div class="comment-box">
-
-            <textarea
-                rows="2"
-                placeholder="Comment लिखें..."
-            ></textarea>
-
-            <button class="comment-btn">
-                Post Comment
-            </button>
-
-            <div class="comments"></div>
+            </div>
 
         </div>
 
@@ -271,15 +460,14 @@
 </div>
 
 
-<!-- PROFILE PAGE -->
+<!-- =========================
+     PROFILE PAGE
+========================= -->
 
 <div
     id="profilePage"
     class="profile-page"
 >
-
-
-    <!-- BACK -->
 
     <button
         class="back-btn"
@@ -289,78 +477,44 @@
     </button>
 
 
-    <!-- PROFILE CARD -->
-
     <div class="profile-card">
-
-
-        <!-- AVATAR -->
 
         <div class="avatar">
             👤
         </div>
 
 
-        <!-- NAME -->
-
         <h2 id="profileName">
             Zuno User
         </h2>
 
-
-        <!-- BIO -->
 
         <p id="profileBio">
             Welcome to my Zuno profile! 🎉
         </p>
 
 
-        <!-- PROFILE STATS -->
-
         <div class="profile-stats">
 
             <div>
-
-                <strong id="postCount">
-                    0
-                </strong>
-
-                <span>
-                    Posts
-                </span>
-
+                <strong id="postCount">0</strong>
+                <span>Posts</span>
             </div>
 
-
             <div>
-
-                <strong id="followersCount">
-                    0
-                </strong>
-
-                <span>
-                    Followers
-                </span>
-
+                <strong id="followersCount">0</strong>
+                <span>Followers</span>
             </div>
 
-
             <div>
-
-                <strong id="followingCount">
-                    0
-                </strong>
-
-                <span>
-                    Following
-                </span>
-
+                <strong id="followingCount">0</strong>
+                <span>Following</span>
             </div>
 
         </div>
 
 
-        <!-- FOLLOW BUTTON -->
+        <!-- FOLLOW -->
 
         <button
             id="followBtn"
@@ -391,7 +545,6 @@
             class="profile-editor"
         >
 
-
             <label>
                 आपका Name
             </label>
@@ -421,8 +574,20 @@
                 💾 Save Profile
             </button>
 
-
         </div>
+
+
+        <br>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            🚪 Logout
+        </button>
 
     </div>
 
@@ -433,11 +598,252 @@
 
 
 /* =========================
+   AUTH FUNCTIONS
+========================= */
+
+function showSignup() {
+
+    document
+        .getElementById("loginBox")
+        .style.display = "none";
+
+    document
+        .getElementById("signupBox")
+        .style.display = "block";
+}
+
+
+function showLogin() {
+
+    document
+        .getElementById("signupBox")
+        .style.display = "none";
+
+    document
+        .getElementById("loginBox")
+        .style.display = "block";
+}
+
+
+/* SIGN UP */
+
+function signup() {
+
+    const name =
+        document.getElementById("signupName").value.trim();
+
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+
+    if (name === "" || email === "" || password === "") {
+
+        alert("सभी जानकारी भरें!");
+
+        return;
+    }
+
+
+    if (password.length < 6) {
+
+        alert("Password कम से कम 6 characters का होना चाहिए!");
+
+        return;
+    }
+
+
+    const user = {
+
+        name: name,
+        email: email,
+        password: password,
+        bio: "Welcome to my Zuno profile! 🎉"
+
+    };
+
+
+    localStorage.setItem(
+        "zunoUser",
+        JSON.stringify(user)
+    );
+
+
+    alert("Account बन गया! 🎉 अब Login करें।");
+
+
+    document.getElementById("signupName").value = "";
+    document.getElementById("signupEmail").value = "";
+    document.getElementById("signupPassword").value = "";
+
+
+    showLogin();
+
+}
+
+
+/* LOGIN */
+
+function login() {
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if (!savedUser) {
+
+        alert("पहले Sign Up करके account बनाएँ!");
+
+        return;
+    }
+
+
+    const user =
+        JSON.parse(savedUser);
+
+
+    if (
+        email === user.email &&
+        password === user.password
+    ) {
+
+        localStorage.setItem(
+            "zunoLoggedIn",
+            "true"
+        );
+
+
+        loadUser();
+
+
+        document
+            .getElementById("authPage")
+            .style.display = "none";
+
+
+        document
+            .getElementById("homePage")
+            .style.display = "block";
+
+
+        alert("Login successful! 🎉");
+
+
+    } else {
+
+        alert("Email या Password गलत है!");
+
+    }
+
+}
+
+
+/* LOGOUT */
+
+function logout() {
+
+    localStorage.removeItem(
+        "zunoLoggedIn"
+    );
+
+
+    document
+        .getElementById("homePage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("profilePage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("authPage")
+        .style.display = "flex";
+
+
+    showLogin();
+
+}
+
+
+/* =========================
+   LOAD USER
+========================= */
+
+function loadUser() {
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if (!savedUser) {
+        return;
+    }
+
+
+    const user =
+        JSON.parse(savedUser);
+
+
+    document
+        .getElementById("profileName")
+        .textContent =
+        user.name;
+
+
+    document
+        .getElementById("profileBio")
+        .textContent =
+        user.bio;
+
+}
+
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+window.onload = function() {
+
+    const loggedIn =
+        localStorage.getItem("zunoLoggedIn");
+
+
+    if (
+        loggedIn === "true" &&
+        localStorage.getItem("zunoUser")
+    ) {
+
+        loadUser();
+
+        document
+            .getElementById("authPage")
+            .style.display = "none";
+
+        document
+            .getElementById("homePage")
+            .style.display = "block";
+
+    }
+
+};
+
+
+/* =========================
    CREATE POST
 ========================= */
 
 function createPost() {
-
 
     const text =
         document
@@ -453,6 +859,23 @@ function createPost() {
     }
 
 
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    let username = "Zuno User";
+
+
+    if (savedUser) {
+
+        const user =
+            JSON.parse(savedUser);
+
+        username = user.name;
+
+    }
+
+
     const post =
         document.createElement("div");
 
@@ -463,7 +886,7 @@ function createPost() {
     post.innerHTML = `
 
         <strong>
-            👤 Zuno User
+            👤 ${username}
         </strong>
 
         <p>
@@ -486,7 +909,6 @@ function createPost() {
 
         </div>
 
-
         <div class="comment-box">
 
             <textarea
@@ -501,7 +923,6 @@ function createPost() {
             <div class="comments"></div>
 
         </div>
-
     `;
 
 
@@ -529,13 +950,10 @@ document.addEventListener(
     function(event) {
 
 
-        /* LIKE */
-
         if (
             event.target.classList
             .contains("like-btn")
         ) {
-
 
             if (
                 event.target.textContent
@@ -555,74 +973,49 @@ document.addEventListener(
         }
 
 
-        /* COMMENT OPEN */
-
         if (
             event.target.classList
             .contains("comment-open")
         ) {
 
-
             const post =
                 event.target.closest(".post");
 
-
             const box =
-                post.querySelector(
-                    ".comment-box"
-                );
+                post.querySelector(".comment-box");
 
 
-            if (
-                box.style.display === "block"
-            ) {
+            if (box.style.display === "block") {
 
-                box.style.display =
-                    "none";
+                box.style.display = "none";
 
             } else {
 
-                box.style.display =
-                    "block";
+                box.style.display = "block";
 
             }
 
         }
 
 
-        /* POST COMMENT */
-
         if (
             event.target.classList
             .contains("comment-btn")
         ) {
 
-
             const box =
-                event.target.closest(
-                    ".comment-box"
-                );
-
+                event.target.closest(".comment-box");
 
             const input =
-                box.querySelector(
-                    "textarea"
-                );
-
+                box.querySelector("textarea");
 
             const comments =
-                box.querySelector(
-                    ".comments"
-                );
+                box.querySelector(".comments");
 
 
-            if (
-                input.value.trim() === ""
-            ) {
+            if (input.value.trim() === "") {
 
-                alert(
-                    "पहले Comment लिखें!"
-                );
+                alert("पहले Comment लिखें!");
 
                 return;
 
@@ -630,23 +1023,20 @@ document.addEventListener(
 
 
             const comment =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
-            comment.className =
-                "comment";
+            comment.className = "comment";
 
 
             comment.textContent =
-                "👤 Zuno User: " +
+                "👤 " +
+                getCurrentUserName() +
+                ": " +
                 input.value;
 
 
-            comments.appendChild(
-                comment
-            );
+            comments.appendChild(comment);
 
 
             input.value = "";
@@ -658,11 +1048,34 @@ document.addEventListener(
 
 
 /* =========================
-   OPEN PROFILE
+   CURRENT USER NAME
+========================= */
+
+function getCurrentUserName() {
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if (savedUser) {
+
+        return JSON.parse(savedUser).name;
+
+    }
+
+
+    return "Zuno User";
+
+}
+
+
+/* =========================
+   PROFILE
 ========================= */
 
 function openProfile() {
 
+    loadUser();
 
     document
         .getElementById("profilePage")
@@ -674,12 +1087,7 @@ function openProfile() {
 }
 
 
-/* =========================
-   CLOSE PROFILE
-========================= */
-
 function closeProfile() {
-
 
     document
         .getElementById("profilePage")
@@ -688,12 +1096,9 @@ function closeProfile() {
 }
 
 
-/* =========================
-   POST COUNT
-========================= */
+/* POST COUNT */
 
 function updatePostCount() {
-
 
     const posts =
         document.querySelectorAll(
@@ -714,7 +1119,6 @@ function updatePostCount() {
 
 function showProfileEditor() {
 
-
     document
         .getElementById("profileEditor")
         .style.display = "block";
@@ -738,139 +1142,49 @@ function showProfileEditor() {
 }
 
 
-/* =========================
-   SAVE PROFILE
-========================= */
+/* SAVE PROFILE */
 
 function saveProfile() {
-
 
     const name =
         document
         .getElementById("nameInput")
-        .value;
+        .value.trim();
 
 
     const bio =
         document
         .getElementById("bioInput")
-        .value;
+        .value.trim();
 
 
-    if (name.trim() === "") {
+    if (name === "") {
 
-        alert(
-            "अपना Name लिखें!"
-        );
+        alert("अपना Name लिखें!");
 
         return;
 
     }
 
 
-    if (bio.trim() === "") {
+    if (bio === "") {
 
-        alert(
-            "अपना Bio लिखें!"
-        );
+        alert("अपना Bio लिखें!");
 
         return;
 
     }
 
 
-    document
-        .getElementById("profileName")
-        .textContent =
-        name;
+    const savedUser =
+        localStorage.getItem("zunoUser");
 
 
-    document
-        .getElementById("profileBio")
-        .textContent =
-        bio;
+    if (savedUser) {
+
+        const user =
+            JSON.parse(savedUser);
 
 
-    document
-        .getElementById("profileEditor")
-        .style.display =
-        "none";
-
-
-    alert(
-        "Profile Save हो गई! 🎉"
-    );
-
-}
-
-
-/* =========================
-   FOLLOW SYSTEM
-========================= */
-
-let followers = 0;
-
-let following = 0;
-
-let isFollowing = false;
-
-
-function toggleFollow() {
-
-
-    const button =
-        document
-        .getElementById("followBtn");
-
-
-    if (isFollowing) {
-
-
-        followers--;
-
-        following--;
-
-
-        button.textContent =
-            "👥 Follow";
-
-
-        isFollowing = false;
-
-
-    } else {
-
-
-        followers++;
-
-        following++;
-
-
-        button.textContent =
-            "✅ Following";
-
-
-        isFollowing = true;
-
-    }
-
-
-    document
-        .getElementById("followersCount")
-        .textContent =
-        followers;
-
-
-    document
-        .getElementById("followingCount")
-        .textContent =
-        following;
-
-}
-
-</script>
-
-
-</body>
-
-</html>
+        user.name = name;
+   
