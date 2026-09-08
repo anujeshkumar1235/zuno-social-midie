@@ -1337,6 +1337,39 @@ document
         }
 
     });
+    document
+    .getElementById("posts")
+    .addEventListener("click", function(event) {
+
+        if (
+            event.target.tagName === "BUTTON" &&
+            event.target.textContent.includes("Share")
+        ) {
+
+            const post =
+                event.target.closest(".post");
+
+            const postText =
+                post.querySelector("p").textContent;
+
+            if (navigator.share) {
+
+                navigator.share({
+                    title: "Zuno Post",
+                    text: postText
+                });
+
+            } else {
+
+                navigator.clipboard.writeText(postText);
+
+                alert("Post link/text copy हो गया! 📋");
+
+            }
+
+        }
+
+    });
 </script>
 </body>
 </html>
