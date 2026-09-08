@@ -1206,6 +1206,46 @@ document
             .style.display = "block";
 
     });
+    document
+    .getElementById("saveProfileButton")
+    .addEventListener("click", function() {
+
+        const savedUser =
+            localStorage.getItem("zunoUser");
+
+        if (!savedUser) {
+            return;
+        }
+
+        const user =
+            JSON.parse(savedUser);
+
+        user.name =
+            document
+                .getElementById("nameInput")
+                .value
+                .trim();
+
+        user.bio =
+            document
+                .getElementById("bioInput")
+                .value
+                .trim();
+
+        localStorage.setItem(
+            "zunoUser",
+            JSON.stringify(user)
+        );
+
+        loadUser();
+
+        document
+            .getElementById("profileEditor")
+            .style.display = "none";
+
+        alert("Profile Save हो गई! 🎉");
+
+    });
 </script>
 </body>
 </html>
