@@ -230,10 +230,11 @@
         <h2 id="profileName">
             Zuno User
         </h2>
-
-        <p>
-            Welcome to my Zuno profile! 🎉
+        
+        <p id="profileBio">
+    Welcome to my Zuno profile! 🎉
         </p>
+        
 
         <div class="profile-stats">
 
@@ -442,22 +443,22 @@ function closeProfile() {
 }
 
 
+
 function editProfile() {
 
-    const name =
-        prompt("अपना नाम लिखें:");
+    const name = prompt("अपना नाम लिखें:");
 
-    if (
-        name &&
-        name.trim() !== ""
-    ) {
-
-        document
-            .getElementById("profileName")
-            .textContent = name;
+    if (name && name.trim() !== "") {
+        document.getElementById("profileName").textContent = name;
     }
-}
 
+    const bio = prompt("अपना Bio लिखें:");
+
+    if (bio && bio.trim() !== "") {
+        document.getElementById("profileBio").textContent = bio;
+         }
+}
+            
 </script>
 
 </body>
