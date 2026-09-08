@@ -1271,6 +1271,43 @@ document
         }
 
     });
+    document
+    .getElementById("posts")
+    .addEventListener("click", function(event) {
+
+        if (
+            event.target.classList.contains("comment-btn")
+        ) {
+
+            const commentBox =
+                event.target.parentElement;
+
+            const input =
+                commentBox.querySelector("textarea");
+
+            const comments =
+                commentBox.querySelector(".comments");
+
+            const text =
+                input.value.trim();
+
+            if (text === "") {
+                alert("पहले Comment लिखें!");
+                return;
+            }
+
+            const comment =
+                document.createElement("p");
+
+            comment.textContent = "💬 " + text;
+
+            comments.appendChild(comment);
+
+            input.value = "";
+
+        }
+
+    });
 </script>
 </body>
 </html>
