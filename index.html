@@ -1246,6 +1246,25 @@ document
         alert("Profile Save हो गई! 🎉");
 
     });
+    document
+    .getElementById("posts")
+    .addEventListener("click", function(event) {
+
+        if (
+            event.target.classList.contains("like-btn")
+        ) {
+
+            if (
+                event.target.textContent.includes("Like")
+            ) {
+                event.target.textContent = "❤️ Liked";
+            } else {
+                event.target.textContent = "❤️ Like";
+            }
+
+        }
+
+    });
 </script>
 </body>
 </html>
