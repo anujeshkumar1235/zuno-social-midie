@@ -1317,17 +1317,37 @@ document
             event.target.classList.contains("like-btn")
         ) {
 
+            const post =
+                event.target.closest(".post");
+
+            const likeCount =
+                post.querySelector(".like-count");
+
+            let count =
+                parseInt(
+                    likeCount.textContent
+                ) || 0;
+
             if (
                 event.target.textContent.trim() === "❤️ Like"
             ) {
 
-                event.target.textContent = "❤️ Liked";
+                event.target.textContent =
+                    "❤️ Liked";
+
+                count++;
 
             } else {
 
-                event.target.textContent = "❤️ Like";
+                event.target.textContent =
+                    "❤️ Like";
+
+                count--;
 
             }
+
+            likeCount.textContent =
+                count + (count === 1 ? " Like" : " Likes");
 
         }
 
