@@ -1126,6 +1126,21 @@ document
     .value = "";
 
 });
+    document
+    .getElementById("profileButton")
+    .addEventListener("click", function() {
+
+        document
+            .getElementById("homePage")
+            .style.display = "none";
+
+        document
+            .getElementById("profilePage")
+            .style.display = "block";
+
+        loadUser();
+
+    });
     </script>
 
 </body>
