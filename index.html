@@ -379,6 +379,27 @@
 
 
     <header>
+        <div
+    id="notificationPanel"
+    style="
+        display: none;
+        background: white;
+        margin: 10px 15px;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    "
+>
+
+    <h3>🔔 Notifications</h3>
+
+    <p>❤️ किसी ने आपकी Post को Like किया।</p>
+
+    <p>💬 किसी ने आपकी Post पर Comment किया।</p>
+
+    <p>👥 किसी ने आपको Follow किया।</p>
+
+        </div>
 
         <div class="logo">
     Zuno
@@ -1373,7 +1394,6 @@ document
     document
     .getElementById("notificationButton")
     .addEventListener("click", function() {
-        alert("Notification button काम कर रहा है!");
 
         const panel =
             document.getElementById("notificationPanel");
