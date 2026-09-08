@@ -1180,6 +1180,32 @@ document
         }
 
     });
+    document
+    .getElementById("editProfileButton")
+    .addEventListener("click", function() {
+
+        const savedUser =
+            localStorage.getItem("zunoUser");
+
+        if (savedUser) {
+
+            const user =
+                JSON.parse(savedUser);
+
+            document
+                .getElementById("nameInput")
+                .value = user.name;
+
+            document
+                .getElementById("bioInput")
+                .value = user.bio;
+        }
+
+        document
+            .getElementById("profileEditor")
+            .style.display = "block";
+
+    });
 </script>
 </body>
 </html>
