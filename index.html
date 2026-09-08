@@ -1154,8 +1154,33 @@ document
             .style.display = "block";
 
     });
-    </script>
+    
+    document
+    .getElementById("followButton")
+    .addEventListener("click", function() {
 
+        const button = this;
+
+        if (button.textContent.includes("Follow")) {
+
+            button.textContent = "✓ Following";
+
+            document
+                .getElementById("followersCount")
+                .textContent = "1";
+
+        } else {
+
+            button.textContent = "👥 Follow";
+
+            document
+                .getElementById("followersCount")
+                .textContent = "0";
+
+        }
+
+    });
+</script>
 </body>
 </html>
                
