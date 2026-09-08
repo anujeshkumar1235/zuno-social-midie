@@ -1368,6 +1368,24 @@ document
         }
 
     });
+    document
+    .getElementById("notificationButton")
+    .addEventListener("click", function() {
+
+        const panel =
+            document.getElementById("notificationPanel");
+
+        if (panel.style.display === "block") {
+
+            panel.style.display = "none";
+
+        } else {
+
+            panel.style.display = "block";
+
+        }
+
+    });
 </script>
 </body>
 </html>
