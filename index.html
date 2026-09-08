@@ -1114,6 +1114,12 @@ document
 
         like.className = "like-btn";
         like.textContent = "❤️ Like";
+        
+        const likeCount =
+       document.createElement("span");
+
+       likeCount.className = "like-count";
+       likeCount.textContent = "0 Likes";
 
         const commentOpen =
             document.createElement("button");
@@ -1125,10 +1131,12 @@ document
             document.createElement("button");
 
         share.textContent = "↗️ Share";
-
-        actions.appendChild(like);
-        actions.appendChild(commentOpen);
-        actions.appendChild(share);
+        
+         actions.appendChild(like);
+         actions.appendChild(likeCount);
+         actions.appendChild(commentOpen);
+         actions.appendChild(share);
+        
 
         const commentBox =
             document.createElement("div");
