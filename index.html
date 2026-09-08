@@ -1088,49 +1088,32 @@ document
 
         commentBox.className =
             "comment-box";
-
-
         const commentInput =
             document.createElement("textarea");
 
-        commentInput.rows = 2
+          commentInput.rows = 2;
 
-commentInput.placeholder =
-    "Comment लिखें...";
+commentInput.placeholder = "Comment लिखें...";
 
 const commentButton =
     document.createElement("button");
 
-commentButton.className =
-    "comment-btn";
-
-commentButton.textContent =
-    "Post Comment";
+commentButton.className = "comment-btn";
+commentButton.type = "button";
+commentButton.textContent = "Post Comment";
 
 const comments =
     document.createElement("div");
 
-comments.className =
-    "comments";
+comments.className = "comments";
 
-commentBox.appendChild(
-    commentInput
-);
-
-commentBox.appendChild(
-    commentButton
-);
-
-commentBox.appendChild(
-    comments
-);
+commentBox.appendChild(commentInput);
+commentBox.appendChild(commentButton);
+commentBox.appendChild(comments);
 
 post.appendChild(userName);
-
 post.appendChild(postText);
-
 post.appendChild(actions);
-
 post.appendChild(commentBox);
 
 document
@@ -1141,85 +1124,5 @@ document
     .getElementById("postText")
     .value = "";
 
-updatePostCount();
-
 });
-    /* LIKE + COMMENT */
-
-document.addEventListener("click", function(event) {
-
-    /* LIKE */
-
-    if (event.target.classList.contains("like-btn")) {
-
-        if (event.target.textContent.includes("Liked")) {
-
-            event.target.textContent = "❤️ Like";
-
-        } else {
-
-            event.target.textContent = "❤️ Liked";
-
-        }
-    }
-
-
-    /* COMMENT OPEN */
-
-    if (event.target.classList.contains("comment-open")) {
-
-        const post =
-            event.target.closest(".post");
-
-        const box =
-            post.querySelector(".comment-box");
-
-        if (box.style.display === "block") {
-
-            box.style.display = "none";
-
-        } else {
-
-            box.style.display = "block";
-
-        }
-    }
-
-
-    /* POST COMMENT */
-
-    if (event.target.classList.contains("comment-btn")) {
-
-        const box =
-            event.target.closest(".comment-box");
-
-        const input =
-            box.querySelector("textarea");
-
-        const comments =
-            box.querySelector(".comments");
-
-        if (input.value.trim() === "") {
-
-            alert("पहले Comment लिखें!");
-
-            return;
-        }
-
-        const comment =
-            document.createElement("div");
-
-        comment.className = "comment";
-
-        comment.textContent =
-            "👤 " +
-            getCurrentUserName() +
-            ": " +
-            input.value;
-
-        comments.appendChild(comment);
-
-        input.value = "";
-    }
-
-});
+               
