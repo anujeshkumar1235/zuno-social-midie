@@ -1255,11 +1255,15 @@ document
         ) {
 
             if (
-                event.target.textContent.includes("Like")
+                event.target.textContent.trim() === "❤️ Like"
             ) {
+
                 event.target.textContent = "❤️ Liked";
+
             } else {
+
                 event.target.textContent = "❤️ Like";
+
             }
 
         }
