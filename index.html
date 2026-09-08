@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Zuno Social Media</title>
 
     <style>
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -51,9 +54,24 @@
             font-size: 16px;
         }
 
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
         .create-btn,
         .comment-btn,
-        .edit-profile {
+        .edit-profile,
+        .save-profile {
             margin-top: 10px;
             padding: 10px 18px;
             background: #1877f2;
@@ -61,7 +79,6 @@
             border: none;
             border-radius: 8px;
             font-size: 16px;
-            cursor: pointer;
         }
 
         .actions {
@@ -74,7 +91,6 @@
             border: none;
             background: none;
             font-size: 16px;
-            cursor: pointer;
         }
 
         .comment-box {
@@ -88,8 +104,6 @@
             margin-top: 8px;
             border-radius: 8px;
         }
-
-        /* Profile */
 
         .profile-page {
             display: none;
@@ -107,7 +121,6 @@
             border-radius: 8px;
             background: white;
             font-size: 16px;
-            cursor: pointer;
         }
 
         .profile-card {
@@ -133,22 +146,42 @@
             flex-direction: column;
             gap: 5px;
         }
+
+        .profile-editor {
+            display: none;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .profile-editor label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
     </style>
+
 </head>
 
 <body>
 
 <header>
+
     <div class="logo">Zuno</div>
 
     <div>
         🔔
-        <button class="profile-btn" onclick="openProfile()">👤</button>
+
+        <button class="profile-btn" onclick="openProfile()">
+            👤
+        </button>
+
     </div>
+
 </header>
 
 
-<!-- Create Post -->
+<!-- CREATE POST -->
 
 <div class="post-box">
 
@@ -160,14 +193,17 @@
         placeholder="अपनी पोस्ट लिखें..."
     ></textarea>
 
-    <button class="create-btn" onclick="createPost()">
+    <button
+        class="create-btn"
+        onclick="createPost()"
+    >
         ➕ Create Post
     </button>
 
 </div>
 
 
-<!-- Posts -->
+<!-- POSTS -->
 
 <div id="posts">
 
@@ -213,13 +249,17 @@
 </div>
 
 
-<!-- Profile Page -->
+<!-- PROFILE PAGE -->
 
 <div id="profilePage" class="profile-page">
 
-    <button class="back-btn" onclick="closeProfile()">
+    <button
+        class="back-btn"
+        onclick="closeProfile()"
+    >
         ← वापस
     </button>
+
 
     <div class="profile-card">
 
@@ -227,14 +267,16 @@
             👤
         </div>
 
+
         <h2 id="profileName">
             Zuno User
         </h2>
-        
+
+
         <p id="profileBio">
-    Welcome to my Zuno profile! 🎉
+            Welcome to my Zuno profile! 🎉
         </p>
-        
+
 
         <div class="profile-stats">
 
@@ -255,9 +297,54 @@
 
         </div>
 
-        <button class="edit-profile" onclick="editProfile()">
+
+        <!-- EDIT PROFILE BUTTON -->
+
+        <button
+            class="edit-profile"
+            onclick="showProfileEditor()"
+        >
             ✏️ Edit Profile
         </button>
+
+
+        <!-- PROFILE EDITOR -->
+
+        <div
+            id="profileEditor"
+            class="profile-editor"
+        >
+
+            <label>
+                आपका Name
+            </label>
+
+            <input
+                id="nameInput"
+                type="text"
+                placeholder="अपना नाम लिखें"
+            >
+
+
+            <label>
+                आपका Bio
+            </label>
+
+            <textarea
+                id="bioInput"
+                rows="4"
+                placeholder="अपने बारे में लिखें..."
+            ></textarea>
+
+
+            <button
+                class="save-profile"
+                onclick="saveProfile()"
+            >
+                💾 Save Profile
+            </button>
+
+        </div>
 
     </div>
 
@@ -265,6 +352,9 @@
 
 
 <script>
+
+
+/* CREATE POST */
 
 function createPost() {
 
@@ -278,10 +368,12 @@ function createPost() {
         return;
     }
 
+
     const post =
         document.createElement("div");
 
     post.className = "post";
+
 
     post.innerHTML = `
 
@@ -305,6 +397,7 @@ function createPost() {
 
         </div>
 
+
         <div class="comment-box">
 
             <textarea
@@ -319,104 +412,130 @@ function createPost() {
             <div class="comments"></div>
 
         </div>
+
     `;
+
 
     document
         .getElementById("posts")
         .prepend(post);
 
+
     document
         .getElementById("postText")
         .value = "";
+
 }
 
 
-/* Like + Comment */
+/* LIKE + COMMENT */
 
-document.addEventListener("click", function(event) {
+document.addEventListener(
+    "click",
+    function(event) {
 
-    if (
-        event.target.classList
-        .contains("like-btn")
-    ) {
+
+        /* LIKE */
 
         if (
-            event.target.textContent
-            .includes("Liked")
+            event.target.classList
+            .contains("like-btn")
         ) {
 
-            event.target.textContent =
-                "❤️ Like";
+            if (
+                event.target.textContent
+                .includes("Liked")
+            ) {
 
-        } else {
+                event.target.textContent =
+                    "❤️ Like";
 
-            event.target.textContent =
-                "❤️ Liked";
-        }
-    }
+            } else {
 
+                event.target.textContent =
+                    "❤️ Liked";
 
-    if (
-        event.target.classList
-        .contains("comment-open")
-    ) {
+            }
 
-        const post =
-            event.target.closest(".post");
-
-        const box =
-            post.querySelector(".comment-box");
-
-        if (box.style.display === "block") {
-
-            box.style.display = "none";
-
-        } else {
-
-            box.style.display = "block";
-        }
-    }
-
-
-    if (
-        event.target.classList
-        .contains("comment-btn")
-    ) {
-
-        const box =
-            event.target.closest(".comment-box");
-
-        const input =
-            box.querySelector("textarea");
-
-        const comments =
-            box.querySelector(".comments");
-
-        if (input.value.trim() === "") {
-
-            alert("पहले Comment लिखें!");
-
-            return;
         }
 
-        const comment =
-            document.createElement("div");
 
-        comment.className = "comment";
+        /* OPEN COMMENT */
 
-        comment.textContent =
-            "👤 Zuno User: " +
-            input.value;
+        if (
+            event.target.classList
+            .contains("comment-open")
+        ) {
 
-        comments.appendChild(comment);
+            const post =
+                event.target.closest(".post");
 
-        input.value = "";
+            const box =
+                post.querySelector(".comment-box");
+
+
+            if (box.style.display === "block") {
+
+                box.style.display = "none";
+
+            } else {
+
+                box.style.display = "block";
+
+            }
+
+        }
+
+
+        /* POST COMMENT */
+
+        if (
+            event.target.classList
+            .contains("comment-btn")
+        ) {
+
+            const box =
+                event.target.closest(".comment-box");
+
+            const input =
+                box.querySelector("textarea");
+
+            const comments =
+                box.querySelector(".comments");
+
+
+            if (input.value.trim() === "") {
+
+                alert("पहले Comment लिखें!");
+
+                return;
+
+            }
+
+
+            const comment =
+                document.createElement("div");
+
+            comment.className = "comment";
+
+
+            comment.textContent =
+                "👤 Zuno User: " +
+                input.value;
+
+
+            comments.appendChild(comment);
+
+
+            input.value = "";
+
+        }
+
     }
+);
 
-});
 
-
-/* Profile */
+/* OPEN PROFILE */
 
 function openProfile() {
 
@@ -424,42 +543,113 @@ function openProfile() {
         .getElementById("profilePage")
         .style.display = "block";
 
+
     const posts =
         document.querySelectorAll(
             "#posts .post"
         ).length;
 
+
     document
         .getElementById("postCount")
         .textContent = posts;
+
 }
 
+
+/* CLOSE PROFILE */
 
 function closeProfile() {
 
     document
         .getElementById("profilePage")
         .style.display = "none";
+
 }
 
 
+/* SHOW PROFILE EDITOR */
 
-function editProfile() {
+function showProfileEditor() {
 
-    const name = prompt("अपना नाम लिखें:");
+    document
+        .getElementById("profileEditor")
+        .style.display = "block";
 
-    if (name && name.trim() !== "") {
-        document.getElementById("profileName").textContent = name;
+
+    document
+        .getElementById("nameInput")
+        .value =
+        document
+        .getElementById("profileName")
+        .textContent;
+
+
+    document
+        .getElementById("bioInput")
+        .value =
+        document
+        .getElementById("profileBio")
+        .textContent;
+
+}
+
+
+/* SAVE PROFILE */
+
+function saveProfile() {
+
+    const name =
+        document
+        .getElementById("nameInput")
+        .value;
+
+
+    const bio =
+        document
+        .getElementById("bioInput")
+        .value;
+
+
+    if (name.trim() === "") {
+
+        alert("अपना Name लिखें!");
+
+        return;
+
     }
 
-    const bio = prompt("अपना Bio लिखें:");
 
-    if (bio && bio.trim() !== "") {
-        document.getElementById("profileBio").textContent = bio;
-         }
+    if (bio.trim() === "") {
+
+        alert("अपना Bio लिखें!");
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("profileName")
+        .textContent = name;
+
+
+    document
+        .getElementById("profileBio")
+        .textContent = bio;
+
+
+    document
+        .getElementById("profileEditor")
+        .style.display = "none";
+
+
+    alert("Profile Save हो गई! 🎉");
+
 }
-            
+
 </script>
 
 </body>
+
 </html>
