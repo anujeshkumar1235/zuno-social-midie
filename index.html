@@ -1029,38 +1029,38 @@ document
    CREATE POST
 ================================================== */
 
-document
+    document
     .getElementById("createPostButton")
     .addEventListener("click", function() {
 
         const text =
             document
-            .getElementById("postText")
-            .value
-            .trim();
+                .getElementById("postText")
+                .value
+                .trim();
 
+        const imageInput =
+            document.getElementById("postImage");
 
-        if (text === "") {
+        const imageFile =
+            imageInput.files[0];
 
-            alert("पहले कुछ लिखें!");
+        if (text === "" && !imageFile) {
+
+            alert("Text या Photo चुनें!");
 
             return;
         }
-
 
         const post =
             document.createElement("div");
 
         post.className = "post";
 
-
         const savedUser =
             localStorage.getItem("zunoUser");
 
-
-        let username =
-            "Zuno User";
-
+        let username = "Zuno User";
 
         if (savedUser) {
 
@@ -1069,120 +1069,116 @@ document
 
         }
 
-
         const userName =
             document.createElement("strong");
 
         userName.textContent =
             "👤 " + username;
 
-
         const postText =
             document.createElement("p");
 
         postText.textContent =
             text;
-        if (imageFile) {
 
-    const image =
-        document.createElement("img");
+        post.appendChild(userName);
 
-    image.src =
-        URL.createObjectURL(imageFile);
-
-    image.style.width = "100%";
-    image.style.maxHeight = "400px";
-    image.style.objectFit = "contain";
-    image.style.borderRadius = "12px";
-    image.style.marginTop = "10px";
-
-    post.appendChild(image);
+        if (text !== "") {
+            post.appendChild(postText);
         }
 
+        if (imageFile) {
+
+            const image =
+                document.createElement("img");
+
+            image.src =
+                URL.createObjectURL(imageFile);
+
+            image.style.width = "100%";
+            image.style.maxHeight = "400px";
+            image.style.objectFit = "contain";
+            image.style.borderRadius = "12px";
+            image.style.marginTop = "10px";
+
+            post.appendChild(image);
+        }
 
         const actions =
             document.createElement("div");
 
-        actions.className =
-            "actions";
-
+        actions.className = "actions";
 
         const like =
             document.createElement("button");
 
-        like.className =
-            "like-btn";
-
-        like.textContent =
-            "❤️ Like";
-
+        like.className = "like-btn";
+        like.textContent = "❤️ Like";
 
         const commentOpen =
             document.createElement("button");
 
-        commentOpen.className =
-            "comment-open";
-
-        commentOpen.textContent =
-            "💬 Comment";
-
+        commentOpen.className = "comment-open";
+        commentOpen.textContent = "💬 Comment";
 
         const share =
             document.createElement("button");
 
-        share.textContent =
-            "↗️ Share";
-
+        share.textContent = "↗️ Share";
 
         actions.appendChild(like);
-
         actions.appendChild(commentOpen);
-
         actions.appendChild(share);
-
 
         const commentBox =
             document.createElement("div");
 
         commentBox.className =
             "comment-box";
+
         const commentInput =
             document.createElement("textarea");
 
-          commentInput.rows = 2;
+        commentInput.rows = 2;
+        commentInput.placeholder =
+            "Comment लिखें...";
 
-commentInput.placeholder = "Comment लिखें...";
+        const commentButton =
+            document.createElement("button");
 
-const commentButton =
-    document.createElement("button");
+        commentButton.className =
+            "comment-btn";
 
-commentButton.className = "comment-btn";
-commentButton.type = "button";
-commentButton.textContent = "Post Comment";
+        commentButton.type = "button";
 
-const comments =
-    document.createElement("div");
+        commentButton.textContent =
+            "Post Comment";
 
-comments.className = "comments";
+        const comments =
+            document.createElement("div");
 
-commentBox.appendChild(commentInput);
-commentBox.appendChild(commentButton);
-commentBox.appendChild(comments);
+        comments.className = "comments";
 
-post.appendChild(userName);
-post.appendChild(postText);
-post.appendChild(actions);
-post.appendChild(commentBox);
+        commentBox.appendChild(commentInput);
+        commentBox.appendChild(commentButton);
+        commentBox.appendChild(comments);
 
-document
-    .getElementById("posts")
-    .prepend(post);
+        post.appendChild(actions);
+        post.appendChild(commentBox);
 
-document
-    .getElementById("postText")
-    .value = "";
+        document
+            .getElementById("posts")
+            .prepend(post);
 
-});
+        document
+            .getElementById("postText")
+            .value = "";
+
+        document
+            .getElementById("postImage")
+            .value = "";
+
+    });
     document
     .getElementById("profileButton")
     .addEventListener("click", function() {
