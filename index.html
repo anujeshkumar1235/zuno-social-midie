@@ -71,7 +71,8 @@
         .create-btn,
         .comment-btn,
         .edit-profile,
-        .save-profile {
+        .save-profile,
+        .follow-btn {
             margin-top: 10px;
             padding: 10px 18px;
             background: #1877f2;
@@ -165,14 +166,23 @@
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
 
-    <div class="logo">Zuno</div>
+    <div class="logo">
+        Zuno
+    </div>
 
     <div>
+
         🔔
 
-        <button class="profile-btn" onclick="openProfile()">
+        <button
+            class="profile-btn"
+            onclick="openProfile()"
+        >
             👤
         </button>
 
@@ -185,7 +195,9 @@
 
 <div class="post-box">
 
-    <strong>क्या चल रहा है?</strong>
+    <strong>
+        क्या चल रहा है?
+    </strong>
 
     <textarea
         id="postText"
@@ -207,11 +219,18 @@
 
 <div id="posts">
 
+
+    <!-- WELCOME POST -->
+
     <div class="post">
 
-        <strong>👤 Zuno User</strong>
+        <strong>
+            👤 Zuno User
+        </strong>
 
-        <p>🎉 Welcome to Zuno!</p>
+        <p>
+            🎉 Welcome to Zuno!
+        </p>
 
         <div class="actions">
 
@@ -228,6 +247,9 @@
             </button>
 
         </div>
+
+
+        <!-- COMMENT BOX -->
 
         <div class="comment-box">
 
@@ -251,7 +273,13 @@
 
 <!-- PROFILE PAGE -->
 
-<div id="profilePage" class="profile-page">
+<div
+    id="profilePage"
+    class="profile-page"
+>
+
+
+    <!-- BACK -->
 
     <button
         class="back-btn"
@@ -261,44 +289,92 @@
     </button>
 
 
+    <!-- PROFILE CARD -->
+
     <div class="profile-card">
+
+
+        <!-- AVATAR -->
 
         <div class="avatar">
             👤
         </div>
 
 
+        <!-- NAME -->
+
         <h2 id="profileName">
             Zuno User
         </h2>
 
+
+        <!-- BIO -->
 
         <p id="profileBio">
             Welcome to my Zuno profile! 🎉
         </p>
 
 
+        <!-- PROFILE STATS -->
+
         <div class="profile-stats">
 
             <div>
-                <strong id="postCount">0</strong>
-                <span>Posts</span>
+
+                <strong id="postCount">
+                    0
+                </strong>
+
+                <span>
+                    Posts
+                </span>
+
             </div>
 
-            <div>
-                <strong>0</strong>
-                <span>Followers</span>
-            </div>
 
             <div>
-                <strong>0</strong>
-                <span>Following</span>
+
+                <strong id="followersCount">
+                    0
+                </strong>
+
+                <span>
+                    Followers
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong id="followingCount">
+                    0
+                </strong>
+
+                <span>
+                    Following
+                </span>
+
             </div>
 
         </div>
 
 
-        <!-- EDIT PROFILE BUTTON -->
+        <!-- FOLLOW BUTTON -->
+
+        <button
+            id="followBtn"
+            class="follow-btn"
+            onclick="toggleFollow()"
+        >
+            👥 Follow
+        </button>
+
+
+        <br>
+
+
+        <!-- EDIT PROFILE -->
 
         <button
             class="edit-profile"
@@ -314,6 +390,7 @@
             id="profileEditor"
             class="profile-editor"
         >
+
 
             <label>
                 आपका Name
@@ -344,6 +421,7 @@
                 💾 Save Profile
             </button>
 
+
         </div>
 
     </div>
@@ -354,12 +432,18 @@
 <script>
 
 
-/* CREATE POST */
+/* =========================
+   CREATE POST
+========================= */
 
 function createPost() {
 
+
     const text =
-        document.getElementById("postText").value;
+        document
+        .getElementById("postText")
+        .value;
+
 
     if (text.trim() === "") {
 
@@ -372,14 +456,19 @@ function createPost() {
     const post =
         document.createElement("div");
 
+
     post.className = "post";
 
 
     post.innerHTML = `
 
-        <strong>👤 Zuno User</strong>
+        <strong>
+            👤 Zuno User
+        </strong>
 
-        <p>${text}</p>
+        <p>
+            ${text}
+        </p>
 
         <div class="actions">
 
@@ -425,10 +514,15 @@ function createPost() {
         .getElementById("postText")
         .value = "";
 
+
+    updatePostCount();
+
 }
 
 
-/* LIKE + COMMENT */
+/* =========================
+   LIKE + COMMENT
+========================= */
 
 document.addEventListener(
     "click",
@@ -441,6 +535,7 @@ document.addEventListener(
             event.target.classList
             .contains("like-btn")
         ) {
+
 
             if (
                 event.target.textContent
@@ -460,27 +555,35 @@ document.addEventListener(
         }
 
 
-        /* OPEN COMMENT */
+        /* COMMENT OPEN */
 
         if (
             event.target.classList
             .contains("comment-open")
         ) {
 
+
             const post =
                 event.target.closest(".post");
 
+
             const box =
-                post.querySelector(".comment-box");
+                post.querySelector(
+                    ".comment-box"
+                );
 
 
-            if (box.style.display === "block") {
+            if (
+                box.style.display === "block"
+            ) {
 
-                box.style.display = "none";
+                box.style.display =
+                    "none";
 
             } else {
 
-                box.style.display = "block";
+                box.style.display =
+                    "block";
 
             }
 
@@ -494,19 +597,32 @@ document.addEventListener(
             .contains("comment-btn")
         ) {
 
+
             const box =
-                event.target.closest(".comment-box");
+                event.target.closest(
+                    ".comment-box"
+                );
+
 
             const input =
-                box.querySelector("textarea");
+                box.querySelector(
+                    "textarea"
+                );
+
 
             const comments =
-                box.querySelector(".comments");
+                box.querySelector(
+                    ".comments"
+                );
 
 
-            if (input.value.trim() === "") {
+            if (
+                input.value.trim() === ""
+            ) {
 
-                alert("पहले Comment लिखें!");
+                alert(
+                    "पहले Comment लिखें!"
+                );
 
                 return;
 
@@ -514,9 +630,13 @@ document.addEventListener(
 
 
             const comment =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
-            comment.className = "comment";
+
+            comment.className =
+                "comment";
 
 
             comment.textContent =
@@ -524,7 +644,9 @@ document.addEventListener(
                 input.value;
 
 
-            comments.appendChild(comment);
+            comments.appendChild(
+                comment
+            );
 
 
             input.value = "";
@@ -535,13 +657,42 @@ document.addEventListener(
 );
 
 
-/* OPEN PROFILE */
+/* =========================
+   OPEN PROFILE
+========================= */
 
 function openProfile() {
+
 
     document
         .getElementById("profilePage")
         .style.display = "block";
+
+
+    updatePostCount();
+
+}
+
+
+/* =========================
+   CLOSE PROFILE
+========================= */
+
+function closeProfile() {
+
+
+    document
+        .getElementById("profilePage")
+        .style.display = "none";
+
+}
+
+
+/* =========================
+   POST COUNT
+========================= */
+
+function updatePostCount() {
 
 
     const posts =
@@ -557,20 +708,12 @@ function openProfile() {
 }
 
 
-/* CLOSE PROFILE */
-
-function closeProfile() {
-
-    document
-        .getElementById("profilePage")
-        .style.display = "none";
-
-}
-
-
-/* SHOW PROFILE EDITOR */
+/* =========================
+   EDIT PROFILE
+========================= */
 
 function showProfileEditor() {
+
 
     document
         .getElementById("profileEditor")
@@ -595,9 +738,12 @@ function showProfileEditor() {
 }
 
 
-/* SAVE PROFILE */
+/* =========================
+   SAVE PROFILE
+========================= */
 
 function saveProfile() {
+
 
     const name =
         document
@@ -613,7 +759,9 @@ function saveProfile() {
 
     if (name.trim() === "") {
 
-        alert("अपना Name लिखें!");
+        alert(
+            "अपना Name लिखें!"
+        );
 
         return;
 
@@ -622,7 +770,9 @@ function saveProfile() {
 
     if (bio.trim() === "") {
 
-        alert("अपना Bio लिखें!");
+        alert(
+            "अपना Bio लिखें!"
+        );
 
         return;
 
@@ -631,24 +781,95 @@ function saveProfile() {
 
     document
         .getElementById("profileName")
-        .textContent = name;
+        .textContent =
+        name;
 
 
     document
         .getElementById("profileBio")
-        .textContent = bio;
+        .textContent =
+        bio;
 
 
     document
         .getElementById("profileEditor")
-        .style.display = "none";
+        .style.display =
+        "none";
 
 
-    alert("Profile Save हो गई! 🎉");
+    alert(
+        "Profile Save हो गई! 🎉"
+    );
+
+}
+
+
+/* =========================
+   FOLLOW SYSTEM
+========================= */
+
+let followers = 0;
+
+let following = 0;
+
+let isFollowing = false;
+
+
+function toggleFollow() {
+
+
+    const button =
+        document
+        .getElementById("followBtn");
+
+
+    if (isFollowing) {
+
+
+        followers--;
+
+        following--;
+
+
+        button.textContent =
+            "👥 Follow";
+
+
+        isFollowing = false;
+
+
+    } else {
+
+
+        followers++;
+
+        following++;
+
+
+        button.textContent =
+            "✅ Following";
+
+
+        isFollowing = true;
+
+    }
+
+
+    document
+        .getElementById("followersCount")
+        .textContent =
+        followers;
+
+
+    document
+        .getElementById("followingCount")
+        .textContent =
+        following;
 
 }
 
 </script>
+
 
 </body>
 
