@@ -1424,6 +1424,37 @@ document
         }
 
     });
+    document
+    .getElementById("searchButton")
+    .addEventListener("click", function() {
+
+        const searchText =
+            document
+                .getElementById("searchInput")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const posts =
+            document.querySelectorAll(".post");
+
+        posts.forEach(function(post) {
+
+            const text =
+                post.textContent.toLowerCase();
+
+            if (
+                searchText === "" ||
+                text.includes(searchText)
+            ) {
+                post.style.display = "block";
+            } else {
+                post.style.display = "none";
+            }
+
+        });
+
+    });
 </script>
 </body>
 </html>
