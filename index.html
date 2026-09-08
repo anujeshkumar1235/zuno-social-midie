@@ -451,6 +451,11 @@
             rows="3"
             placeholder="अपनी पोस्ट लिखें..."
         ></textarea>
+        <input
+    type="file"
+    id="postImage"
+    accept="image/*"
+>
 
         <button
             type="button"
@@ -1077,6 +1082,22 @@ document
 
         postText.textContent =
             text;
+        if (imageFile) {
+
+    const image =
+        document.createElement("img");
+
+    image.src =
+        URL.createObjectURL(imageFile);
+
+    image.style.width = "100%";
+    image.style.maxHeight = "400px";
+    image.style.objectFit = "contain";
+    image.style.borderRadius = "12px";
+    image.style.marginTop = "10px";
+
+    post.appendChild(image);
+        }
 
 
         const actions =
