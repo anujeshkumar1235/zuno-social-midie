@@ -187,6 +187,34 @@
             margin-top: 8px;
             border-radius: 8px;
         }
+        
+        .search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: white;
+}
+
+.search-box input {
+    flex: 1;
+    max-width: 350px;
+    padding: 11px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background: #1877f2;
+    color: white;
+}
+        
 
         /* =====================
    INSTAGRAM STYLE STORIES
@@ -956,7 +984,26 @@
     <p>👥 किसी ने आपको Follow किया।</p>
     </div>
     
-   <!-- STORIES -->
+   </header>
+
+<!-- SEARCH -->
+<div class="search-box">
+
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="🔍 Search..."
+    >
+
+    <button
+        type="button"
+        id="searchButton">
+        Search
+    </button>
+
+</div>
+
+<!-- STORIES -->
 <div class="stories">
 
     <div class="story">
@@ -983,23 +1030,6 @@
         <div class="story-circle">🌟</div>
         <span>Zuno Star</span>
     </div>
-
-</div>
-
-    <!-- SEARCH -->
-<div class="search-box">
-
-    <input
-        id="searchInput"
-        type="search"
-        placeholder="🔍 Search..."
-    >
-
-    <button
-        type="button"
-        id="searchButton">
-        Search
-    </button>
 
 </div>
 
