@@ -581,6 +581,123 @@
 .logout-setting {
     color: #e53935;
 }
+        /* ==================================================
+   ACCOUNT PRIVACY PAGE
+================================================== */
+
+.privacy-page {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #f7f7f7;
+    z-index: 11000;
+    overflow-y: auto;
+}
+
+.privacy-header {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.privacy-header button {
+    border: none;
+    background: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.privacy-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.privacy-content {
+    background: white;
+    margin-top: 8px;
+    padding: 20px 15px;
+}
+
+.privacy-content h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.privacy-content p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.privacy-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-top: 1px solid #eee;
+}
+
+.privacy-option strong {
+    display: block;
+    font-size: 16px;
+}
+
+.privacy-option small {
+    display: block;
+    color: #777;
+    margin-top: 5px;
+    max-width: 260px;
+}
+
+/* SWITCH */
+
+.privacy-switch {
+    position: relative;
+    width: 50px;
+    height: 28px;
+}
+
+.privacy-switch input {
+    display: none;
+}
+
+.privacy-switch span {
+    position: absolute;
+    inset: 0;
+    background: #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.privacy-switch span::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.privacy-switch input:checked + span {
+    background: #1683f7;
+}
+
+.privacy-switch input:checked + span::before {
+    transform: translateX(22px);
+}
+
+.privacy-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
 
     </style>
 
@@ -909,6 +1026,73 @@
     </button>
 
 </div>
+    <!-- ACCOUNT PRIVACY PAGE -->
+
+<div id="privacyPage" class="privacy-page">
+
+    <div class="privacy-header">
+
+        <button
+            type="button"
+            id="privacyBackButton">
+            ←
+        </button>
+
+        <h2>Account privacy</h2>
+
+    </div>
+
+
+    <div class="privacy-content">
+
+        <h3>Private account</h3>
+
+        <p>
+            जब आपका account private होगा,
+            तो केवल आपके approved followers
+            आपकी posts और stories देख पाएँगे।
+        </p>
+
+
+        <div class="privacy-option">
+
+            <div>
+                <strong>Private account</strong>
+
+                <small>
+                    केवल आपके द्वारा approve किए गए
+                    लोग आपका content देख सकेंगे।
+                </small>
+            </div>
+
+            <label class="privacy-switch">
+
+                <input
+                    type="checkbox"
+                    id="privateAccountToggle">
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="privacy-info">
+
+            <h3>Public account</h3>
+
+            <p>
+                Public account में आपकी posts
+                और profile ज्यादा लोगों को दिखाई
+                दे सकती हैं।
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 
@@ -1156,8 +1340,15 @@
     <div class="settings-section">
         <h3>Who can see your content</h3>
 
-        <button class="settings-item">
-            🔒 <span>Account privacy</span> <b>›</b>
+        <button
+    type="button"
+    class="settings-item"
+    id="accountPrivacyButton">
+
+    🔒
+    <span>Account privacy</span>
+    <b>›</b>
+
         </button>
 
         <button class="settings-item">
@@ -1860,6 +2051,38 @@ document
         document.getElementById("settingsPage").style.display = "none";
 
         document.getElementById("profilePage").style.display = "block";
+
+    });
+    /* ==================================================
+   ACCOUNT PRIVACY
+================================================== */
+
+document
+    .getElementById("accountPrivacyButton")
+    .addEventListener("click", function() {
+
+        document
+            .getElementById("settingsPage")
+            .style.display = "none";
+
+        document
+            .getElementById("privacyPage")
+            .style.display = "block";
+
+    });
+
+
+document
+    .getElementById("privacyBackButton")
+    .addEventListener("click", function() {
+
+        document
+            .getElementById("privacyPage")
+            .style.display = "none";
+
+        document
+            .getElementById("settingsPage")
+            .style.display = "block";
 
     });
     
