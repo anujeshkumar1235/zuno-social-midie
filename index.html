@@ -2366,6 +2366,29 @@ document.getElementById("navSearch").addEventListener("click", function() {
 document.getElementById("navReels").addEventListener("click", function() {
     alert("🎬 Reels जल्द ही Zuno में आएगा!");
 });
+    /* ==================================================
+   SETTINGS LOGOUT
+================================================== */
+
+document
+    .getElementById("settingsLogoutButton")
+    .addEventListener("click", function() {
+
+        localStorage.removeItem("zunoLoggedIn");
+
+        document.getElementById("settingsPage").style.display = "none";
+        document.getElementById("profilePage").style.display = "none";
+        document.getElementById("homePage").style.display = "none";
+
+        document.getElementById("authPage").style.display = "flex";
+
+        document.getElementById("loginBox").style.display = "block";
+        document.getElementById("signupBox").style.display = "none";
+
+        document.getElementById("loginEmail").value = "";
+        document.getElementById("loginPassword").value = "";
+
+    });
 </script>
 </body>
 </html>
