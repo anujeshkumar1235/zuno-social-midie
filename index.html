@@ -458,6 +458,129 @@
     border: none;
     border-radius: 8px;
     }
+        /* ==================================================
+   ZUNO SETTINGS PAGE
+================================================== */
+
+.settings-page {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #f7f7f7;
+    z-index: 10000;
+    overflow-y: auto;
+    padding-bottom: 30px;
+}
+
+/* TOP HEADER */
+
+.settings-header {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.settings-header button {
+    border: none;
+    background: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.settings-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* SEARCH */
+
+.settings-search {
+    margin: 15px;
+    padding: 11px 15px;
+    background: #eeeeee;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.settings-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    margin-left: 8px;
+    width: 100%;
+}
+
+/* SECTION */
+
+.settings-section {
+    background: white;
+    margin-top: 8px;
+    padding: 10px 0;
+}
+
+.settings-section h3 {
+    color: #777;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 10px 15px;
+}
+
+/* EACH SETTING ROW */
+
+.settings-item {
+    width: 100%;
+    min-height: 58px;
+    padding: 10px 18px;
+    border: none;
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    text-align: left;
+    font-size: 21px;
+
+    cursor: pointer;
+}
+
+.settings-item:hover {
+    background: #f5f5f5;
+}
+
+/* TEXT */
+
+.settings-item span {
+    flex: 1;
+    font-size: 16px;
+    color: #222;
+}
+
+/* ARROW */
+
+.settings-item b {
+    font-size: 25px;
+    font-weight: normal;
+    color: #777;
+}
+
+/* LOGOUT */
+
+.logout-setting span {
+    color: #e53935;
+}
+
+.logout-setting {
+    color: #e53935;
+}
 
     </style>
 
