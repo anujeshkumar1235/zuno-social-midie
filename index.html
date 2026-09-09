@@ -1579,50 +1579,6 @@ document
         });
 
     });
-    document
-    .getElementById("posts")
-    .addEventListener("click", function(event) {
-
-        if (
-            event.target.textContent.includes("Share")
-        ) {
-
-            const post =
-                event.target.closest(".post");
-
-            const textElement =
-                post.querySelector("p");
-
-            const postText =
-                textElement
-                    ? textElement.textContent
-                    : "📸 Zuno Photo Post";
-
-            if (navigator.share) {
-
-                navigator.share({
-                    title: "Zuno Post",
-                    text: postText
-                });
-
-            } else {
-
-                navigator.clipboard.writeText(postText);
-
-                alert("Post copy हो गई! 📋");
-
-            }
-
-        }
-
-    });
-        document
-    .getElementById("loginButton")
-    .addEventListener("click", function() {
-
-        alert("Login button काम कर रहा है! ✅");
-
-    });
 </script>
 </body>
 </html>
