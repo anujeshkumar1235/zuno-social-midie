@@ -1636,6 +1636,32 @@ document
         });
 
     });
+    // =====================
+// BOTTOM NAVIGATION
+// =====================
+
+document.getElementById("navHome").addEventListener("click", function() {
+    document.getElementById("profilePage").style.display = "none";
+    document.getElementById("homePage").style.display = "block";
+});
+
+document.getElementById("navProfile").addEventListener("click", function() {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("profilePage").style.display = "block";
+    loadUser();
+});
+
+document.getElementById("navCreate").addEventListener("click", function() {
+    document.getElementById("postText").focus();
+});
+
+document.getElementById("navSearch").addEventListener("click", function() {
+    document.getElementById("searchInput").focus();
+});
+
+document.getElementById("navReels").addEventListener("click", function() {
+    alert("🎬 Reels जल्द ही Zuno में आएगा!");
+});
 </script>
 </body>
 </html>
