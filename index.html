@@ -2039,51 +2039,11 @@ document
             document.createElement("button");
 
         share.textContent = "↗️ Share";
-        const save =
-    document.createElement("button");
-
-save.className = "save-btn";
-save.type = "button";
-save.textContent = "🔖 Save";
-
-save.addEventListener("click", function() {
-
-    const isSaved =
-        save.textContent.includes("Saved");
-
-    if (isSaved) {
-
-        save.textContent = "🔖 Save";
-        save.classList.remove("saved");
-
-    } else {
-
-        save.textContent = "🔖 Saved";
-        save.classList.add("saved");
-
-        const savedPost =
-            post.cloneNode(true);
-
-        const savedPosts =
-            document.getElementById("savedPosts");
-
-        const emptyMessage =
-            savedPosts.querySelector(".saved-empty");
-
-        if (emptyMessage) {
-            emptyMessage.remove();
-        }
-
-        savedPosts.prepend(savedPost);
-    }
-
-});
         
          actions.appendChild(like);
          actions.appendChild(likeCount);
          actions.appendChild(commentOpen);
          actions.appendChild(share);
-         actions.appendChild(save);
         
 
         const commentBox =
