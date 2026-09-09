@@ -325,6 +325,245 @@
 .bottom-nav button span {
     font-size: 11px;
 }
+        /* =========================
+   ZUNO PROFILE
+========================= */
+
+.profile-page {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 9999;
+    overflow-y: auto;
+    padding-bottom: 80px;
+}
+
+/* TOP BAR */
+
+.profile-top {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-top h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.back-btn,
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* PROFILE INFO */
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 15px 10px;
+}
+
+.profile-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    flex-shrink: 0;
+}
+
+.profile-details h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.profile-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+}
+
+/* STATS */
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.profile-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-stats strong {
+    font-size: 18px;
+}
+
+.profile-stats span {
+    font-size: 13px;
+}
+
+/* BUTTONS */
+
+.profile-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 5px 15px 15px;
+}
+
+.profile-action {
+    flex: 1;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: bold;
+}
+
+/* HIGHLIGHTS */
+
+.highlights {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding: 10px 15px 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.highlight {
+    min-width: 70px;
+    text-align: center;
+}
+
+.highlight span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.highlight-circle {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-highlight {
+    background: #fff;
+    font-size: 35px;
+}
+
+/* NEW HIGHLIGHTS */
+
+#highlightsContainer {
+    display: flex;
+    gap: 18px;
+}
+
+/* TABS */
+
+.profile-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-tabs button {
+    flex: 1;
+    height: 48px;
+    border: none;
+    background: #fff;
+    font-size: 23px;
+}
+
+/* POSTS GRID */
+
+.profile-posts {
+    min-height: 180px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+.empty-profile {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 45px 15px;
+}
+
+.empty-profile h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-profile p {
+    color: #777;
+    margin: 0;
+}
+
+/* EDITOR */
+
+.profile-editor {
+    display: none;
+    margin: 15px;
+    padding: 15px;
+    background: #f7f7f7;
+    border-radius: 12px;
+}
+
+.profile-editor label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.profile-editor input,
+.profile-editor textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.save-profile {
+    width: 100%;
+    margin-top: 15px;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    font-weight: bold;
+}
+
+/* LOGOUT */
+
+.logout-btn {
+    margin: 25px 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    }
 
     </style>
 
