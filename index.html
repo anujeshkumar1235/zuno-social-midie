@@ -2024,222 +2024,394 @@ document
    CREATE POST
 ================================================== */
 
-    document
-    .getElementById("createPostButton")
-    .addEventListener("click", function() {
+document
+.getElementById("createPostButton")
+.addEventListener("click", function() {
 
-        const text =
-            document
-                .getElementById("postText")
-                .value
-                .trim();
+    const text =
+        document.getElementById("postText").value.trim();
 
-        const imageInput =
-            document.getElementById("postImage");
+    const imageInput =
+        document.getElementById("postImage");
 
-        const imageFile =
-            imageInput.files[0];
+    const imageFile =
+        imageInput.files[0];
 
-        if (text === "" && !imageFile) {
+    if (text === "" && !imageFile) {
+        alert("Text या Photo चुनें!");
+        return;
+    }
 
-            alert("Text या Photo चुनें!");
+    const post = document.createElement("div");
+    post.className = "post";
 
-            return;
-        }
+    /* USER NAME */
+    const savedUser =
+        localStorage.getItem("zunoUser");
 
-        const post =
-            document.createElement("div");
+    let username = "Zuno User";
 
-        post.className = "post";
+    if (savedUser) {
+        username = JSON.parse(savedUser).name;
+    }
 
-        const savedUser =
-            localStorage.getItem("zunoUser");
+    const userName =
+        document.createElement("strong");
 
-        let username = "Zuno User";
+    userName.textContent =
+        "👤 " + username;
 
-        if (savedUser) {
+    post.appendChild(userName);
 
-            username =
-                JSON.parse(savedUser).name;
-
-        }
-
-        const userName =
-            document.createElement("strong");
-
-        userName.textContent =
-            "👤 " + username;
+    /* TEXT */
+    if (text !== "") {
 
         const postText =
             document.createElement("p");
 
-        postText.textContent =
-            text;
+        postText.textContent = text;
 
-        post.appendChild(userName);
-
-        if (text !== "") {
-            post.appendChild(postText);
-        }
-
-        if (imageFile) {
-
-            const image =
-                document.createElement("img");
-
-            image.src =
-                URL.createObjectURL(imageFile);
-
-            image.style.width = "100%";
-            image.style.maxHeight = "400px";
-            image.style.objectFit = "contain";
-            image.style.borderRadius = "12px";
-            image.style.marginTop = "10px";
-
-            post.appendChild(image);
-        }
-
-        const actions =
-            document.createElement("div");
-
-        actions.className = "actions";
-
-        const like =
-            document.createElement("button");
-
-        like.className = "like-btn";
-        like.textContent = "♡";
-        likeCount.textContent = "0";
-
-like.addEventListener("click", function() {
-
-    let count = parseInt(likeCount.textContent);
-
-    if (like.classList.contains("liked")) {
-        count--;
-        like.classList.remove("liked");
-        like.textContent = "♡";
-    } else {
-        count++;
-        like.classList.add("liked");
-        like.textContent = "♥";
+        post.appendChild(postText);
     }
 
-    likeCount.textContent = count;
-});
-        
-        const likeCount =
-       document.createElement("span");
+    /* IMAGE */
+    if (imageFile) {
 
-       likeCount.className = "like-count";
-       likeCount.textContent = "0 Likes";
+        const image =
+            document.createElement("img");
 
-        const commentOpen =
-            document.createElement("button");
+        image.src =
+            URL.createObjectURL(imageFile);
 
-        commentOpen.className = "comment-open";
-        commentOpen.textContent = "💬 Comment";
+        image.style.width = "100%";
+        image.style.maxHeight = "400px";
+        image.style.objectFit = "contain";
+        image.style.borderRadius = "12px";
+        image.style.marginTop = "10px";
 
-        const share =
-            document.createElement("button");
-
-        share.textContent = "↗️ Share";
-        const save =
-    document.createElement("button");
-
-save.className = "save-btn";
-save.type = "button";
-save.textContent = "🔖 Save";
-     save.addEventListener("click", function() {
-
-    // यहाँ Save वाला पूरा code आएगा
-
-});   
-
-save.addEventListener("click", function() {
-
-    if (save.textContent.includes("Saved")) {
-        save.textContent = "🔖 Save";
-        save.classList.remove("saved");
-    } else {
-        save.textContent = "🔖 Saved";
-        save.classList.add("saved");
+        post.appendChild(image);
     }
 
-});
-        actions.appendChild(like);
-actions.appendChild(likeCount);
-actions.appendChild(commentOpen);
-actions.appendChild(share);
-actions.appendChild(save);
-         
-        
-
-        const commentBox =
-            document.createElement("div");
-
-        commentBox.className =
-            "comment-box";
-
-        const commentInput =
-            document.createElement("textarea");
-
-        commentInput.rows = 2;
-        commentInput.placeholder =
-            "Comment लिखें...";
-
-        const commentButton =
-            document.createElement("button");
-
-        commentButton.className =
-            "comment-btn";
-
-        commentButton.type = "button";
-
-        commentButton.textContent =
-            "Post Comment";
-
-        const comments =
-            document.createElement("div");
-
-        comments.className = "comments";
-
-        commentBox.appendChild(commentInput);
-        commentBox.appendChild(commentButton);
-        commentBox.appendChild(comments);
-
-        post.appendChild(actions);
-        post.appendChild(commentBox);
-
-        document
-            .getElementById("posts")
-            .prepend(post);
-
-        document
-            .getElementById("postText")
-            .value = "";
-
-        document
-            .getElementById("postImage")
-            .value = "";
-
-    });
-    
-    document
-    .getElementById("backButton")
-    .addEventListener("click", function() {
-
-        document
-            .getElementById("profilePage")
-            .style.display = "none";
-
-        document
-            .getElementById("homePage")
-            .style.display = "block";
-
-    });
     /* ==================================================
-   SETTINGS OPEN
+       ACTIONS
+    ================================================== */
+
+    const actions =
+        document.createElement("div");
+
+    actions.className = "actions";
+
+
+    /* LIKE */
+    const likeItem =
+        document.createElement("div");
+
+    likeItem.className = "action-item";
+
+    const like =
+        document.createElement("button");
+
+    like.type = "button";
+    like.className = "like-btn";
+    like.textContent = "♡";
+
+    const likeCount =
+        document.createElement("span");
+
+    likeCount.className = "action-count";
+    likeCount.textContent = "0";
+
+    likeItem.appendChild(like);
+    likeItem.appendChild(likeCount);
+
+
+    like.addEventListener("click", function() {
+
+        let count =
+            parseInt(likeCount.textContent) || 0;
+
+        if (like.classList.contains("liked")) {
+
+            count--;
+
+            like.classList.remove("liked");
+            like.textContent = "♡";
+
+        } else {
+
+            count++;
+
+            like.classList.add("liked");
+            like.textContent = "♥";
+        }
+
+        likeCount.textContent = count;
+    });
+
+
+    /* COMMENT */
+    const commentItem =
+        document.createElement("div");
+
+    commentItem.className = "action-item";
+
+    const commentOpen =
+        document.createElement("button");
+
+    commentOpen.type = "button";
+    commentOpen.className = "comment-open";
+    commentOpen.textContent = "💬";
+
+    const commentCount =
+        document.createElement("span");
+
+    commentCount.className = "action-count";
+    commentCount.textContent = "0";
+
+    commentItem.appendChild(commentOpen);
+    commentItem.appendChild(commentCount);
+
+
+    /* SHARE */
+    const shareItem =
+        document.createElement("div");
+
+    shareItem.className = "action-item";
+
+    const share =
+        document.createElement("button");
+
+    share.type = "button";
+    share.className = "share-btn";
+    share.textContent = "↗";
+
+    const shareCount =
+        document.createElement("span");
+
+    shareCount.className = "action-count";
+    shareCount.textContent = "0";
+
+    shareItem.appendChild(share);
+    shareItem.appendChild(shareCount);
+
+
+    /* SAVE */
+    const saveItem =
+        document.createElement("div");
+
+    saveItem.className = "action-item";
+
+    const save =
+        document.createElement("button");
+
+    save.type = "button";
+    save.className = "save-btn";
+    save.textContent = "🔖";
+
+    const saveCount =
+        document.createElement("span");
+
+    saveCount.className = "action-count";
+    saveCount.textContent = "0";
+
+    saveItem.appendChild(save);
+    saveItem.appendChild(saveCount);
+
+
+    /* SAVE BUTTON */
+    save.addEventListener("click", function() {
+
+        let count =
+            parseInt(saveCount.textContent) || 0;
+
+        if (save.classList.contains("saved")) {
+
+            count--;
+
+            save.classList.remove("saved");
+
+        } else {
+
+            count++;
+
+            save.classList.add("saved");
+        }
+
+        saveCount.textContent = count;
+    });
+
+
+    /* ADD ACTIONS */
+    actions.appendChild(likeItem);
+    actions.appendChild(commentItem);
+    actions.appendChild(shareItem);
+    actions.appendChild(saveItem);
+
+
+    /* ==================================================
+       COMMENT BOX
+    ================================================== */
+
+    const commentBox =
+        document.createElement("div");
+
+    commentBox.className = "comment-box";
+
+    commentBox.style.display = "none";
+
+
+    const commentInput =
+        document.createElement("textarea");
+
+    commentInput.rows = 2;
+
+    commentInput.placeholder =
+        "Comment लिखें...";
+
+
+    const commentButton =
+        document.createElement("button");
+
+    commentButton.className =
+        "comment-btn";
+
+    commentButton.type = "button";
+
+    commentButton.textContent =
+        "Post Comment";
+
+
+    const comments =
+        document.createElement("div");
+
+    comments.className = "comments";
+
+
+    commentBox.appendChild(commentInput);
+    commentBox.appendChild(commentButton);
+    commentBox.appendChild(comments);
+
+
+    /* OPEN COMMENT */
+    commentOpen.addEventListener("click", function() {
+
+        if (commentBox.style.display === "none") {
+
+            commentBox.style.display = "block";
+
+        } else {
+
+            commentBox.style.display = "none";
+        }
+    });
+
+
+    /* POST COMMENT */
+    commentButton.addEventListener("click", function() {
+
+        const commentText =
+            commentInput.value.trim();
+
+        if (commentText === "") {
+            return;
+        }
+
+        const newComment =
+            document.createElement("p");
+
+        newComment.textContent =
+            "💬 " + commentText;
+
+        comments.appendChild(newComment);
+
+        let count =
+            parseInt(commentCount.textContent) || 0;
+
+        count++;
+
+        commentCount.textContent = count;
+
+        commentInput.value = "";
+    });
+
+
+    /* ==================================================
+       SHARE
+    ================================================== */
+
+    share.addEventListener("click", async function() {
+
+        try {
+
+            if (navigator.share) {
+
+                await navigator.share({
+                    title: "Zuno Post",
+                    text: text || "Check this post on Zuno!"
+                });
+
+            } else {
+
+                alert("↗ Post share किया गया!");
+
+            }
+
+            let count =
+                parseInt(shareCount.textContent) || 0;
+
+            count++;
+
+            shareCount.textContent = count;
+
+        } catch (error) {
+
+            /* User cancelled share */
+        }
+    });
+
+
+    /* ADD TO POST */
+    post.appendChild(actions);
+    post.appendChild(commentBox);
+
+
+    /* SHOW POST */
+    document
+        .getElementById("posts")
+        .prepend(post);
+
+
+    /* CLEAR CREATE POST */
+    document
+        .getElementById("postText")
+        .value = "";
+
+    document
+        .getElementById("postImage")
+        .value = "";
+
+});
+
+
+/* ==================================================
+   PROFILE BACK BUTTON
+================================================== */
+
+document
+.getElementById("backButton")
+.addEventListener("click", function() {
+
+    document
+        .getElementById("profilePage")
+        .style.display = "none";
+
+    document
+        .getElementById("homePage")
+        .style.display = "block";
+
+});
+    /* ==================================================
+   SETTINGS 
 ================================================== */
 
 document
