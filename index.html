@@ -1834,6 +1834,34 @@ document
             .style.display = "block";
 
     });
+    /* ==================================================
+   SETTINGS OPEN
+================================================== */
+
+document
+    .getElementById("menuButton")
+    .addEventListener("click", function() {
+
+        document.getElementById("profilePage").style.display = "none";
+
+        document.getElementById("settingsPage").style.display = "block";
+
+    });
+
+
+/* ==================================================
+   SETTINGS BACK
+================================================== */
+
+document
+    .getElementById("settingsBackButton")
+    .addEventListener("click", function() {
+
+        document.getElementById("settingsPage").style.display = "none";
+
+        document.getElementById("profilePage").style.display = "block";
+
+    });
     
     document
     .getElementById("followButton")
