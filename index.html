@@ -2039,11 +2039,30 @@ document
             document.createElement("button");
 
         share.textContent = "↗️ Share";
-        
-         actions.appendChild(like);
-         actions.appendChild(likeCount);
-         actions.appendChild(commentOpen);
-         actions.appendChild(share);
+        const save =
+    document.createElement("button");
+
+save.className = "save-btn";
+save.type = "button";
+save.textContent = "🔖 Save";
+
+save.addEventListener("click", function() {
+
+    if (save.textContent.includes("Saved")) {
+        save.textContent = "🔖 Save";
+        save.classList.remove("saved");
+    } else {
+        save.textContent = "🔖 Saved";
+        save.classList.add("saved");
+    }
+
+});
+        actions.appendChild(like);
+actions.appendChild(likeCount);
+actions.appendChild(commentOpen);
+actions.appendChild(share);
+actions.appendChild(save);
+         
         
 
         const commentBox =
