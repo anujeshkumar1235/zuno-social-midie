@@ -2488,6 +2488,34 @@ document.getElementById("savedBackButton").addEventListener("click", function() 
     document.getElementById("savedPage").style.display = "none";
     document.getElementById("settingsPage").style.display = "block";
 });
+    /* ==================================================
+   PRIVATE ACCOUNT
+================================================== */
+
+const privateAccountToggle =
+    document.getElementById("privateAccountToggle");
+
+if (privateAccountToggle) {
+
+    // पहले से saved setting load करें
+    privateAccountToggle.checked =
+        localStorage.getItem("zunoPrivateAccount") === "true";
+
+    // Setting बदलने पर save करें
+    privateAccountToggle.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "zunoPrivateAccount",
+            this.checked
+        );
+
+        if (this.checked) {
+            alert("🔒 आपका account अब Private है।");
+        } else {
+            alert("🌍 आपका account अब Public है।");
+        }
+    });
+}
 </script>
 </body>
 </html>
