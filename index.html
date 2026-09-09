@@ -582,8 +582,77 @@
 .logout-setting {
     color: #e53935;
 }
+        <style>
+
+    /* तुम्हारा पुराना CSS */
+    
+    .logout-btn {
+        margin: 25px 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+    }
+
+
+    /* यहाँ Saved वाला नया CSS डालना है */
+
+    .saved-page {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #f7f7f7;
+        z-index: 12000;
+        overflow-y: auto;
+    }
+
+    .saved-header {
+        height: 60px;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 0 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .saved-header button {
+        border: none;
+        background: none;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .saved-header h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .saved-posts {
+        padding: 15px;
+    }
+
+    .saved-empty {
+        background: white;
+        border-radius: 12px;
+        padding: 50px 15px;
+        text-align: center;
+    }
+
+    .saved-empty div {
+        font-size: 50px;
+    }
+
+    .saved-empty h3 {
+        margin: 15px 0 8px;
+    }
+
+    .saved-empty p {
+        color: #777;
+        margin: 0;
+    }
 
 </style>
+
 <!-- ==================================================
      LOGIN / SIGN UP PAGE
 ================================================== -->
@@ -1176,8 +1245,8 @@
     <div class="settings-section">
         <h3>How you use Zuno</h3>
 
-        <button type="button" class="settings-item">
-            🔖 <span>Saved</span> <b>›</b>
+        <button type="button" class="settings-item" id="savedButton">
+    🔖 <span>Saved</span> <b>›</b>
         </button>
 
         <button type="button" class="settings-item">
@@ -1459,6 +1528,23 @@
 
         </div>
 
+    </div>
+
+</div>
+    <!-- ZUNO SAVED PAGE -->
+<div id="savedPage" class="saved-page">
+
+    <div class="saved-header">
+        <button type="button" id="savedBackButton">←</button>
+        <h2>Saved</h2>
+    </div>
+
+    <div id="savedPosts" class="saved-posts">
+        <div class="saved-empty">
+            <div>🔖</div>
+            <h3>No saved posts yet</h3>
+            <p>Posts you save will appear here.</p>
+        </div>
     </div>
 
 </div>
@@ -2389,6 +2475,19 @@ document
         document.getElementById("loginPassword").value = "";
 
     });
+    /* ==================================================
+   SAVED PAGE
+================================================== */
+
+document.getElementById("savedButton").addEventListener("click", function() {
+    document.getElementById("settingsPage").style.display = "none";
+    document.getElementById("savedPage").style.display = "block";
+});
+
+document.getElementById("savedBackButton").addEventListener("click", function() {
+    document.getElementById("savedPage").style.display = "none";
+    document.getElementById("settingsPage").style.display = "block";
+});
 </script>
 </body>
 </html>
