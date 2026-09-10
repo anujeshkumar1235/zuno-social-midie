@@ -2457,6 +2457,10 @@ document
     });
 
 
+/* ==================================================
+   PRIVACY BACK
+================================================== */
+
 document
     .getElementById("privacyBackButton")
     .addEventListener("click", function() {
@@ -2470,16 +2474,19 @@ document
             .style.display = "block";
 
     });
-    
-    document
+
+
+/* ==================================================
+   FOLLOW / UNFOLLOW
+================================================== */
+
+document
     .getElementById("followButton")
     .addEventListener("click", function() {
 
         const button = this;
 
-        if (
-            button.textContent.trim() === "Follow"
-        ) {
+        if (button.textContent.trim() === "Follow") {
 
             button.textContent = "✓ Following";
 
@@ -2498,7 +2505,13 @@ document
         }
 
     });
-    document
+
+
+/* ==================================================
+   EDIT PROFILE
+================================================== */
+
+document
     .getElementById("editProfileButton")
     .addEventListener("click", function() {
 
@@ -2517,6 +2530,7 @@ document
             document
                 .getElementById("bioInput")
                 .value = user.bio;
+
         }
 
         document
@@ -2524,7 +2538,13 @@ document
             .style.display = "block";
 
     });
-    document
+
+
+/* ==================================================
+   SAVE PROFILE
+================================================== */
+
+document
     .getElementById("saveProfileButton")
     .addEventListener("click", function() {
 
@@ -2550,6 +2570,14 @@ document
                 .value
                 .trim();
 
+        if (user.name === "") {
+
+            alert("Name खाली नहीं हो सकता!");
+
+            return;
+
+        }
+
         localStorage.setItem(
             "zunoUser",
             JSON.stringify(user)
@@ -2564,111 +2592,13 @@ document
         alert("Profile Save हो गई! 🎉");
 
     });
-    document
-    .getElementById("posts")
-    .addEventListener("click", function(event) {
 
-            let count =
-                parseInt(
-                    likeCount.textContent
-                ) || 0;
 
-            if (
-                event.target.textContent.trim() === "❤️ Like"
-            ) {
+/* ==================================================
+   NOTIFICATION
+================================================== */
 
-                event.target.textContent =
-                    "❤️ Liked";
-
-                count++;
-
-            } else {
-
-                event.target.textContent =
-                    "❤️ Like";
-
-                count--;
-
-            }
-
-            likeCount.textContent =
-                count + (count === 1 ? " Like" : " Likes");
-
-        }
-
-    });
-    document
-    .getElementById("posts")
-    .addEventListener("click", function(event) {
-    });  
-    document
-    .getElementById("posts")
-    .addEventListener("click", function(event) {
-
-        if (
-            event.target.classList.contains("comment-open")
-        ) {
-
-            const post =
-                event.target.closest(".post");
-
-            const commentBox =
-                post.querySelector(".comment-box");
-
-            if (
-                commentBox.style.display === "block"
-            ) {
-
-                commentBox.style.display = "none";
-
-            } else {
-
-                commentBox.style.display = "block";
-
-            }
-
-        }
-
-    });
-    document
-    .getElementById("posts")
-    .addEventListener("click", function(event) {
-
-        if (
-            event.target.tagName === "BUTTON" &&
-            event.target.textContent.includes("Share")
-        ) {
-
-            const post =
-                event.target.closest(".post");
-
-            const textElement =
-                 post.querySelector("p");
-
-            const postText =
-                 textElement
-                      ? textElement.textContent
-                      : "📸 Zuno Photo Post";
-
-            if (navigator.share) {
-
-                navigator.share({
-                    title: "Zuno Post",
-                    text: postText
-                });
-
-            } else {
-
-                navigator.clipboard.writeText(postText);
-
-                alert("Post link/text copy हो गया! 📋");
-
-            }
-
-        }
-
-    });
-    document
+document
     .getElementById("notificationButton")
     .addEventListener("click", function() {
 
@@ -2686,7 +2616,13 @@ document
         }
 
     });
-    document
+
+
+/* ==================================================
+   SEARCH POSTS
+================================================== */
+
+document
     .getElementById("searchButton")
     .addEventListener("click", function() {
 
