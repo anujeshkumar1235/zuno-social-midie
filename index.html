@@ -5148,3 +5148,744 @@ function setupSettings(){
         );
 
         }
+    /* =========================
+   SAVED POSTS
+========================= */
+
+function renderSavedPosts(){
+
+    const box = $("savedGrid");
+
+    if(!box) return;
+
+    if(savedPosts.length === 0){
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔖
+                </div>
+
+                <strong>
+                    अभी कुछ Saved नहीं है
+                </strong>
+
+                <p>
+                    किसी Post पर Save दबाएँ।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    box.innerHTML = "";
+
+    savedPosts.forEach(post => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "saved-item";
+
+        item.innerHTML = `
+
+            ${
+                post.image
+                ? `<img src="${post.image}" alt="Saved post">`
+                : ""
+            }
+
+            <div class="saved-text">
+                ${escapeHTML(post.text || "Zuno Post")}
+            </div>
+
+        `;
+
+        box.appendChild(item);
+
+    });
+
+}
+
+
+/* =========================
+   IMPROVED SAVE
+========================= */
+
+function savePost(article){
+
+    const button =
+        article.querySelector(".save-btn");
+
+    const postId =
+        article.dataset.postId;
+
+
+    const existing =
+        savedPosts.find(
+            post => post.id === postId
+        );
+
+
+    if(existing){
+
+        savedPosts =
+            savedPosts.filter(
+                post => post.id !== postId
+            );
+
+        button.classList.remove(
+            "saved"
+        );
+
+        button.textContent =
+            "🔖 Save";
+
+        renderSavedPosts();
+
+        showToast(
+            "Saved से हटा दिया गया"
+        );
+
+        return;
+
+    }
+
+
+    const saved = {
+
+        id:postId,
+
+        text:
+            article
+            .querySelector(".post-text")
+            ?.textContent || "Zuno Post",
+
+        image:
+            article
+            .querySelector(".post-image")
+            ?.src || ""
+
+    };
+
+
+    savedPosts.push(saved);
+
+
+    button.classList.add(
+        "saved"
+    );
+
+    button.textContent =
+        "🔖 Saved";
+
+
+    renderSavedPosts();
+
+
+    showToast(
+        "Post Saved 🔖"
+    );
+
+}
+
+
+/* =========================
+   WELCOME POST
+========================= */
+
+function createWelcomePost(){
+
+    const welcome = {
+
+        id:"welcome-post",
+
+        user:"Zuno",
+
+        text:
+            "Zuno Social Media में आपका स्वागत है! 🎉",
+
+        image:"",
+
+        likes:0,
+
+        comments:[],
+
+        saved:false,
+
+        liked:false,
+
+        time:"अभी"
+
+    };
+
+
+    renderPost(
+        welcome
+    );
+
+}
+
+
+/* =========================
+   ATTACH EXISTING POSTS
+========================= */
+
+function attachExistingPostEvents(){
+
+    document
+        .querySelectorAll(
+            "#posts .post"
+        )
+        .forEach(article => {
+
+            attachPostEvents(
+                article
+            );
+
+        });
+
+}
+
+
+/* =========================
+   PROFILE SHARE
+========================= */
+
+function shareProfile(){
+
+    const name =
+        currentUser?.name ||
+        "Zuno User";
+
+
+    const text =
+        `Zuno पर ${name} की Profile देखें! 🎉`;
+
+
+    if(
+        navigator.share
+    ){
+
+        navigator
+            .share({
+                title:"Zuno Profile",
+                text:text
+            })
+            .catch(() => {});
+
+    }else{
+
+        if(
+            navigator.clipboard
+        ){
+
+            navigator.clipboard
+                .writeText(text);
+
+        }
+
+        showToast(
+            "Profile text Copy हो गया"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   LOGIN / SIGNUP BUTTONS
+========================= */
+
+function setupAuth(){
+
+    $("showSignupButton")
+        ?.addEventListener(
+            "click",
+            showSignup
+        );
+
+
+    $("showLoginButton")
+        ?.addEventListener(
+            "click",
+            showLogin
+        );
+
+
+    $("signupButton")
+        ?.addEventListener(
+            "click",
+            signup
+        );
+
+
+    $("loginButton")
+        ?.addEventListener(
+            "click",
+            login
+        );
+
+}
+
+
+/* =========================
+   HEADER BUTTONS
+========================= */
+
+function setupHeader(){
+
+    $("notificationButton")
+        ?.addEventListener(
+            "click",
+            toggleNotifications
+        );
+
+
+    $("profileHeaderButton")
+        ?.addEventListener(
+            "click",
+            () => showPage(
+                "profilePage"
+            )
+        );
+
+
+    $("settingsButton")
+        ?.addEventListener(
+            "click",
+            openSettings
+        );
+
+}
+
+
+/* =========================
+   CREATE POST EVENTS
+========================= */
+
+function setupCreatePost(){
+
+    $("createPostButton")
+        ?.addEventListener(
+            "click",
+            createPost
+        );
+
+
+    $("postImage")
+        ?.addEventListener(
+            "change",
+            handlePhoto
+        );
+
+
+    $("emojiButton")
+        ?.addEventListener(
+            "click",
+            addEmoji
+        );
+
+
+    $("removePhotoButton")
+        ?.addEventListener(
+            "click",
+            removePhoto
+        );
+
+}
+
+
+/* =========================
+   PROFILE EVENTS
+========================= */
+
+function setupProfile(){
+
+    $("followProfileButton")
+        ?.addEventListener(
+            "click",
+            toggleFollow
+        );
+
+
+    $("shareProfileButton")
+        ?.addEventListener(
+            "click",
+            shareProfile
+        );
+
+
+    $("editProfileButton")
+        ?.addEventListener(
+            "click",
+            openEditProfile
+        );
+
+
+    $("saveProfileButton")
+        ?.addEventListener(
+            "click",
+            saveProfile
+        );
+
+
+    $("newHighlightButton")
+        ?.addEventListener(
+            "click",
+            newHighlight
+        );
+
+}
+
+
+/* =========================
+   CHAT EVENTS
+========================= */
+
+function setupChat(){
+
+    $("closeChatButton")
+        ?.addEventListener(
+            "click",
+            closeChat
+        );
+
+
+    $("sendChatButton")
+        ?.addEventListener(
+            "click",
+            sendMessage
+        );
+
+
+    $("chatInput")
+        ?.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key === "Enter"
+                ){
+
+                    sendMessage();
+
+                }
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".chat-user"
+        )
+        .forEach(user => {
+
+            user.addEventListener(
+                "click",
+                function(){
+
+                    const name =
+                        this.dataset.name ||
+                        this
+                        .querySelector("strong")
+                        ?.textContent ||
+                        "Chat";
+
+                    openChat(name);
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   SEARCH EVENTS
+========================= */
+
+function setupSearch(){
+
+    $("searchInput")
+        ?.addEventListener(
+            "input",
+            searchUsers
+        );
+
+}
+
+
+/* =========================
+   STORY EVENTS
+========================= */
+
+function setupStories(){
+
+    $("addStoryButton")
+        ?.addEventListener(
+            "click",
+            addStory
+        );
+
+
+    $("closeStoryButton")
+        ?.addEventListener(
+            "click",
+            closeStory
+        );
+
+
+    document
+        .querySelectorAll(
+            ".story:not(.add-story)"
+        )
+        .forEach(story => {
+
+            story.addEventListener(
+                "click",
+                function(){
+
+                    const text =
+                        this.dataset.story ||
+                        "यह Story है 🎉";
+
+                    openStory(text);
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   BACK BUTTONS
+========================= */
+
+function setupBackButtons(){
+
+    document
+        .querySelectorAll(
+            "[data-back]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    handleBack(
+                        this
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   MODAL CLOSE
+========================= */
+
+function setupModals(){
+
+    document
+        .querySelectorAll(
+            "[data-close-modal]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    closeModal(
+                        this.dataset.closeModal
+                    );
+
+                }
+            );
+
+        });
+
+
+    $("editProfileModal")
+        ?.addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target === this
+                ){
+
+                    closeModal(
+                        "editProfileModal"
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================
+   POST MENU
+========================= */
+
+function setupPostMenus(){
+
+    document
+        .querySelectorAll(
+            ".post-menu"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    showToast(
+                        "Post options अभी Demo में हैं"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   REELS
+========================= */
+
+function setupReels(){
+
+    document
+        .querySelectorAll(
+            ".reel-action"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    showToast(
+                        "Reels feature Demo में है 🎬"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   INITIAL APP SETUP
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        setupAuth();
+
+        setupHeader();
+
+        setupCreatePost();
+
+        setupProfile();
+
+        setupChat();
+
+        setupSearch();
+
+        setupStories();
+
+        setupBackButtons();
+
+        setupModals();
+
+        setupNavigation();
+
+        setupSettings();
+
+        setupPostMenus();
+
+        setupReels();
+
+        attachExistingPostEvents();
+
+
+        /* Welcome Post */
+
+        if(
+            $("posts") &&
+            $("posts").children.length === 0
+        ){
+
+            createWelcomePost();
+
+        }
+
+
+        /* Initial data */
+
+        renderSavedPosts();
+
+
+        /* Login check */
+
+        checkLogin();
+
+
+        /* Photo preview reset */
+
+        if(
+            $("previewImage")
+        ){
+
+            $("previewImage")
+                .removeAttribute("src");
+
+        }
+
+
+        /* Story viewer */
+
+        if(
+            $("storyViewer")
+        ){
+
+            $("storyViewer")
+                .classList.remove("show");
+
+        }
+
+    }
+);
+</script>
+
+</body>
+</html>
