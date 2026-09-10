@@ -2568,16 +2568,6 @@ document
     .getElementById("posts")
     .addEventListener("click", function(event) {
 
-        if (
-            event.target.classList.contains("like-btn")
-        ) {
-
-            const post =
-                event.target.closest(".post");
-
-            const likeCount =
-                post.querySelector(".like-count");
-
             let count =
                 parseInt(
                     likeCount.textContent
@@ -2610,40 +2600,7 @@ document
     document
     .getElementById("posts")
     .addEventListener("click", function(event) {
-
-        if (
-            event.target.classList.contains("comment-btn")
-        ) {
-
-            const commentBox =
-                event.target.parentElement;
-
-            const input =
-                commentBox.querySelector("textarea");
-
-            const comments =
-                commentBox.querySelector(".comments");
-
-            const text =
-                input.value.trim();
-
-            if (text === "") {
-                alert("पहले Comment लिखें!");
-                return;
-            }
-
-            const comment =
-                document.createElement("p");
-
-            comment.textContent = "💬 " + text;
-
-            comments.appendChild(comment);
-
-            input.value = "";
-
-        }
-
-    });
+    });  
     document
     .getElementById("posts")
     .addEventListener("click", function(event) {
@@ -2854,84 +2811,6 @@ if (privateAccountToggle) {
         }
     });
 }
-    /* ==================================================
-   ZUNO SETTINGS - ALL BUTTONS
-================================================== */
-
-const settingsButtons =
-    document.querySelectorAll("#settingsPage .settings-item");
-
-settingsButtons.forEach(function(button) {
-
-    button.addEventListener("click", function() {
-
-        const text =
-            button.innerText
-                .replace("›", "")
-                .trim();
-
-        if (text.includes("Saved")) {
-
-            document.getElementById("settingsPage").style.display = "none";
-
-            const savedPage =
-                document.getElementById("savedPage");
-
-            if (savedPage) {
-                savedPage.style.display = "block";
-            }
-
-            return;
-        }
-
-        if (text.includes("Account privacy")) {
-
-            document.getElementById("settingsPage").style.display = "none";
-
-            const privacyPage =
-                document.getElementById("privacyPage");
-
-            if (privacyPage) {
-                privacyPage.style.display = "block";
-            }
-
-            return;
-        }
-
-        if (text.includes("Log out")) {
-
-            const confirmLogout =
-                confirm("क्या आप Zuno से Log out करना चाहते हैं?");
-
-            if (confirmLogout) {
-
-                localStorage.removeItem("zunoLoggedIn");
-
-                document.getElementById("settingsPage").style.display = "none";
-                document.getElementById("homePage").style.display = "none";
-                document.getElementById("profilePage").style.display = "none";
-                document.getElementById("authPage").style.display = "block";
-            }
-
-            return;
-        }
-
-        if (text.includes("Add account")) {
-
-            alert("➕ Add account\n\nनया Zuno account जोड़ने का option यहाँ आएगा।");
-
-            return;
-        }
-
-        alert(
-            "Zuno Settings\n\n" +
-            text +
-            "\n\nयह option Zuno में चुना गया है।"
-        );
-
-    });
-
-});
 </script>
 </body>
 </html>
