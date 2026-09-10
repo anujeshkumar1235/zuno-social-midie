@@ -1,969 +1,1517 @@
 <!DOCTYPE html>
-<h
-
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1877f2">
+<title>Zuno Social Media</title>
 
-    <title>Zuno Social Media</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        /* =====================
-           LOGIN / SIGN UP
-        ===================== */
-
-        #authPage {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .auth-card {
-            width: 100%;
-            max-width: 420px;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.10);
-            text-align: center;
-        }
-
-        .auth-logo {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .auth-card h2 {
-            font-size: 30px;
-            margin: 25px 0;
-        }
-
-        .auth-card input {
-            width: 100%;
-            padding: 15px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 17px;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
-            border: none;
-            border-radius: 12px;
-            background: #1877f2;
-            color: white;
-            font-size: 18px;
-        }
-
-        .switch-btn {
-            margin-top: 20px;
-            border: none;
-            background: none;
-            color: #1877f2;
-            font-size: 17px;
-        }
-
-        /* =====================
-           HOME
-        ===================== */
-
-        #homePage {
-            display: none;
-        }
-
-        header {
-            background: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .profile-btn {
-            border: none;
-            background: none;
-            font-size: 25px;
-        }
-
-        .post-box,
-        .post {
-            background: white;
-            margin: 15px;
-            padding: 15px;
-            border-radius: 12px;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            resize: none;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-        }
-
-        .create-btn,
-        .comment-btn,
-        .edit-profile,
-        .save-profile,
-        .follow-btn,
-        .logout-btn {
-            margin-top: 10px;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .create-btn,
-        .comment-btn,
-        .save-profile,
-        .follow-btn {
-            background: #1877f2;
-            color: white;
-        }
-
-        .edit-profile {
-            background: #1877f2;
-            color: white;
-        }
-
-        .logout-btn {
-            background: #e53935;
-            color: white;
-        }
-
-        .actions {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 10px 0;
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-.actions button {
-    border: none;
-    background: none;
-    font-size: 25px;
-    cursor: pointer;
-    padding: 2px;
+html,body{
+    width:100%;
+    min-height:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fa;
+    color:#222;
 }
 
-.like-btn.liked {
-    color: red;
+body{
+    padding-bottom:75px;
 }
 
-.action-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+button,
+input,
+textarea{
+    font-family:inherit;
 }
 
-.action-count {
-    font-size: 12px;
-    color: #555;
-    margin-top: 2px;
+button{
+    cursor:pointer;
 }
 
-        .comment-box {
-            display: none;
-            margin-top: 12px;
-        }
-
-        .comment {
-            background: #f2f2f2;
-            padding: 10px;
-            margin-top: 8px;
-            border-radius: 8px;
-        }
-        
-        .search-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background: white;
+.hidden{
+    display:none !important;
 }
 
-.search-box input {
-    flex: 1;
-    max-width: 350px;
-    padding: 11px 15px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
-    font-size: 15px;
-}
-
-.search-box button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 20px;
-    background: #1877f2;
-    color: white;
-}
-        
-
-        /* =====================
-   INSTAGRAM STYLE STORIES
-===================== */
-
-.stories {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding: 12px 10px;
-    background: white;
-    scrollbar-width: none;
-}
-
-.stories::-webkit-scrollbar {
-    display: none;
-}
-
-.story {
-    min-width: 75px;
-    text-align: center;
-    font-size: 12px;
-}
-
-.story-circle {
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    margin: 0 auto 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #eee;
-    border: 3px solid #e1306c;
-    font-size: 28px;
-    box-sizing: border-box;
-}
-
-.add-story {
-    background: #f5f5f5;
-    border: 3px solid #333;
-    font-size: 35px;
-}
-        
-        /* =====================
-   BOTTOM NAVIGATION
-===================== */
-
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
-    background: white;
-    border-top: 1px solid #ddd;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 2000;
-}
-
-.bottom-nav button {
-    background: none;
-    border: none;
-    font-size: 22px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    cursor: pointer;
-}
-
-.bottom-nav button span {
-    font-size: 11px;
-}
-        /* =========================
-   ZUNO PROFILE
+/* =========================
+   COMMON PAGE
 ========================= */
 
-.profile-page {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #fff;
-    z-index: 9999;
-    overflow-y: auto;
-    padding-bottom: 80px;
+.page{
+    display:none;
+    min-height:100vh;
 }
 
-/* TOP BAR */
-
-.profile-top {
-    height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.profile-top h2 {
-    margin: 0;
-    font-size: 20px;
-}
-
-.back-btn,
-.menu-btn {
-    background: none;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
+.page.active{
+    display:block;
 }
 
-/* PROFILE INFO */
+/* =========================
+   AUTH
+========================= */
 
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 15px 10px;
+#authPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#1877f2,#6c5ce7);
 }
 
-.profile-photo {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    flex-shrink: 0;
+.auth-card{
+    width:100%;
+    max-width:390px;
+    background:white;
+    border-radius:22px;
+    padding:30px 22px;
+    box-shadow:0 15px 45px rgba(0,0,0,.18);
+    text-align:center;
 }
 
-.profile-details h2 {
-    margin: 0 0 8px;
-    font-size: 20px;
+.auth-logo{
+    font-size:42px;
+    font-weight:800;
+    color:#1877f2;
+    margin-bottom:5px;
+}
+
+.auth-card > p{
+    color:#777;
+    margin-bottom:25px;
 }
 
-.profile-details p {
-    margin: 0;
-    font-size: 14px;
-    color: #444;
+.auth-card h2{
+    margin-bottom:15px;
 }
-
-/* STATS */
 
-.profile-stats {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    padding: 15px 0;
+.auth-card input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    margin-bottom:12px;
+    outline:none;
+    font-size:16px;
 }
 
-.profile-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.auth-card input:focus{
+    border-color:#1877f2;
 }
 
-.profile-stats strong {
-    font-size: 18px;
+.auth-btn{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:12px;
+    background:#1877f2;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:5px;
 }
 
-.profile-stats span {
-    font-size: 13px;
+.switch-btn{
+    width:100%;
+    border:none;
+    background:transparent;
+    color:#1877f2;
+    padding:14px;
+    font-size:15px;
+    font-weight:bold;
 }
 
-/* BUTTONS */
+/* =========================
+   HEADER
+========================= */
 
-.profile-buttons {
-    display: flex;
-    gap: 8px;
-    padding: 5px 15px 15px;
+.app-header{
+    height:60px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    position:sticky;
+    top:0;
+    z-index:500;
 }
 
-.profile-action {
-    flex: 1;
-    padding: 9px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #fff;
-    font-weight: bold;
+.logo{
+    font-size:28px;
+    font-weight:800;
+    color:#1877f2;
 }
 
-/* HIGHLIGHTS */
+.header-actions{
+    display:flex;
+    gap:8px;
+}
 
-.highlights {
-    display: flex;
-    gap: 18px;
-    overflow-x: auto;
-    padding: 10px 15px 18px;
-    border-bottom: 1px solid #eee;
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    background:#f1f3f5;
+    border-radius:50%;
+    font-size:20px;
 }
+
+/* =========================
+   NOTIFICATION
+========================= */
 
-.highlight {
-    min-width: 70px;
-    text-align: center;
+.notification-panel{
+    display:none;
+    position:fixed;
+    top:65px;
+    right:10px;
+    width:300px;
+    max-width:90%;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+    padding:15px;
+    z-index:5000;
 }
 
-.highlight span {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
+.notification-panel.show{
+    display:block;
 }
 
-.highlight-circle {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.notification-panel h3{
+    margin-bottom:10px;
 }
 
-.new-highlight {
-    background: #fff;
-    font-size: 35px;
+.notification-item{
+    padding:12px 5px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
 }
 
-/* NEW HIGHLIGHTS */
+/* =========================
+   SEARCH
+========================= */
 
-#highlightsContainer {
-    display: flex;
-    gap: 18px;
+.search-area{
+    padding:12px 15px;
+    background:white;
 }
 
-/* TABS */
+.search-box{
+    display:flex;
+    align-items:center;
+    background:#eef1f5;
+    border-radius:12px;
+    padding:0 12px;
+}
 
-.profile-tabs {
-    display: flex;
-    border-bottom: 1px solid #ddd;
+.search-box span{
+    font-size:20px;
 }
 
-.profile-tabs button {
-    flex: 1;
-    height: 48px;
-    border: none;
-    background: #fff;
-    font-size: 23px;
+.search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    padding:12px 8px;
+    font-size:15px;
 }
 
-/* POSTS GRID */
+/* =========================
+   STORIES
+========================= */
 
-.profile-posts {
-    min-height: 180px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+.stories{
+    background:white;
+    padding:12px 10px;
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    border-bottom:1px solid #eee;
 }
 
-.empty-profile {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 45px 15px;
+.story{
+    min-width:68px;
+    text-align:center;
+    font-size:12px;
 }
 
-.empty-profile h2 {
-    font-size: 18px;
-    margin-bottom: 8px;
+.story-circle{
+    width:62px;
+    height:62px;
+    margin:auto;
+    border-radius:50%;
+    padding:3px;
+    background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
 }
 
-.empty-profile p {
-    color: #777;
-    margin: 0;
+.story-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    overflow:hidden;
 }
-
-/* EDITOR */
 
-.profile-editor {
-    display: none;
-    margin: 15px;
-    padding: 15px;
-    background: #f7f7f7;
-    border-radius: 12px;
+.story-inner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-.profile-editor label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
+.story-name{
+    margin-top:5px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-.profile-editor input,
-.profile-editor textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
+.add-story .story-circle{
+    background:#1877f2;
 }
 
-.save-profile {
-    width: 100%;
-    margin-top: 15px;
-    padding: 11px;
-    border: none;
-    border-radius: 8px;
-    background: #111;
-    color: white;
-    font-weight: bold;
+.add-story .story-inner{
+    color:#1877f2;
 }
 
-/* LOGOUT */
+/* =========================
+   CREATE POST
+========================= */
 
-.logout-btn {
-    margin: 25px 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    }
-    
-        /* ==================================================
-   ZUNO SETTINGS PAGE
-================================================== */
-
-.settings-page {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #f7f7f7;
-    z-index: 10000;
-    overflow-y: auto;
-    padding-bottom: 30px;
+.create-post{
+    background:white;
+    margin:10px 0;
+    padding:15px;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
 }
-
-/* TOP HEADER */
 
-.settings-header {
-    height: 60px;
-    background: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0 15px;
-    border-bottom: 1px solid #ddd;
+.create-row{
+    display:flex;
+    gap:10px;
 }
 
-.settings-header button {
-    border: none;
-    background: none;
-    font-size: 30px;
-    cursor: pointer;
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#e8edf3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:22px;
 }
 
-.settings-header h2 {
-    margin: 0;
-    font-size: 20px;
+.create-post textarea{
+    flex:1;
+    min-height:45px;
+    border:none;
+    background:#f1f3f5;
+    border-radius:22px;
+    padding:13px 16px;
+    resize:none;
+    outline:none;
+    font-size:15px;
 }
 
-/* SEARCH */
-
-.settings-search {
-    margin: 15px;
-    padding: 11px 15px;
-    background: #eeeeee;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
+.create-options{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
 }
 
-.settings-search input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    margin-left: 8px;
-    width: 100%;
+.create-options button{
+    border:none;
+    background:#f1f3f5;
+    border-radius:10px;
+    padding:10px 13px;
 }
-
-/* SECTION */
 
-.settings-section {
-    background: white;
-    margin-top: 8px;
-    padding: 10px 0;
+.post-submit{
+    margin-left:auto;
+    background:#1877f2 !important;
+    color:white;
+    font-weight:bold;
 }
 
-.settings-section h3 {
-    color: #777;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 10px 15px;
+#postImage{
+    display:none;
 }
-
-/* EACH SETTING ROW */
-
-.settings-item {
-    width: 100%;
-    min-height: 58px;
-    padding: 10px 18px;
-    border: none;
-    background: white;
 
-    display: flex;
-    align-items: center;
+/* =========================
+   POSTS
+========================= */
 
-    gap: 15px;
-
-    text-align: left;
-    font-size: 21px;
-
-    cursor: pointer;
+#posts{
+    padding-bottom:10px;
 }
 
-.settings-item:hover {
-    background: #f5f5f5;
+.post{
+    background:white;
+    margin-bottom:10px;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
 }
 
-/* TEXT */
-
-.settings-item span {
-    flex: 1;
-    font-size: 16px;
-    color: #222;
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 15px;
 }
-
-/* ARROW */
 
-.settings-item b {
-    font-size: 25px;
-    font-weight: normal;
-    color: #777;
+.post-user{
+    flex:1;
 }
 
-/* LOGOUT */
-
-.logout-setting span {
-    color: #e53935;
+.post-user strong{
+    display:block;
+    font-size:15px;
 }
 
-.logout-setting {
-    color: #e53935;
+.post-user small{
+    color:#888;
 }
-        /* ==================================================
-   ZUNO ACCOUNT PRIVACY PAGE
-================================================== */
 
-.privacy-page {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #f7f7f7;
-    z-index: 11000;
-    overflow-y: auto;
+.post-menu{
+    border:none;
+    background:none;
+    font-size:22px;
 }
 
-.privacy-header {
-    height: 60px;
-    background: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0 15px;
-    border-bottom: 1px solid #ddd;
+.post-text{
+    padding:0 15px 12px;
+    line-height:1.5;
+    white-space:pre-wrap;
 }
 
-.privacy-header button {
-    border: none;
-    background: none;
-    font-size: 30px;
-    cursor: pointer;
+.post-image{
+    width:100%;
+    max-height:500px;
+    object-fit:cover;
+    display:block;
 }
 
-.privacy-header h2 {
-    margin: 0;
-    font-size: 20px;
+.post-stats{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 15px;
+    color:#777;
+    font-size:13px;
 }
 
-.privacy-content {
-    background: white;
-    margin-top: 8px;
-    padding: 20px 15px;
+.post-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid #eee;
 }
 
-.privacy-content h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
+.action-btn{
+    border:none;
+    background:white;
+    padding:13px 5px;
+    font-size:16px;
+    font-weight:bold;
 }
 
-.privacy-content p {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.5;
+.action-btn:hover{
+    background:#f5f5f5;
 }
 
-.privacy-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 0;
-    border-top: 1px solid #eee;
+.action-btn.liked{
+    color:#e53935;
 }
 
-.privacy-option strong {
-    display: block;
-    font-size: 16px;
+.action-btn.saved{
+    color:#1877f2;
 }
 
-.privacy-option small {
-    display: block;
-    color: #777;
-    margin-top: 5px;
-    max-width: 260px;
+.comments-box{
+    display:none;
+    padding:10px 15px;
+    border-top:1px solid #eee;
 }
 
-.privacy-switch {
-    position: relative;
-    width: 50px;
-    height: 28px;
+.comments-box.show{
+    display:block;
 }
 
-.privacy-switch input {
-    display: none;
+.comment-list{
+    max-height:180px;
+    overflow-y:auto;
+    margin-bottom:8px;
 }
 
-.privacy-switch span {
-    position: absolute;
-    inset: 0;
-    background: #ccc;
-    border-radius: 20px;
-    cursor: pointer;
+.comment{
+    background:#f3f4f6;
+    border-radius:10px;
+    padding:8px 10px;
+    margin-bottom:6px;
+    font-size:14px;
 }
 
-.privacy-switch span::before {
-    content: "";
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    left: 3px;
-    top: 3px;
-    background: white;
-    border-radius: 50%;
-    transition: 0.2s;
+.comment-form{
+    display:flex;
+    gap:7px;
 }
 
-.privacy-switch input:checked + span {
-    background: #1683f7;
+.comment-form input{
+    flex:1;
+    border:1px solid #ddd;
+    border-radius:20px;
+    padding:9px 12px;
+    outline:none;
 }
 
-.privacy-switch input:checked + span::before {
-    transform: translateX(22px);
+.comment-form button{
+    border:none;
+    background:#1877f2;
+    color:white;
+    border-radius:20px;
+    padding:0 15px;
 }
-
-.privacy-info {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-    }
 
-    /* यहाँ Saved वाला नया CSS डालना है */
+/* =========================
+   BOTTOM NAV
+========================= */
 
-    .saved-page {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: #f7f7f7;
-        z-index: 12000;
-        overflow-y: auto;
-    }
-
-    .saved-header {
-        height: 60px;
-        background: white;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 0 15px;
-        border-bottom: 1px solid #ddd;
-    }
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:68px;
+    background:white;
+    border-top:1px solid #ddd;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:9000;
+}
 
-    .saved-header button {
-        border: none;
-        background: none;
-        font-size: 30px;
-        cursor: pointer;
-    }
+.bottom-nav button{
+    flex:1;
+    height:100%;
+    border:none;
+    background:white;
+    color:#555;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:21px;
+}
 
-    .saved-header h2 {
-        margin: 0;
-        font-size: 20px;
-    }
+.bottom-nav button span{
+    font-size:11px;
+}
 
-    .saved-posts {
-        padding: 15px;
-    }
+.bottom-nav button.active{
+    color:#1877f2;
+    font-weight:bold;
+}
 
-    .saved-empty {
-        background: white;
-        border-radius: 12px;
-        padding: 50px 15px;
-        text-align: center;
-    }
+/* =========================
+   GENERAL BUTTONS
+========================= */
 
-    .saved-empty div {
-        font-size: 50px;
-    }
+.primary-btn{
+    border:none;
+    background:#1877f2;
+    color:white;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:bold;
+}
 
-    .saved-empty h3 {
-        margin: 15px 0 8px;
-    }
+.secondary-btn{
+    border:1px solid #ddd;
+    background:white;
+    padding:11px 16px;
+    border-radius:10px;
+    font-weight:bold;
+}
 
-    .saved-empty p {
-        color: #777;
-        margin: 0;
-    }
-        
-/* ZUNO ACCOUNTS CENTRE */
+/* =========================
+   MODAL
+========================= */
 
-.accounts-centre-page {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: #f7f7f7;
-    z-index: 13000;
-    overflow-y: auto;
+.modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:20000;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
 }
 
-.accounts-centre-header {
-    height: 60px;
-    background: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0 15px;
-    border-bottom: 1px solid #ddd;
+.modal-overlay.show{
+    display:flex;
 }
 
-.accounts-centre-header button {
-    border: none;
-    background: none;
-    font-size: 30px;
-    cursor: pointer;
+.modal{
+    width:100%;
+    max-width:430px;
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    max-height:90vh;
+    overflow-y:auto;
 }
 
-.accounts-centre-header h2 {
-    margin: 0;
-    font-size: 20px;
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
 }
 
-.accounts-centre-content {
-    background: white;
-    margin-top: 8px;
-    padding: 10px 0 20px;
+.modal-close{
+    border:none;
+    background:#eee;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    font-size:20px;
 }
+
+/* =========================
+   TOAST
+========================= */
 
-.accounts-centre-content h3 {
-    margin: 12px 15px;
-    color: #777;
-    font-size: 15px;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:85px;
+    transform:translateX(-50%);
+    background:#222;
+    color:white;
+    padding:11px 17px;
+    border-radius:22px;
+    z-index:30000;
+    display:none;
+    font-size:14px;
 }
 
-.accounts-centre-item {
-    width: 100%;
-    min-height: 64px;
-    padding: 12px 18px;
-    border: none;
-    border-top: 1px solid #eeeeee;
-    background: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: left;
-    cursor: pointer;
+.toast.show{
+    display:block;
 }
 
-.accounts-centre-item span {
-    flex: 1;
-    font-size: 16px;
-    color: #222;
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:#777;
+    background:white;
 }
 
-.accounts-centre-item b {
-    font-size: 28px;
-    font-weight: normal;
-    color: #777;
+.empty-icon{
+    font-size:50px;
+    margin-bottom:12px;
 }
+
+/* =========================
+   RESPONSIVE
+========================= */
 
-.accounts-centre-item:hover {
-    background: #f5f5f5;
+@media(min-width:700px){
+    .page-content{
+        max-width:650px;
+        margin:auto;
     }
 
+    .bottom-nav{
+        max-width:650px;
+        left:50%;
+        right:auto;
+        transform:translateX(-50%);
+        border-left:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+}
+    /* =========================
+   PROFILE PAGE
+========================= */
+
+.profile-page{
+    background:#f5f7fa;
+    min-height:100vh;
+}
+
+.profile-top{
+    background:white;
+    padding:20px 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.profile-main{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.profile-avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#1877f2,#6c5ce7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:40px;
+    flex-shrink:0;
+}
+
+.profile-info{
+    flex:1;
+}
+
+.profile-info h2{
+    font-size:21px;
+    margin-bottom:5px;
+}
+
+.profile-info p{
+    color:#666;
+    font-size:14px;
+}
+
+.profile-stats{
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+    margin-top:20px;
+}
+
+.profile-stat strong{
+    display:block;
+    font-size:19px;
+}
+
+.profile-stat span{
+    color:#777;
+    font-size:12px;
+}
+
+.profile-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:18px;
+}
+
+.profile-buttons button{
+    padding:11px;
+    border-radius:9px;
+    font-weight:bold;
+    border:1px solid #ddd;
+    background:white;
+}
+
+.profile-buttons .follow-btn{
+    background:#1877f2;
+    color:white;
+    border-color:#1877f2;
+}
+
+.highlights{
+    display:flex;
+    gap:18px;
+    padding:15px;
+    background:white;
+    overflow-x:auto;
+}
+
+.highlight{
+    min-width:65px;
+    text-align:center;
+    font-size:12px;
+}
+
+.highlight-circle{
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    border:2px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto auto 5px;
+    font-size:25px;
+}
+
+/* =========================
+   PROFILE TABS
+========================= */
+
+.profile-tabs{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    background:white;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+}
+
+.profile-tabs button{
+    border:none;
+    background:white;
+    padding:14px 5px;
+    font-size:20px;
+}
+
+.profile-tabs button.active{
+    color:#1877f2;
+    border-bottom:2px solid #1877f2;
+}
+
+/* =========================
+   REELS
+========================= */
+
+.reels-page{
+    background:#111;
+    min-height:100vh;
+    color:white;
+}
+
+.reels-header{
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    border-bottom:1px solid #333;
+}
+
+.reels-header h2{
+    font-size:22px;
+}
+
+.reel{
+    position:relative;
+    height:calc(100vh - 128px);
+    min-height:500px;
+    background:#222;
+    margin-bottom:2px;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+}
+
+.reel-content{
+    width:100%;
+    padding:20px;
+    padding-right:80px;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+}
+
+.reel-user{
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.reel-text{
+    line-height:1.5;
+}
+
+.reel-actions{
+    position:absolute;
+    right:12px;
+    bottom:25px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.reel-action{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:21px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-page{
+    background:#f5f7fa;
+    min-height:100vh;
+}
+
+.chat-header{
+    background:white;
+    height:60px;
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.chat-header h2{
+    font-size:21px;
+}
+
+.chat-list{
+    background:white;
+}
+
+.chat-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 15px;
+    border-bottom:1px solid #eee;
+}
+
+.chat-avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#e8edf3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.chat-info{
+    flex:1;
+}
+
+.chat-info strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.chat-info small{
+    color:#777;
+}
+
+.chat-time{
+    font-size:11px;
+    color:#999;
+}
+
+/* =========================
+   CHAT WINDOW
+========================= */
+
+.chat-window{
+    position:fixed;
+    inset:0;
+    background:#f5f7fa;
+    z-index:15000;
+    display:none;
+    flex-direction:column;
+}
+
+.chat-window.show{
+    display:flex;
+}
+
+.chat-window-header{
+    height:60px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 12px;
+}
+
+.chat-window-header button{
+    border:none;
+    background:none;
+    font-size:22px;
+}
+
+.chat-window-body{
+    flex:1;
+    overflow-y:auto;
+    padding:15px;
+}
+
+.message{
+    max-width:75%;
+    padding:10px 13px;
+    border-radius:15px;
+    margin-bottom:8px;
+    line-height:1.4;
+}
+
+.message.received{
+    background:white;
+    border:1px solid #eee;
+}
+
+.message.sent{
+    background:#1877f2;
+    color:white;
+    margin-left:auto;
+}
+
+.chat-input-area{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    background:white;
+    border-top:1px solid #ddd;
+}
+
+.chat-input-area input{
+    flex:1;
+    border:1px solid #ddd;
+    border-radius:22px;
+    padding:11px 14px;
+    outline:none;
+}
+
+.chat-input-area button{
+    width:45px;
+    border:none;
+    border-radius:50%;
+    background:#1877f2;
+    color:white;
+    font-size:18px;
+}
+
+/* =========================
+   SEARCH RESULTS
+========================= */
+
+.search-page{
+    min-height:100vh;
+    background:#f5f7fa;
+}
+
+.search-results{
+    background:white;
+}
+
+.search-result{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 15px;
+    border-bottom:1px solid #eee;
+}
+
+.search-result-avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#e8edf3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.search-result-info{
+    flex:1;
+}
+
+.search-result-info strong{
+    display:block;
+}
+
+.search-result-info small{
+    color:#777;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-page{
+    min-height:100vh;
+    background:#f5f7fa;
+}
+
+.settings-header{
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.settings-header button{
+    border:none;
+    background:none;
+    font-size:22px;
+}
+
+.settings-section{
+    margin-top:12px;
+}
+
+.settings-title{
+    padding:10px 15px;
+    color:#777;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.settings-card{
+    background:white;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+}
+
+.settings-row{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px;
+    border:none;
+    border-bottom:1px solid #eee;
+    background:white;
+    text-align:left;
+}
+
+.settings-row:last-child{
+    border-bottom:none;
+}
+
+.settings-icon{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    background:#eef1f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+.settings-text{
+    flex:1;
+}
+
+.settings-text strong{
+    display:block;
+    font-size:15px;
+}
+
+.settings-text small{
+    display:block;
+    color:#777;
+    margin-top:3px;
+}
+
+.settings-arrow{
+    color:#999;
+    font-size:18px;
+}
+
+/* =========================
+   SAVED PAGE
+========================= */
+
+.saved-page{
+    min-height:100vh;
+    background:#f5f7fa;
+}
+
+.saved-header{
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.saved-header button{
+    border:none;
+    background:none;
+    font-size:22px;
+}
+
+.saved-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+}
+
+.saved-item{
+    aspect-ratio:1/1;
+    background:#ddd;
+    overflow:hidden;
+}
+
+.saved-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.saved-text{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px;
+    background:white;
+    font-size:13px;
+}
+
+/* =========================
+   PRIVACY PAGE
+========================= */
+
+.privacy-page{
+    min-height:100vh;
+    background:#f5f7fa;
+}
+
+.privacy-header{
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.privacy-header button{
+    border:none;
+    background:none;
+    font-size:22px;
+}
+
+.privacy-content{
+    padding:15px;
+}
+
+.privacy-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.privacy-row{
+    width:100%;
+    border:none;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+.privacy-row:last-child{
+    border-bottom:none;
+}
+
+.privacy-row span:first-child{
+    font-size:22px;
+}
+
+.privacy-row div{
+    flex:1;
+}
+
+.privacy-row strong{
+    display:block;
+}
+
+.privacy-row small{
+    color:#777;
+    display:block;
+    margin-top:3px;
+}
+
+/* =========================
+   ACCOUNTS CENTRE
+========================= */
+
+.accounts-page{
+    min-height:100vh;
+    background:#f5f7fa;
+}
+
+.accounts-header{
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 15px;
+    border-bottom:1px solid #ddd;
+}
+
+.accounts-header button{
+    border:none;
+    background:none;
+    font-size:22px;
+}
+
+.accounts-content{
+    padding:15px;
+}
+
+.accounts-card{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.accounts-card h3{
+    margin-bottom:8px;
+}
+
+.accounts-card p{
+    color:#666;
+    line-height:1.5;
+    font-size:14px;
+}
+
+.account-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+}
+
+.account-avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#1877f2;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+.edit-profile-form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.edit-profile-form label{
+    font-size:13px;
+    color:#666;
+    font-weight:bold;
+}
+
+.edit-profile-form input,
+.edit-profile-form textarea{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:12px;
+    outline:none;
+    font-size:15px;
+}
+
+.edit-profile-form textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+/* =========================
+   STORY VIEWER
+========================= */
+
+.story-viewer{
+    position:fixed;
+    inset:0;
+    background:#111;
+    z-index:25000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+
+.story-viewer.show{
+    display:flex;
+}
+
+.story-viewer-content{
+    width:100%;
+    max-width:500px;
+    height:100%;
+    max-height:900px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.story-viewer-content img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.story-viewer-text{
+    color:white;
+    font-size:24px;
+    text-align:center;
+    padding:30px;
+}
+
+.story-close{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:25px;
+    z-index:2;
+}
+
+/* =========================
+   PHOTO PREVIEW
+========================= */
+
+.photo-preview{
+    display:none;
+    margin-top:10px;
+    position:relative;
+}
+
+.photo-preview.show{
+    display:block;
+}
+
+.photo-preview img{
+    width:100%;
+    max-height:300px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.remove-photo{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:35px;
+    height:35px;
+    border:none;
+    border-radius:50%;
+    background:rgba(0,0,0,.65);
+    color:white;
+    font-size:18px;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:700px){
+
+    .profile-top,
+    .highlights,
+    .profile-tabs,
+    .settings-page,
+    .saved-page,
+    .privacy-page,
+    .accounts-page,
+    .search-page,
+    .chat-page{
+        max-width:650px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .reel{
+        max-width:500px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    }
 </style>
-
-<!-- ==================================================
-     LOGIN / SIGN UP PAGE
-================================================== -->
+<!-- =========================
+     AUTH PAGE
+========================= -->
 
 <div id="authPage">
 
     <div class="auth-card">
 
-        <div class="auth-logo">
-            Zuno
-        </div>
+        <div class="auth-logo">Zuno</div>
 
-        <p>
-            आपका Social Media 🚀
-        </p>
+        <p>आपकी Social Media दुनिया 🌍</p>
 
-
-        <!-- LOGIN BOX -->
-
+        <!-- LOGIN -->
         <div id="loginBox">
 
-            <h2>
-                Login
-            </h2>
+            <h2>Login</h2>
 
             <input
-                id="loginEmail"
                 type="email"
+                id="loginEmail"
                 placeholder="Email"
             >
 
             <input
-                id="loginPassword"
                 type="password"
+                id="loginPassword"
                 placeholder="Password"
             >
 
             <button
-                type="button"
                 class="auth-btn"
                 id="loginButton"
             >
@@ -971,7 +1519,6 @@
             </button>
 
             <button
-                type="button"
                 class="switch-btn"
                 id="openSignupButton"
             >
@@ -981,49 +1528,41 @@
         </div>
 
 
-        <!-- SIGN UP BOX -->
+        <!-- SIGNUP -->
+        <div id="signupBox" class="hidden">
 
-        <div
-            id="signupBox"
-            style="display: none;"
-        >
-
-            <h2>
-                Create Account
-            </h2>
+            <h2>नया Account</h2>
 
             <input
-                id="signupName"
                 type="text"
-                placeholder="आपका Name"
+                id="signupName"
+                placeholder="आपका नाम"
             >
 
             <input
-                id="signupEmail"
                 type="email"
+                id="signupEmail"
                 placeholder="Email"
             >
 
             <input
-                id="signupPassword"
                 type="password"
+                id="signupPassword"
                 placeholder="Password"
             >
 
             <button
-                type="button"
                 class="auth-btn"
                 id="signupButton"
             >
-                🚀 Sign Up
+                📝 Account बनाएँ
             </button>
 
             <button
-                type="button"
                 class="switch-btn"
                 id="openLoginButton"
             >
-                ← वापस Login
+                पहले से Account है? Login करें
             </button>
 
         </div>
@@ -1033,1898 +1572,2713 @@
 </div>
 
 
-<!-- ==================================================
-     HOME PAGE
-================================================== -->
+<!-- =========================
+     MAIN APP
+========================= -->
 
-<div id="homePage">
+<div
+    id="mainApp"
+    class="hidden"
+>
 
 
-    <header>
+    <!-- HEADER -->
+
+    <header class="app-header">
+
         <div class="logo">
             Zuno
         </div>
 
-<div>
+        <div class="header-actions">
 
-    <button
-        id="notificationButton"
-        type="button">
-        🔔
-    </button>
+            <button
+                class="icon-btn"
+                id="notificationButton"
+                title="Notifications"
+            >
+                🔔
+            </button>
 
- </div>
+            <button
+                class="icon-btn"
+                id="headerProfileButton"
+                title="Profile"
+            >
+                👤
+            </button>
+
+        </div>
 
     </header>
+
+
+    <!-- NOTIFICATION PANEL -->
+
     <div
-    id="notificationPanel"
-    style="
-        display: none;
-        background: white;
-        margin: 10px 15px;
-        padding: 15px;
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    "
->
-    <h3>🔔 Notifications</h3>
-    <p>❤️ किसी ने आपकी Post को Like किया।</p>
-    <p>💬 किसी ने आपकी Post पर Comment किया।</p>
-    <p>👥 किसी ने आपको Follow किया।</p>
-</div>
-    
-
-<!-- SEARCH -->
-<div class="search-box">
-
-    <input
-        id="searchInput"
-        type="search"
-        placeholder="🔍 Search..."
+        id="notificationPanel"
+        class="notification-panel"
     >
 
-    <button
-        type="button"
-        id="searchButton">
-        Search
-    </button>
+        <h3>Notifications</h3>
 
-</div>
+        <div class="notification-item">
+            ❤️ किसी ने आपकी पोस्ट को Like किया।
+        </div>
 
-<!-- STORIES -->
-<div class="stories">
+        <div class="notification-item">
+            💬 किसी ने आपकी पोस्ट पर Comment किया।
+        </div>
 
-    <div class="story">
-        <div class="story-circle add-story">+</div>
-        <span>Your Story</span>
-    </div>
-
-    <div class="story">
-        <div class="story-circle">👤</div>
-        <span>Zuno User</span>
-    </div>
-
-    <div class="story">
-        <div class="story-circle">😊</div>
-        <span>Friend</span>
-    </div>
-
-    <div class="story">
-        <div class="story-circle">😎</div>
-        <span>Creator</span>
-    </div>
-
-    <div class="story">
-        <div class="story-circle">🌟</div>
-        <span>Zuno Star</span>
-    </div>
-
-</div>
-
-    <div class="post-box">
-
-        <strong>
-            क्या चल रहा है?
-        </strong>
-
-        <textarea
-            id="postText"
-            rows="3"
-            placeholder="अपनी पोस्ट लिखें..."
-        ></textarea>
-        <input
-    type="file"
-    id="postImage"
-    accept="image/*"
->
-
-        <button
-            type="button"
-            class="create-btn"
-            id="createPostButton"
-        >
-            ➕ Create Post
-        </button>
+        <div class="notification-item">
+            👥 आपको नया Follow मिला।
+        </div>
 
     </div>
 
 
-    <!-- POSTS -->
+    <!-- =========================
+         HOME PAGE
+    ========================= -->
 
-    <div id="posts">
+    <section
+        id="homePage"
+        class="page active"
+    >
 
-        <div class="post">
+        <!-- SEARCH -->
 
-            <strong>
-                👤 Zuno
-            </strong>
+        <div class="search-area">
 
-            <p>
-                🎉 Welcome to Zuno!
-            </p>
+            <div class="search-box">
 
-            <div class="actions">
+                <span>🔍</span>
 
-                <button
-                    type="button"
-                    class="like-btn"
+                <input
+                    type="text"
+                    id="homeSearchInput"
+                    placeholder="Zuno पर खोजें..."
                 >
-                    ❤️ Like
-                </button>
-                <span class="like-count">0 Likes</span>
-
-                <button
-                    type="button"
-                    class="comment-open"
-                >
-                    💬 Comment
-                </button>
-
-                <button type="button">
-                    ↗️ Share
-                </button>
-
-            </div>
-
-
-            <div class="comment-box">
-
-                <textarea
-                    rows="2"
-                    placeholder="Comment लिखें..."
-                ></textarea>
-
-                <button
-                    type="button"
-                    class="comment-btn"
-                >
-                    Post Comment
-                </button>
-
-                <div class="comments"></div>
 
             </div>
 
         </div>
 
-    </div>
-</div>
-    
-    
-    <!-- BOTTOM NAVIGATION -->
 
-<div class="bottom-nav">
+        <!-- STORIES -->
 
-    <button type="button" id="navHome">
-        🏠
-        <span>Home</span>
-    </button>
+        <div
+            id="stories"
+            class="stories"
+        >
 
-    <button type="button" id="navReels">
-        🎬
-        <span>Reels</span>
-    </button>
+            <div
+                class="story add-story"
+                id="addStoryButton"
+            >
 
-    <button type="button" id="navChat">
-    💬
-    <span>Chat</span>
-    </button>
+                <div class="story-circle">
 
-    <button type="button" id="navSearch">
-        🔍
-        <span>Search</span>
-    </button>
+                    <div class="story-inner">
+                        ➕
+                    </div>
 
-    <button type="button" id="navProfile">
-        👤
-        <span>Profile</span>
-    </button>
+                </div>
 
-</div>
+                <div class="story-name">
+                    आपकी Story
+                </div>
 
-    </div>
-            
-<!-- ==================================================
-     ZUNO INSTAGRAM STYLE PROFILE
-================================================== -->
+            </div>
 
-<div id="profilePage" class="profile-page">
 
-    <!-- TOP BAR -->
-    <div class="profile-top">
+            <div
+                class="story"
+                data-story="👨‍💻 आज coding सीख रहा हूँ 🚀"
+            >
 
-        <button
-            type="button"
-            class="back-btn"
-            id="backButton">
+                <div class="story-circle">
+
+                    <div class="story-inner">
+                        👨‍💻
+                    </div>
+
+                </div>
+
+                <div class="story-name">
+                    Rahul
+                </div>
+
+            </div>
+
+
+            <div
+                class="story"
+                data-story="📚 आज पढ़ाई का दिन!"
+            >
+
+                <div class="story-circle">
+
+                    <div class="story-inner">
+                        📚
+                    </div>
+
+                </div>
+
+                <div class="story-name">
+                    Aman
+                </div>
+
+            </div>
+
+
+            <div
+                class="story"
+                data-story="🌄 Beautiful day!"
+            >
+
+                <div class="story-circle">
+
+                    <div class="story-inner">
+                        🌄
+                    </div>
+
+                </div>
+
+                <div class="story-name">
+                    Priya
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="page-content">
+
+
+            <!-- CREATE POST -->
+
+            <div class="create-post">
+
+                <div class="create-row">
+
+                    <div
+                        class="avatar"
+                        id="createAvatar"
+                    >
+                        👤
+                    </div>
+
+                    <textarea
+                        id="postText"
+                        placeholder="क्या चल रहा है?"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- PHOTO PREVIEW -->
+
+                <div
+                    id="photoPreview"
+                    class="photo-preview"
+                >
+
+                    <img
+                        id="previewImage"
+                        src=""
+                        alt="Preview"
+                    >
+
+                    <button
+                        class="remove-photo"
+                        id="removePhotoButton"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+
+                <div class="create-options">
+
+                    <button
+                        id="photoButton"
+                    >
+                        📷 Photo
+                    </button>
+
+                    <input
+                        type="file"
+                        id="postImage"
+                        accept="image/*"
+                    >
+
+                    <button
+                        id="emojiButton"
+                    >
+                        😊
+                    </button>
+
+                    <button
+                        class="post-submit"
+                        id="createPostButton"
+                    >
+                        Post
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- POSTS -->
+
+            <div id="posts">
+
+
+                <!-- DEFAULT POST -->
+
+                <article
+                    class="post"
+                    data-post-id="welcome-post"
+                >
+
+                    <div class="post-header">
+
+                        <div class="avatar">
+                            👤
+                        </div>
+
+                        <div class="post-user">
+
+                            <strong>
+                                Zuno Team
+                            </strong>
+
+                            <small>
+                                अभी
+                            </small>
+
+                        </div>
+
+                        <button
+                            class="post-menu"
+                            data-menu="welcome-post"
+                        >
+                            ⋯
+                        </button>
+
+                    </div>
+
+
+                    <div class="post-text">
+                        🎉 Welcome to Zuno Social Media!
+                        <br><br>
+                        यहाँ आप अपनी पोस्ट बना सकते हैं,
+                        Like, Comment और Share कर सकते हैं।
+                    </div>
+
+
+                    <div class="post-stats">
+
+                        <span>
+                            ❤️ <span class="like-count">0</span> Likes
+                        </span>
+
+                        <span>
+                            <span class="comment-count">0</span> Comments
+                        </span>
+
+                    </div>
+
+
+                    <div class="post-actions">
+
+                        <button
+                            class="action-btn like-btn"
+                        >
+                            ❤️ Like
+                        </button>
+
+                        <button
+                            class="action-btn comment-btn"
+                        >
+                            💬 Comment
+                        </button>
+
+                        <button
+                            class="action-btn share-btn"
+                        >
+                            ↗️ Share
+                        </button>
+
+                        <button
+                            class="action-btn save-btn"
+                        >
+                            🔖 Save
+                        </button>
+
+                    </div>
+
+
+                    <div class="comments-box">
+
+                        <div class="comment-list"></div>
+
+                        <div class="comment-form">
+
+                            <input
+                                type="text"
+                                placeholder="Comment लिखें..."
+                            >
+
+                            <button class="comment-submit">
+                                भेजें
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REELS PAGE
+    ========================= -->
+
+    <section
+        id="reelsPage"
+        class="page reels-page"
+    >
+
+        <div class="reels-header">
+
+            <h2>Reels 🎬</h2>
+
+            <button
+                class="icon-btn"
+                id="reelInfoButton"
+            >
+                ℹ️
+            </button>
+
+        </div>
+
+
+        <div class="reel">
+
+            <div class="reel-content">
+
+                <div class="reel-user">
+                    👤 Zuno User
+                </div>
+
+                <div class="reel-text">
+                    Welcome to Zuno Reels! 🚀
+                    <br>
+                    यहाँ short videos दिखाई जाएँगी।
+                </div>
+
+            </div>
+
+
+            <div class="reel-actions">
+
+                <button class="reel-action">
+                    ❤️
+                </button>
+
+                <button class="reel-action">
+                    💬
+                </button>
+
+                <button class="reel-action">
+                    ↗️
+                </button>
+
+                <button class="reel-action">
+                    🔖
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CHAT PAGE
+    ========================= -->
+
+    <section
+        id="chatPage"
+        class="page chat-page"
+    >
+
+        <div class="chat-header">
+
+            <h2>
+                💬 Chats
+            </h2>
+
+        </div>
+
+
+        <div class="chat-list">
+
+
+            <button
+                class="chat-item"
+                data-chat-user="Rahul"
+            >
+
+                <div class="chat-avatar">
+                    👨‍💻
+                </div>
+
+                <div class="chat-info">
+
+                    <strong>
+                        Rahul
+                    </strong>
+
+                    <small>
+                        Hey! कैसे हो?
+                    </small>
+
+                </div>
+
+                <div class="chat-time">
+                    अभी
+                </div>
+
+            </button>
+
+
+            <button
+                class="chat-item"
+                data-chat-user="Aman"
+            >
+
+                <div class="chat-avatar">
+                    👨
+                </div>
+
+                <div class="chat-info">
+
+                    <strong>
+                        Aman
+                    </strong>
+
+                    <small>
+                        Hello 👋
+                    </small>
+
+                </div>
+
+                <div class="chat-time">
+                    5m
+                </div>
+
+            </button>
+
+
+            <button
+                class="chat-item"
+                data-chat-user="Priya"
+            >
+
+                <div class="chat-avatar">
+                    👩
+                </div>
+
+                <div class="chat-info">
+
+                    <strong>
+                        Priya
+                    </strong>
+
+                    <small>
+                        Nice post 👍
+                    </small>
+
+                </div>
+
+                <div class="chat-time">
+                    10m
+                </div>
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SEARCH PAGE
+    ========================= -->
+
+    <section
+        id="searchPage"
+        class="page search-page"
+    >
+
+        <div class="search-area">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="लोगों को खोजें..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="searchResults"
+            class="search-results"
+        >
+
+            <div class="search-result">
+
+                <div class="search-result-avatar">
+                    👨‍💻
+                </div>
+
+                <div class="search-result-info">
+
+                    <strong>
+                        Rahul
+                    </strong>
+
+                    <small>
+                        @rahul
+                    </small>
+
+                </div>
+
+                <button class="secondary-btn">
+                    Follow
+                </button>
+
+            </div>
+
+
+            <div class="search-result">
+
+                <div class="search-result-avatar">
+                    👨
+                </div>
+
+                <div class="search-result-info">
+
+                    <strong>
+                        Aman
+                    </strong>
+
+                    <small>
+                        @aman
+                    </small>
+
+                </div>
+
+                <button class="secondary-btn">
+                    Follow
+                </button>
+
+            </div>
+
+
+            <div class="search-result">
+
+                <div class="search-result-avatar">
+                    👩
+                </div>
+
+                <div class="search-result-info">
+
+                    <strong>
+                        Priya
+                    </strong>
+
+                    <small>
+                        @priya
+                    </small>
+
+                </div>
+
+                <button class="secondary-btn">
+                    Follow
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROFILE PAGE
+    ========================= -->
+
+    <section
+        id="profilePage"
+        class="page profile-page"
+    >
+
+        <div class="profile-top">
+
+            <div class="profile-main">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
+                    👤
+                </div>
+
+                <div class="profile-info">
+
+                    <h2 id="profileUsername">
+                        Zuno User
+                    </h2>
+
+                    <p id="profileBio">
+                        Welcome to my Zuno profile! 🎉
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-stats">
+
+                <div class="profile-stat">
+
+                    <strong id="profilePosts">
+                        0
+                    </strong>
+
+                    <span>
+                        Posts
+                    </span>
+
+                </div>
+
+
+                <div class="profile-stat">
+
+                    <strong id="profileFollowers">
+                        0
+                    </strong>
+
+                    <span>
+                        Followers
+                    </span>
+
+                </div>
+
+
+                <div class="profile-stat">
+
+                    <strong id="profileFollowing">
+                        0
+                    </strong>
+
+                    <span>
+                        Following
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-buttons">
+
+                <button
+                    id="followProfileButton"
+                    class="follow-btn"
+                >
+                    Follow
+                </button>
+
+                <button
+                    id="editProfileButton"
+                >
+                    ✏️ Edit Profile
+                </button>
+
+                <button
+                    id="shareProfileButton"
+                >
+                    ↗️ Share Profile
+                </button>
+
+                <button
+                    id="newHighlightButton"
+                >
+                    ➕ New Highlight
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- HIGHLIGHTS -->
+
+        <div class="highlights">
+
+            <div
+                class="highlight"
+                id="newHighlightCircle"
+            >
+
+                <div class="highlight-circle">
+                    ➕
+                </div>
+
+                New
+
+            </div>
+
+
+            <div class="highlight">
+
+                <div class="highlight-circle">
+                    📸
+                </div>
+
+                Photos
+
+            </div>
+
+
+            <div class="highlight">
+
+                <div class="highlight-circle">
+                    🚀
+                </div>
+
+                Work
+
+            </div>
+
+
+            <div class="highlight">
+
+                <div class="highlight-circle">
+                    🎉
+                </div>
+
+                Fun
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE TABS -->
+
+        <div class="profile-tabs">
+
+            <button
+                class="active"
+                data-profile-tab="posts"
+            >
+                ▦
+            </button>
+
+            <button
+                data-profile-tab="saved"
+            >
+                🔖
+            </button>
+
+            <button
+                data-profile-tab="liked"
+            >
+                ❤️
+            </button>
+
+        </div>
+
+
+        <div id="profilePostsArea">
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📷
+                </div>
+
+                <strong>
+                    आपकी Posts
+                </strong>
+
+                <p>
+                    आपकी बनाई हुई posts यहाँ दिखाई देंगी।
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     SETTINGS PAGE
+========================= -->
+
+<section id="settingsPage" class="page settings-page">
+
+    <div class="settings-header">
+
+        <button class="back-button" data-back="home">
             ←
         </button>
 
-        <h2 id="profileUsername">
-            Zuno User
-        </h2>
-
-    <button type="button" class="menu-btn" id="menuButton">☰</button>
- 
-</div>
-    
-    <!-- PROFILE INFO -->
-    <div class="profile-info">
-
-        <div class="profile-photo">
-            👤
-        </div>
-
-        <div class="profile-details">
-
-            <h2 id="profileName">
-                Zuno User
-            </h2>
-
-            <p id="profileBio">
-                Welcome to my Zuno profile! 🎉
-            </p>
-
-        </div>
+        <h2>⚙️ Settings</h2>
 
     </div>
 
 
-    <!-- STATS -->
-    <div class="profile-stats">
+    <!-- ACCOUNT -->
 
-        <div>
-            <strong id="postCount">0</strong>
-            <span>Posts</span>
+    <div class="settings-section">
+
+        <div class="settings-title">
+            Your account
         </div>
 
-        <div>
-            <strong id="followersCount">0</strong>
-            <span>Followers</span>
-        </div>
-
-        <div>
-            <strong id="followingCount">0</strong>
-            <span>Following</span>
-        </div>
-
-    </div>
-
-
-    <!-- BUTTONS -->
-    <div class="profile-buttons">
-
-        <button
-            type="button"
-            id="editProfileButton"
-            class="profile-action">
-            Edit Profile
-        </button>
-
-        <button
-            type="button"
-            class="profile-action">
-            Share Profile
-        </button>
-
-        <button
-            type="button"
-            id="followButton"
-            class="profile-action">
-            Follow
-        </button>
-
-    </div>
-
-
-    <!-- HIGHLIGHTS -->
-    <div class="highlights">
-
-        <div class="highlight">
+        <div class="settings-card">
 
             <button
-                type="button"
-                id="newHighlightButton"
-                class="highlight-circle new-highlight">
-                +
+                class="settings-row"
+                id="accountsCentreButton">
+
+                <div class="settings-icon">👤</div>
+
+                <div class="settings-text">
+                    <strong>Accounts Centre</strong>
+                    <small>
+                        Password, security और account settings
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
             </button>
 
-            <span>New</span>
+
+            <button
+                class="settings-row"
+                id="editSettingsButton">
+
+                <div class="settings-icon">✏️</div>
+
+                <div class="settings-text">
+                    <strong>Edit Profile</strong>
+                    <small>
+                        Name और Bio बदलें
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
+            </button>
 
         </div>
 
+    </div>
 
-        <div id="highlightsContainer"></div>
+
+    <!-- HOW YOU USE ZUNO -->
+
+    <div class="settings-section">
+
+        <div class="settings-title">
+            How you use Zuno
+        </div>
+
+        <div class="settings-card">
+
+            <button
+                class="settings-row"
+                id="savedSettingsButton">
+
+                <div class="settings-icon">🔖</div>
+
+                <div class="settings-text">
+                    <strong>Saved</strong>
+                    <small>
+                        आपकी Saved Posts
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
+            </button>
+
+
+            <button
+                class="settings-row"
+                id="notificationsSettingsButton">
+
+                <div class="settings-icon">🔔</div>
+
+                <div class="settings-text">
+                    <strong>Notifications</strong>
+                    <small>
+                        Notifications control करें
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
+            </button>
+
+        </div>
 
     </div>
 
 
-    <!-- PROFILE EDITOR -->
-    <div
-        id="profileEditor"
-        class="profile-editor">
+    <!-- PRIVACY -->
 
-        <label>आपका Name</label>
+    <div class="settings-section">
 
-        <input
-            id="nameInput"
-            type="text"
-            placeholder="अपना नाम लिखें">
+        <div class="settings-title">
+            Who can see your content
+        </div>
 
+        <div class="settings-card">
 
-        <label>आपका Bio</label>
+            <button
+                class="settings-row"
+                id="privacySettingsButton">
 
-        <textarea
-            id="bioInput"
-            rows="3"
-            placeholder="अपने बारे में लिखें..."></textarea>
+                <div class="settings-icon">🔒</div>
 
+                <div class="settings-text">
+                    <strong>Privacy</strong>
+                    <small>
+                        Account privacy और visibility
+                    </small>
+                </div>
 
-        <button
-            type="button"
-            id="saveProfileButton"
-            class="save-profile">
-            💾 Save Profile
-        </button>
+                <div class="settings-arrow">›</div>
 
-    </div>
+            </button>
 
-
-    <!-- PROFILE TABS -->
-    <div class="profile-tabs">
-
-        <button type="button">
-            ▦
-        </button>
-
-        <button type="button">
-            ▶
-        </button>
-
-        <button type="button">
-            👤
-        </button>
+        </div>
 
     </div>
 
 
-    <!-- POSTS GRID -->
-    <div
-        id="profilePosts"
-        class="profile-posts">
+    <!-- MORE -->
 
-        <div class="empty-profile">
-            <h2>Create your first post</h2>
-            <p>Make this space your own.</p>
+    <div class="settings-section">
+
+        <div class="settings-title">
+            More
+        </div>
+
+        <div class="settings-card">
+
+            <button
+                class="settings-row"
+                id="aboutZunoButton">
+
+                <div class="settings-icon">ℹ️</div>
+
+                <div class="settings-text">
+                    <strong>About Zuno</strong>
+                    <small>
+                        Zuno के बारे में जानकारी
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
+            </button>
+
+
+            <button
+                class="settings-row"
+                id="helpButton">
+
+                <div class="settings-icon">❓</div>
+
+                <div class="settings-text">
+                    <strong>Help</strong>
+                    <small>
+                        Zuno Help और Support
+                    </small>
+                </div>
+
+                <div class="settings-arrow">›</div>
+
+            </button>
+
         </div>
 
     </div>
 
 
     <!-- LOGOUT -->
-    <button
-        type="button"
-        id="logoutButton"
-        class="logout-btn">
-        🚪 Logout
-    </button>
-
-</div>
-    <!-- ==================================================
-     ZUNO SETTINGS & ACTIVITY
-================================================== -->
-
-<div id="settingsPage" class="settings-page">
-
-    <div class="settings-header">
-        <button type="button" id="settingsBackButton">←</button>
-        <h2>Settings and activity</h2>
-    </div>
-
-    <div class="settings-search">
-        🔍
-        <input
-            type="search"
-            id="settingsSearch"
-            placeholder="Search">
-    </div>
 
     <div class="settings-section">
-        <h3>Your account</h3>
 
-        <button type="button" class="settings-item" id="accountsCentreButton">
-    ⚙️ <span>Accounts Centre</span> <b>›</b>
-        </button>
+        <div class="settings-card">
 
-    <div class="settings-section">
-        <h3>How you use Zuno</h3>
+            <button
+                class="settings-row"
+                id="logoutSettingsButton">
 
-        <button type="button" class="settings-item" id="savedButton">
-    🔖 <span>Saved</span> <b>›</b>
-        </button>
+                <div class="settings-icon">🚪</div>
 
-        <button type="button" class="settings-item">
-            🗂️ <span>Archive</span> <b>›</b>
-        </button>
+                <div class="settings-text">
+                    <strong>Log out</strong>
+                    <small>
+                        अपने account से बाहर जाएँ
+                    </small>
+                </div>
 
-        <button type="button" class="settings-item">
-            📊 <span>Your activity</span> <b>›</b>
-        </button>
+                <div class="settings-arrow">›</div>
 
-        <button type="button" class="settings-item">
-            🔔 <span>Notifications</span> <b>›</b>
-        </button>
+            </button>
 
-        <button type="button" class="settings-item">
-            ⏱️ <span>Time management</span> <b>›</b>
-        </button>
+        </div>
+
     </div>
 
-    <div class="settings-section">
-        <h3>Who can see your content</h3>
+</section>
+
+
+<!-- =========================
+     SAVED PAGE
+========================= -->
+
+<section id="savedPage" class="page saved-page">
+
+    <div class="saved-header">
 
         <button
-            type="button"
-            class="settings-item"
-            id="accountPrivacyButton">
-
-            🔒 <span>Account privacy</span> <b>›</b>
-
-        </button>
-
-        <button type="button" class="settings-item">
-            ⭐ <span>Close Friends</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>How others can interact with you</h3>
-
-        <button type="button" class="settings-item">
-            💬 <span>Messages and story replies</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            @ <span>Tags and mentions</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            💭 <span>Comments</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🔄 <span>Sharing</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🚫 <span>Restricted</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ⚠️ <span>Limit interactions</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🙈 <span>Hidden words</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            👥 <span>Follow and invite friends</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>What you see</h3>
-
-        <button type="button" class="settings-item">
-            ⭐ <span>Favourites</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🔇 <span>Muted accounts</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🎯 <span>Content preferences</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ❤️ <span>Like and share counts</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ⭐ <span>Creator subscriptions</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>Your app and media</h3>
-
-        <button type="button" class="settings-item">
-            📱 <span>Device permissions</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            📥 <span>Archiving and downloading</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ♿ <span>Accessibility</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🌐 <span>Language and translations</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            📶 <span>Data usage and media quality</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>Your insights and tools</h3>
-
-        <button type="button" class="settings-item">
-            📊 <span>Account type and tools</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>Subscriptions</h3>
-
-        <button type="button" class="settings-item">
-            ✨ <span>Zuno Plus</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ✓ <span>Zuno Verified</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            📋 <span>All subscriptions</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>More info and support</h3>
-
-        <button type="button" class="settings-item">
-            ❓ <span>Help</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            🛡️ <span>Privacy Centre</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ⚠️ <span>Account Status</span> <b>›</b>
-        </button>
-
-        <button type="button" class="settings-item">
-            ℹ️ <span>About</span> <b>›</b>
-        </button>
-    </div>
-
-    <div class="settings-section">
-        <h3>Login</h3>
-
-        <button type="button" class="settings-item">
-            ➕ <span>Add account</span> <b>›</b>
-        </button>
-
-        <button
-            type="button"
-            class="settings-item logout-setting"
-            id="settingsLogoutButton">
-
-            🚪 <span>Log out</span> <b></b>
-            
-        </button>
-    </div>
-
-</div>
-    <!-- ==================================================
-     ZUNO ACCOUNT PRIVACY PAGE
-================================================== -->
-
-<div id="privacyPage" class="privacy-page">
-
-    <!-- TOP HEADER -->
-    <div class="privacy-header">
-
-        <button
-            type="button"
-            id="privacyBackButton">
+            class="back-button"
+            data-back="settings">
             ←
         </button>
 
-        <h2>Account privacy</h2>
+        <h2>🔖 Saved</h2>
 
     </div>
 
 
-    <!-- PRIVACY CONTENT -->
+    <div
+        id="savedGrid"
+        class="saved-grid">
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                🔖
+            </div>
+
+            <strong>
+                अभी कुछ Saved नहीं है
+            </strong>
+
+            <p>
+                किसी post पर Save दबाएँ।
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PRIVACY PAGE
+========================= -->
+
+<section id="privacyPage" class="page privacy-page">
+
+    <div class="privacy-header">
+
+        <button
+            class="back-button"
+            data-back="settings">
+            ←
+        </button>
+
+        <h2>🔒 Privacy</h2>
+
+    </div>
+
+
     <div class="privacy-content">
 
-        <h3>Private account</h3>
-
-        <p>
-            जब आपका account private होगा,
-            तो केवल आपके approved followers
-            आपकी posts और stories देख पाएँगे।
-        </p>
+        <div class="privacy-card">
 
 
-        <!-- PRIVATE ACCOUNT OPTION -->
-        <div class="privacy-option">
+            <button
+                class="privacy-row"
+                id="privateAccountButton">
 
-            <div>
+                <span>🔐</span>
 
-                <strong>Private account</strong>
+                <div>
+
+                    <strong>
+                        Private Account
+                    </strong>
+
+                    <small>
+                        केवल approved लोग आपकी posts देख सकेंगे।
+                    </small>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="privacy-row"
+                id="activityStatusButton">
+
+                <span>🟢</span>
+
+                <div>
+
+                    <strong>
+                        Activity Status
+                    </strong>
+
+                    <small>
+                        आपकी online activity दिखाएँ।
+                    </small>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="privacy-row"
+                id="blockedAccountsButton">
+
+                <span>🚫</span>
+
+                <div>
+
+                    <strong>
+                        Blocked Accounts
+                    </strong>
+
+                    <small>
+                        Block किए गए accounts देखें।
+                    </small>
+
+                </div>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ACCOUNTS CENTRE PAGE
+========================= -->
+
+<section
+    id="accountsCentrePage"
+    class="page accounts-page">
+
+    <div class="accounts-header">
+
+        <button
+            class="back-button"
+            data-back="settings">
+            ←
+        </button>
+
+        <h2>
+            Accounts Centre
+        </h2>
+
+    </div>
+
+
+    <div class="accounts-content">
+
+
+        <div class="accounts-card">
+
+            <h3>
+                👤 Your accounts
+            </h3>
+
+            <p>
+                यहाँ आपके Zuno account की basic जानकारी होगी।
+            </p>
+
+
+            <div class="account-profile">
+
+                <div class="account-avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong id="accountsName">
+                        Zuno User
+                    </strong>
+
+                    <br>
+
+                    <small id="accountsEmail">
+                        user@example.com
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="accounts-card">
+
+            <h3>
+                🔐 Password and security
+            </h3>
+
+            <p>
+                Password और security options यहाँ manage किए जा सकते हैं।
+            </p>
+
+            <br>
+
+            <button
+                class="primary-btn"
+                id="securityButton">
+
+                Security देखें
+
+            </button>
+
+        </div>
+
+
+        <div class="accounts-card">
+
+            <h3>
+                ℹ️ Account information
+            </h3>
+
+            <p>
+                Zuno account की जानकारी और settings।
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CHAT WINDOW
+========================= -->
+
+<div
+    id="chatWindow"
+    class="chat-window">
+
+    <div class="chat-window-header">
+
+        <button id="closeChatButton">
+            ←
+        </button>
+
+        <div
+            class="chat-avatar"
+            id="chatWindowAvatar">
+            👤
+        </div>
+
+        <strong id="chatWindowName">
+            Chat
+        </strong>
+
+    </div>
+
+
+    <div
+        id="chatMessages"
+        class="chat-window-body">
+
+        <div class="message received">
+            Hello 👋
+        </div>
+
+    </div>
+
+
+    <div class="chat-input-area">
+
+        <input
+            type="text"
+            id="chatInput"
+            placeholder="Message लिखें..."
+        >
+
+        <button id="sendChatButton">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     EDIT PROFILE MODAL
+========================= -->
+
+<div
+    id="editProfileModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>
+                ✏️ Edit Profile
+            </h3>
+
+            <button
+                class="modal-close"
+                data-close-modal="editProfileModal">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="edit-profile-form">
+
+            <label>
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="editName"
+                placeholder="आपका नाम"
+            >
+
+
+            <label>
+                Bio
+            </label>
+
+            <textarea
+                id="editBio"
+                placeholder="अपने बारे में लिखें..."
+            ></textarea>
+
+
+            <button
+                class="primary-btn"
+                id="saveProfileButton">
+
+                💾 Save Profile
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     STORY VIEWER
+========================= -->
+
+<div
+    id="storyViewer"
+    class="story-viewer">
+
+    <div class="story-viewer-content">
+
+        <button
+            class="story-close"
+            id="closeStoryButton">
+            ✕
+        </button>
+
+        <div
+            id="storyViewerText"
+            class="story-viewer-text">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAVIGATION
+========================= -->
+
+<nav
+    id="bottomNav"
+    class="bottom-nav">
+
+
+    <button
+        class="active"
+        data-nav="home">
+
+        🏠
+
+        <span>
+            Home
+        </span>
+
+    </button>
+
+
+    <button
+        data-nav="reels">
+
+        🎬
+
+        <span>
+            Reels
+        </span>
+
+    </button>
+
+
+    <button
+        data-nav="chat">
+
+        💬
+
+        <span>
+            Chat
+        </span>
+
+    </button>
+
+
+    <button
+        data-nav="search">
+
+        🔍
+
+        <span>
+            Search
+        </span>
+
+    </button>
+
+
+    <button
+        data-nav="profile">
+
+        👤
+
+        <span>
+            Profile
+        </span>
+
+    </button>
+
+
+</nav>
+
+
+<!-- =========================
+     TOAST MESSAGE
+========================= -->
+
+<div
+    id="toast"
+    class="toast">
+
+    Done
+
+</div>
+<script>
+
+/* =========================
+   ZUNO APP VARIABLES
+========================= */
+
+let currentUser = null;
+
+let posts = [];
+
+let savedPosts = [];
+
+let stories = [];
+
+let currentChatUser = "";
+
+let following = false;
+
+let profilePostsCount = 0;
+
+
+/* =========================
+   ELEMENT SHORTCUT
+========================= */
+
+const $ = (id) => document.getElementById(id);
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+
+    const toast = $("toast");
+
+    if(!toast) return;
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const page = $(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    /* Bottom navigation */
+
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+
+        button.classList.remove("active");
+
+        if(button.dataset.nav === pageId.replace("Page","")){
+            button.classList.add("active");
+        }
+
+    });
+
+
+    /* Bottom nav hide/show */
+
+    const bottomNav = $("bottomNav");
+
+    const hideNavPages = [
+        "settingsPage",
+        "savedPage",
+        "privacyPage",
+        "accountsCentrePage"
+    ];
+
+    if(bottomNav){
+
+        if(hideNavPages.includes(pageId)){
+            bottomNav.style.display = "none";
+        }else{
+            bottomNav.style.display = "flex";
+        }
+
+    }
+
+}
+
+
+/* =========================
+   AUTH PAGE
+========================= */
+
+function showLogin(){
+
+    $("loginBox").classList.remove("hidden");
+
+    $("signupBox").classList.add("hidden");
+
+}
+
+
+function showSignup(){
+
+    $("loginBox").classList.add("hidden");
+
+    $("signupBox").classList.remove("hidden");
+
+}
+
+
+/* =========================
+   SIGNUP
+========================= */
+
+function signup(){
+
+    const name = $("signupName").value.trim();
+
+    const email = $("signupEmail").value.trim();
+
+    const password = $("signupPassword").value;
+
+
+    if(name === ""){
+
+        showToast("अपना नाम लिखें");
+
+        return;
+
+    }
+
+
+    if(email === ""){
+
+        showToast("Email लिखें");
+
+        return;
+
+    }
+
+
+    if(!email.includes("@")){
+
+        showToast("सही Email डालें");
+
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        showToast("Password कम से कम 6 अक्षर का रखें");
+
+        return;
+
+    }
+
+
+    const user = {
+
+        name:name,
+
+        email:email,
+
+        password:password,
+
+        bio:"Welcome to my Zuno profile! 🎉",
+
+        followers:0,
+
+        following:0,
+
+        posts:0
+
+    };
+
+
+    localStorage.setItem(
+        "zunoUser",
+        JSON.stringify(user)
+    );
+
+
+    localStorage.setItem(
+        "zunoLoggedIn",
+        "true"
+    );
+
+
+    currentUser = user;
+
+
+    showToast("Account बन गया 🎉");
+
+
+    setTimeout(() => {
+
+        loadUser();
+
+        showMainApp();
+
+    },500);
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+    const email = $("loginEmail").value.trim();
+
+    const password = $("loginPassword").value;
+
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if(!savedUser){
+
+        showToast("पहले नया account बनाएँ");
+
+        showSignup();
+
+        return;
+
+    }
+
+
+    const user = JSON.parse(savedUser);
+
+
+    if(
+        email !== user.email ||
+        password !== user.password
+    ){
+
+        showToast("Email या Password गलत है");
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "zunoLoggedIn",
+        "true"
+    );
+
+
+    currentUser = user;
+
+
+    showToast("Login successful 🎉");
+
+
+    setTimeout(() => {
+
+        loadUser();
+
+        showMainApp();
+
+    },500);
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "zunoLoggedIn"
+    );
+
+    currentUser = null;
+
+
+    $("mainApp").classList.add("hidden");
+
+    $("authPage").classList.remove("hidden");
+
+
+    showLogin();
+
+
+    showToast("आप Logout हो गए");
+
+}
+
+
+/* =========================
+   SHOW MAIN APP
+========================= */
+
+function showMainApp(){
+
+    $("authPage").classList.add("hidden");
+
+    $("mainApp").classList.remove("hidden");
+
+    showPage("homePage");
+
+}
+
+
+/* =========================
+   LOAD USER
+========================= */
+
+function loadUser(){
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if(!savedUser) return;
+
+
+    currentUser = JSON.parse(savedUser);
+
+
+    const name =
+        currentUser.name || "Zuno User";
+
+
+    const bio =
+        currentUser.bio ||
+        "Welcome to my Zuno profile! 🎉";
+
+
+    if($("profileUsername")){
+        $("profileUsername").textContent = name;
+    }
+
+
+    if($("profileBio")){
+        $("profileBio").textContent = bio;
+    }
+
+
+    if($("accountsName")){
+        $("accountsName").textContent = name;
+    }
+
+
+    if($("accountsEmail")){
+        $("accountsEmail").textContent =
+            currentUser.email || "";
+    }
+
+
+    if($("profileFollowers")){
+        $("profileFollowers").textContent =
+            currentUser.followers || 0;
+    }
+
+
+    if($("profileFollowing")){
+        $("profileFollowing").textContent =
+            currentUser.following || 0;
+    }
+
+
+    if($("profilePosts")){
+        $("profilePosts").textContent =
+            currentUser.posts || 0;
+    }
+
+
+    if($("createAvatar")){
+        $("createAvatar").textContent = "👤";
+    }
+
+}
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+function checkLogin(){
+
+    const loggedIn =
+        localStorage.getItem("zunoLoggedIn");
+
+
+    const savedUser =
+        localStorage.getItem("zunoUser");
+
+
+    if(
+        loggedIn === "true" &&
+        savedUser
+    ){
+
+        currentUser =
+            JSON.parse(savedUser);
+
+        loadUser();
+
+        showMainApp();
+
+    }else{
+
+        $("authPage").classList.remove("hidden");
+
+        $("mainApp").classList.add("hidden");
+
+        showLogin();
+
+    }
+
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function openEditProfile(){
+
+    if(!currentUser) return;
+
+
+    $("editName").value =
+        currentUser.name || "";
+
+
+    $("editBio").value =
+        currentUser.bio || "";
+
+
+    $("editProfileModal")
+        .classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+    const modal = $(id);
+
+    if(modal){
+        modal.classList.remove("show");
+    }
+
+}
+
+
+function saveProfile(){
+
+    const name =
+        $("editName").value.trim();
+
+
+    const bio =
+        $("editBio").value.trim();
+
+
+    if(name === ""){
+
+        showToast("Name खाली नहीं हो सकता");
+
+        return;
+
+    }
+
+
+    currentUser.name = name;
+
+    currentUser.bio =
+        bio || "Welcome to my Zuno profile! 🎉";
+
+
+    localStorage.setItem(
+        "zunoUser",
+        JSON.stringify(currentUser)
+    );
+
+
+    loadUser();
+
+    closeModal("editProfileModal");
+
+
+    showToast("Profile Save हो गई ✅");
+
+}
+
+
+/* =========================
+   FOLLOW
+========================= */
+
+function toggleFollow(){
+
+    following = !following;
+
+
+    const button =
+        $("followProfileButton");
+
+
+    if(following){
+
+        button.textContent =
+            "Following ✓";
+
+        currentUser.followers =
+            (currentUser.followers || 0) + 1;
+
+    }else{
+
+        button.textContent =
+            "Follow";
+
+        currentUser.followers =
+            Math.max(
+                0,
+                (currentUser.followers || 0) - 1
+            );
+
+    }
+
+
+    localStorage.setItem(
+        "zunoUser",
+        JSON.stringify(currentUser)
+    );
+
+
+    loadUser();
+
+}
+
+
+/* =========================
+   SHARE PROFILE
+========================= */
+
+function shareProfile(){
+
+    const name =
+        currentUser?.name || "Zuno User";
+
+
+    const text =
+        `Zuno पर ${name} की Profile देखें! 🎉`;
+
+
+    if(
+        navigator.share
+    ){
+
+        navigator.share({
+
+            title:"Zuno Profile",
+
+            text:text
+
+        }).catch(() => {});
+
+    }else{
+
+        navigator.clipboard
+        ?.writeText(text);
+
+        showToast(
+            "Profile link/text Copy हो गया"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+function createPost(){
+
+    const text =
+        $("postText").value.trim();
+
+
+    const image =
+        $("previewImage").src;
+
+
+    if(
+        text === "" &&
+        !image
+    ){
+
+        showToast(
+            "Post में कुछ लिखें या Photo लगाएँ"
+        );
+
+        return;
+
+    }
+
+
+    const postId =
+        "post-" + Date.now();
+
+
+    const post = {
+
+        id:postId,
+
+        user:
+            currentUser?.name ||
+            "Zuno User",
+
+        text:text,
+
+        image:image || "",
+
+        likes:0,
+
+        comments:[],
+
+        saved:false,
+
+        liked:false,
+
+        time:"अभी"
+
+    };
+
+
+    posts.unshift(post);
+
+
+    renderPost(post);
+
+
+    $("postText").value = "";
+
+
+    removePhoto();
+
+
+    profilePostsCount++;
+
+
+    currentUser.posts =
+        (currentUser.posts || 0) + 1;
+
+
+    localStorage.setItem(
+        "zunoUser",
+        JSON.stringify(currentUser)
+    );
+
+
+    loadUser();
+
+
+    showToast(
+        "Post सफलतापूर्वक बन गई 🎉"
+    );
+
+}
+
+
+/* =========================
+   RENDER POST
+========================= */
+
+function renderPost(post){
+
+    const postsBox =
+        $("posts");
+
+
+    const article =
+        document.createElement("article");
+
+
+    article.className = "post";
+
+
+    article.dataset.postId =
+        post.id;
+
+
+    article.innerHTML = `
+
+        <div class="post-header">
+
+            <div class="avatar">
+                👤
+            </div>
+
+            <div class="post-user">
+
+                <strong>
+                    ${escapeHTML(post.user)}
+                </strong>
 
                 <small>
-                    केवल आपके द्वारा approve किए गए
-                    लोग आपका content देख सकेंगे।
+                    ${post.time}
                 </small>
 
             </div>
 
+            <button class="post-menu">
+                ⋯
+            </button>
 
-            <label class="privacy-switch">
+        </div>
+
+
+        ${
+            post.text
+            ?
+            `<div class="post-text">
+                ${escapeHTML(post.text)}
+            </div>`
+            :
+            ""
+        }
+
+
+        ${
+            post.image
+            ?
+            `<img
+                class="post-image"
+                src="${post.image}"
+                alt="Post image"
+            >`
+            :
+            ""
+        }
+
+
+        <div class="post-stats">
+
+            <span>
+                ❤️
+                <span class="like-count">
+                    ${post.likes}
+                </span>
+                Likes
+            </span>
+
+            <span>
+                <span class="comment-count">
+                    ${post.comments.length}
+                </span>
+                Comments
+            </span>
+
+        </div>
+
+
+        <div class="post-actions">
+
+            <button class="action-btn like-btn">
+                ❤️ Like
+            </button>
+
+            <button class="action-btn comment-btn">
+                💬 Comment
+            </button>
+
+            <button class="action-btn share-btn">
+                ↗️ Share
+            </button>
+
+            <button class="action-btn save-btn">
+                🔖 Save
+            </button>
+
+        </div>
+
+
+        <div class="comments-box">
+
+            <div class="comment-list"></div>
+
+            <div class="comment-form">
 
                 <input
-                    type="checkbox"
-                    id="privateAccountToggle">
+                    type="text"
+                    placeholder="Comment लिखें..."
+                >
 
-                <span></span>
+                <button class="comment-submit">
+                    भेजें
+                </button>
 
-            </label>
-
-        </div>
-
-
-        <!-- PUBLIC ACCOUNT INFO -->
-        <div class="privacy-info">
-
-            <h3>Public account</h3>
-
-            <p>
-                Public account में आपकी posts और
-                profile ज्यादा लोगों को दिखाई दे सकती हैं।
-            </p>
+            </div>
 
         </div>
 
+    `;
 
-        <!-- WHO CAN SEE CONTENT -->
-        <div class="privacy-info">
 
-            <h3>Who can see your content?</h3>
+    postsBox.prepend(article);
 
-            <p>
-                Public account में कोई भी आपकी public
-                posts देख सकता है। Private account में
-                केवल approved followers आपका content देख सकते हैं।
-            </p>
 
-        </div>
-
-
-        <!-- FOLLOWERS -->
-        <div class="privacy-info">
-
-            <h3>Follower requests</h3>
-
-            <p>
-                Private account होने पर नए लोग आपको
-                follow करने के लिए request भेजेंगे।
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-    <!-- ZUNO SAVED PAGE -->
-<div id="savedPage" class="saved-page">
-
-    <div class="saved-header">
-        <button type="button" id="savedBackButton">←</button>
-        <h2>Saved</h2>
-    </div>
-
-    <div id="savedPosts" class="saved-posts">
-        <div class="saved-empty">
-            <div>🔖</div>
-            <h3>No saved posts yet</h3>
-            <p>Posts you save will appear here.</p>
-        </div>
-        
-    </div>
-    
-</div>
-    <!-- ZUNO ACCOUNTS CENTRE PAGE -->
-<div id="accountsCentrePage" class="accounts-centre-page">
-
-    <div class="accounts-centre-header">
-        <button type="button" id="accountsCentreBackButton">←</button>
-        <h2>Accounts Centre</h2>
-    </div>
-
-    <div class="accounts-centre-content">
-
-        <h3>Your Zuno account</h3>
-
-        <button type="button" class="accounts-centre-item">
-            👤 <span>Personal details</span> <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            🔐 <span>Password and security</span> <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            📱 <span>Your information and permissions</span> <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            ⚙️ <span>Account settings</span> <b>›</b>
-        </button>
-
-    </div>
-
-</div>
-    <!-- ==================================================
-     ZUNO ACCOUNTS CENTRE
-================================================== -->
-
-<div id="accountsCentrePage" class="accounts-centre-page">
-
-    <div class="accounts-centre-header">
-        <button type="button" id="accountsCentreBackButton">←</button>
-        <h2>Accounts Centre</h2>
-    </div>
-
-    <div class="accounts-centre-content">
-
-        <h3>Your Zuno account</h3>
-
-        <button type="button" class="accounts-centre-item">
-            <span>👤 Personal details</span>
-            <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            <span>🔐 Password and security</span>
-            <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            <span>📱 Your information and permissions</span>
-            <b>›</b>
-        </button>
-
-        <button type="button" class="accounts-centre-item">
-            <span>⚙️ Account settings</span>
-            <b>›</b>
-        </button>
-
-    </div>
-
-</div>
-
-<script>
-
-/* ==================================================
-   ELEMENTS
-================================================== */
-
-const authPage =
-    document.getElementById("authPage");
-
-const homePage =
-    document.getElementById("homePage");
-
-const loginBox =
-    document.getElementById("loginBox");
-
-const signupBox =
-    document.getElementById("signupBox");
-
-
-/* ==================================================
-   LOGIN / SIGN UP PAGE SWITCH
-================================================== */
-
-document
-    .getElementById("openSignupButton")
-    .addEventListener("click", function() {
-
-        loginBox.style.display = "none";
-
-        signupBox.style.display = "block";
-
-    });
-
-
-document
-    .getElementById("openLoginButton")
-    .addEventListener("click", function() {
-
-        signupBox.style.display = "none";
-
-        loginBox.style.display = "block";
-
-    });
-
-
-/* ==================================================
-   SIGN UP
-================================================== */
-
-document
-    .getElementById("signupButton")
-    .addEventListener("click", function() {
-
-        const name =
-            document
-            .getElementById("signupName")
-            .value
-            .trim();
-
-
-        const email =
-            document
-            .getElementById("signupEmail")
-            .value
-            .trim();
-
-
-        const password =
-            document
-            .getElementById("signupPassword")
-            .value;
-
-
-        if (
-            name === "" ||
-            email === "" ||
-            password === ""
-        ) {
-
-            alert("सभी जानकारी भरें!");
-
-            return;
-        }
-
-
-        if (password.length < 6) {
-
-            alert(
-                "Password कम से कम 6 characters का होना चाहिए!"
-            );
-
-            return;
-        }
-
-
-        const user = {
-
-            name: name,
-
-            email: email,
-
-            password: password,
-
-            bio: "Welcome to my Zuno profile! 🎉"
-
-        };
-
-
-        localStorage.setItem(
-            "zunoUser",
-            JSON.stringify(user)
-        );
-
-
-        alert(
-            "Account बन गया! 🎉 अब Login करें।"
-        );
-
-
-        document
-            .getElementById("signupName")
-            .value = "";
-
-        document
-            .getElementById("signupEmail")
-            .value = "";
-
-        document
-            .getElementById("signupPassword")
-            .value = "";
-
-
-        signupBox.style.display = "none";
-
-        loginBox.style.display = "block";
-
-    });
-
-
-/* ==================================================
-   LOGIN
-================================================== */
-
-document
-    .getElementById("loginButton")
-    .addEventListener("click", function() {
-
-        const email =
-            document
-            .getElementById("loginEmail")
-            .value
-            .trim();
-
-
-        const password =
-            document
-            .getElementById("loginPassword")
-            .value;
-
-
-        const savedUser =
-            localStorage.getItem("zunoUser");
-
-
-        if (!savedUser) {
-
-            alert(
-                "पहले नया account बनाएँ!"
-            );
-
-            return;
-        }
-
-
-        const user =
-            JSON.parse(savedUser);
-
-
-        if (
-            email === user.email &&
-            password === user.password
-        ) {
-
-            localStorage.setItem(
-                "zunoLoggedIn",
-                "true"
-            );
-
-
-            loadUser();
-
-
-            authPage.style.display =
-                "none";
-
-
-            homePage.style.display =
-                "block";
-
-
-            alert(
-                "Login successful! 🎉"
-            );
-
-        } else {
-
-            alert(
-                "Email या Password गलत है!"
-            );
-
-        }
-
-    });
-
-
-/* ==================================================
-   LOAD USER
-================================================== */
-
-function loadUser() {
-
-    const savedUser =
-        localStorage.getItem("zunoUser");
-
-
-    if (!savedUser) {
-        return;
-    }
-
-
-    const user =
-        JSON.parse(savedUser);
-
-
-    document
-        .getElementById("profileName")
-        .textContent =
-        user.name;
-
-
-    document
-        .getElementById("profileBio")
-        .textContent =
-        user.bio;
+    attachPostEvents(article);
 
 }
 
 
-/* ==================================================
-   AUTO LOGIN
-================================================== */
+/* =========================
+   ESCAPE HTML
+========================= */
 
-window.addEventListener(
-    "load",
-    function() {
+function escapeHTML(text){
 
-        const loggedIn =
-            localStorage.getItem(
-                "zunoLoggedIn"
-            );
+    return String(text)
 
+        .replaceAll("&","&amp;")
 
-        const savedUser =
-            localStorage.getItem(
-                "zunoUser"
-            );
+        .replaceAll("<","&lt;")
 
+        .replaceAll(">","&gt;")
 
-        if (
-            loggedIn === "true" &&
-            savedUser
-        ) {
+        .replaceAll('"',"&quot;")
 
-            loadUser();
+        .replaceAll("'","&#039;");
 
-            authPage.style.display =
-                "none";
-
-            homePage.style.display =
-                "block";
-
-        }
-
-    }
-);
+}
 
 
-/* ==================================================
-   LOGOUT
-================================================== */
+/* =========================
+   POST EVENTS
+========================= */
 
-document
-    .getElementById("logoutButton")
-    .addEventListener("click", function() {
-
-        localStorage.removeItem(
-            "zunoLoggedIn"
-        );
-
-
-        document
-            .getElementById("profilePage")
-            .style.display = "none";
-
-
-        homePage.style.display =
-            "none";
-
-
-        authPage.style.display =
-            "flex";
-
-
-        loginBox.style.display =
-            "block";
-
-
-        signupBox.style.display =
-            "none";
-
-
-        document
-            .getElementById("loginEmail")
-            .value = "";
-
-        document
-            .getElementById("loginPassword")
-            .value = "";
-
-    });
-
-
-/* ==================================================
-   CREATE POST
-================================================== */
-
-document
-.getElementById("createPostButton")
-.addEventListener("click", function() {
-
-    const text =
-        document.getElementById("postText").value.trim();
-
-    const imageInput =
-        document.getElementById("postImage");
-
-    const imageFile =
-        imageInput.files[0];
-
-    if (text === "" && !imageFile) {
-        alert("Text या Photo चुनें!");
-        return;
-    }
-
-    const post = document.createElement("div");
-    post.className = "post";
-
-    /* USER NAME */
-    const savedUser =
-        localStorage.getItem("zunoUser");
-
-    let username = "Zuno User";
-
-    if (savedUser) {
-        username = JSON.parse(savedUser).name;
-    }
-
-    const userName =
-        document.createElement("strong");
-
-    userName.textContent =
-        "👤 " + username;
-
-    post.appendChild(userName);
-
-    /* TEXT */
-    if (text !== "") {
-
-        const postText =
-            document.createElement("p");
-
-        postText.textContent = text;
-
-        post.appendChild(postText);
-    }
-
-    /* IMAGE */
-    if (imageFile) {
-
-        const image =
-            document.createElement("img");
-
-        image.src =
-            URL.createObjectURL(imageFile);
-
-        image.style.width = "100%";
-        image.style.maxHeight = "400px";
-        image.style.objectFit = "contain";
-        image.style.borderRadius = "12px";
-        image.style.marginTop = "10px";
-
-        post.appendChild(image);
-    }
-
-    /* ==================================================
-       ACTIONS
-    ================================================== */
-
-    const actions =
-        document.createElement("div");
-
-    actions.className = "actions";
-
-
-    /* LIKE */
-    const likeItem =
-        document.createElement("div");
-
-    likeItem.className = "action-item";
+function attachPostEvents(article){
 
     const like =
-        document.createElement("button");
-
-    like.type = "button";
-    like.className = "like-btn";
-    like.textContent = "♡";
-
-    const likeCount =
-        document.createElement("span");
-
-    likeCount.className = "action-count";
-    likeCount.textContent = "0";
-
-    likeItem.appendChild(like);
-    likeItem.appendChild(likeCount);
+        article.querySelector(".like-btn");
 
 
-    like.addEventListener("click", function() {
+    const comment =
+        article.querySelector(".comment-btn");
 
-        let count =
-            parseInt(likeCount.textContent) || 0;
-
-        if (like.classList.contains("liked")) {
-
-            count--;
-
-            like.classList.remove("liked");
-            like.textContent = "♡";
-
-        } else {
-
-            count++;
-
-            like.classList.add("liked");
-            like.textContent = "♥";
-        }
-
-        likeCount.textContent = count;
-    });
-
-
-    /* COMMENT */
-    const commentItem =
-        document.createElement("div");
-
-    commentItem.className = "action-item";
-
-    const commentOpen =
-        document.createElement("button");
-
-    commentOpen.type = "button";
-    commentOpen.className = "comment-open";
-    commentOpen.textContent = "💬";
-
-    const commentCount =
-        document.createElement("span");
-
-    commentCount.className = "action-count";
-    commentCount.textContent = "0";
-
-    commentItem.appendChild(commentOpen);
-    commentItem.appendChild(commentCount);
-
-
-    /* SHARE */
-    const shareItem =
-        document.createElement("div");
-
-    shareItem.className = "action-item";
 
     const share =
-        document.createElement("button");
+        article.querySelector(".share-btn");
 
-    share.type = "button";
-    share.className = "share-btn";
-    share.textContent = "↗";
-
-    const shareCount =
-        document.createElement("span");
-
-    shareCount.className = "action-count";
-    shareCount.textContent = "0";
-
-    shareItem.appendChild(share);
-    shareItem.appendChild(shareCount);
-
-
-    /* SAVE */
-    const saveItem =
-        document.createElement("div");
-
-    saveItem.className = "action-item";
 
     const save =
-        document.createElement("button");
+        article.querySelector(".save-btn");
 
-    save.type = "button";
-    save.className = "save-btn";
-    save.textContent = "🔖";
 
-    const saveCount =
-        document.createElement("span");
+    const submit =
+        article.querySelector(".comment-submit");
 
-    saveCount.className = "action-count";
-    saveCount.textContent = "0";
 
-    saveItem.appendChild(save);
-    saveItem.appendChild(saveCount);
+    like?.addEventListener(
+        "click",
+        () => likePost(article)
+    );
 
 
-    /* SAVE BUTTON */
-    save.addEventListener("click", function() {
+    comment?.addEventListener(
+        "click",
+        () => toggleComments(article)
+    );
 
-        let count =
-            parseInt(saveCount.textContent) || 0;
 
-        if (save.classList.contains("saved")) {
+    share?.addEventListener(
+        "click",
+        () => sharePost(article)
+    );
 
-            count--;
 
-            save.classList.remove("saved");
+    save?.addEventListener(
+        "click",
+        () => savePost(article)
+    );
 
-        } else {
 
-            count++;
+    submit?.addEventListener(
+        "click",
+        () => addComment(article)
+    );
 
-            save.classList.add("saved");
-        }
-
-        saveCount.textContent = count;
-    });
-
-
-    /* ADD ACTIONS */
-    actions.appendChild(likeItem);
-    actions.appendChild(commentItem);
-    actions.appendChild(shareItem);
-    actions.appendChild(saveItem);
-
-
-    /* ==================================================
-       COMMENT BOX
-    ================================================== */
-
-    const commentBox =
-        document.createElement("div");
-
-    commentBox.className = "comment-box";
-
-    commentBox.style.display = "none";
-
-
-    const commentInput =
-        document.createElement("textarea");
-
-    commentInput.rows = 2;
-
-    commentInput.placeholder =
-        "Comment लिखें...";
-
-
-    const commentButton =
-        document.createElement("button");
-
-    commentButton.className =
-        "comment-btn";
-
-    commentButton.type = "button";
-
-    commentButton.textContent =
-        "Post Comment";
-
-
-    const comments =
-        document.createElement("div");
-
-    comments.className = "comments";
-
-
-    commentBox.appendChild(commentInput);
-    commentBox.appendChild(commentButton);
-    commentBox.appendChild(comments);
-
-
-    /* OPEN COMMENT */
-    commentOpen.addEventListener("click", function() {
-
-        if (commentBox.style.display === "none") {
-
-            commentBox.style.display = "block";
-
-        } else {
-
-            commentBox.style.display = "none";
-        }
-    });
-
-
-    /* POST COMMENT */
-    commentButton.addEventListener("click", function() {
-
-        const commentText =
-            commentInput.value.trim();
-
-        if (commentText === "") {
-            return;
-        }
-
-        const newComment =
-            document.createElement("p");
-
-        newComment.textContent =
-            "💬 " + commentText;
-
-        comments.appendChild(newComment);
-
-        let count =
-            parseInt(commentCount.textContent) || 0;
-
-        count++;
-
-        commentCount.textContent = count;
-
-        commentInput.value = "";
-    });
-
-
-    /* ==================================================
-       SHARE
-    ================================================== */
-
-    share.addEventListener("click", async function() {
-
-        try {
-
-            if (navigator.share) {
-
-                await navigator.share({
-                    title: "Zuno Post",
-                    text: text || "Check this post on Zuno!"
-                });
-
-            } else {
-
-                alert("↗ Post share किया गया!");
-
-            }
-
-            let count =
-                parseInt(shareCount.textContent) || 0;
-
-            count++;
-
-            shareCount.textContent = count;
-
-        } catch (error) {
-
-            /* User cancelled share */
-        }
-    });
-
-
-    /* ADD TO POST */
-    post.appendChild(actions);
-    post.appendChild(commentBox);
-
-
-    /* SHOW POST */
-    document
-        .getElementById("posts")
-        .prepend(post);
-
-
-    /* CLEAR CREATE POST */
-    document
-        .getElementById("postText")
-        .value = "";
-
-    document
-        .getElementById("postImage")
-        .value = "";
-
-});
-
-
-/* ==================================================
-   PROFILE BACK BUTTON
-================================================== */
-
-document
-.getElementById("backButton")
-.addEventListener("click", function() {
-
-    document
-        .getElementById("profilePage")
-        .style.display = "none";
-
-    document
-        .getElementById("homePage")
-        .style.display = "block";
-
-});
-    /* ==================================================
-   SETTINGS 
-================================================== */
-
-document
-    .getElementById("menuButton")
-    .addEventListener("click", function() {
-
-        document.getElementById("profilePage").style.display = "none";
-
-        document.getElementById("settingsPage").style.display = "block";
-
-    });
-
-
-/* ==================================================
-   SETTINGS BACK
-================================================== */
-
-document
-    .getElementById("settingsBackButton")
-    .addEventListener("click", function() {
-
-        document.getElementById("settingsPage").style.display = "none";
-
-        document.getElementById("profilePage").style.display = "block";
-
-    });
-    /* ==================================================
-   ACCOUNT PRIVACY
-================================================== */
-
-document
-    .getElementById("accountPrivacyButton")
-    .addEventListener("click", function() {
-
-        document
-            .getElementById("settingsPage")
-            .style.display = "none";
-
-        document
-            .getElementById("privacyPage")
-            .style.display = "block";
-
-    });
-
-
-/* ==================================================
-   PRIVACY BACK
-================================================== */
-
-document
-    .getElementById("privacyBackButton")
-    .addEventListener("click", function() {
-
-        document
-            .getElementById("privacyPage")
-            .style.display = "none";
-
-        document
-            .getElementById("settingsPage")
-            .style.display = "block";
-
-    });
-
-
-/* ==================================================
-   FOLLOW / UNFOLLOW
-================================================== */
-
-document
-    .getElementById("followButton")
-    .addEventListener("click", function() {
-
-        const button = this;
-
-        if (button.textContent.trim() === "Follow") {
-
-            button.textContent = "✓ Following";
-
-            document
-                .getElementById("followersCount")
-                .textContent = "1";
-
-        } else {
-
-            button.textContent = "👥 Follow";
-
-            document
-                .getElementById("followersCount")
-                .textContent = "0";
-
-        }
-
-    });
-
-
-/* ==================================================
-   EDIT PROFILE
-================================================== */
-
-document
-    .getElementById("editProfileButton")
-    .addEventListener("click", function() {
-
-        const savedUser =
-            localStorage.getItem("zunoUser");
-
-        if (savedUser) {
-
-            const user =
-                JSON.parse(savedUser);
-
-            document
-                .getElementById("nameInput")
-                .value = user.name;
-
-            document
-                .getElementById("bioInput")
-                .value = user.bio;
-
-        }
-
-        document
-            .getElementById("profileEditor")
-            .style.display = "block";
-
-    });
-
-
-/* ==================================================
-   SAVE PROFILE
-================================================== */
-
-document
-    .getElementById("saveProfileButton")
-    .addEventListener("click", function() {
-
-        const savedUser =
-            localStorage.getItem("zunoUser");
-
-        if (!savedUser) {
-            return;
-        }
-
-        const user =
-            JSON.parse(savedUser);
-
-        user.name =
-            document
-                .getElementById("nameInput")
-                .value
-                .trim();
-
-        user.bio =
-            document
-                .getElementById("bioInput")
-                .value
-                .trim();
-
-        if (user.name === "") {
-
-            alert("Name खाली नहीं हो सकता!");
-
-            return;
-
-        }
-
-        localStorage.setItem(
-            "zunoUser",
-            JSON.stringify(user)
-        );
-
-        loadUser();
-
-        document
-            .getElementById("profileEditor")
-            .style.display = "none";
-
-        alert("Profile Save हो गई! 🎉");
-
-    });
-
-
-/* ==================================================
-   NOTIFICATION
-================================================== */
-
-document
-    .getElementById("notificationButton")
-    .addEventListener("click", function() {
-
-        const panel =
-            document.getElementById("notificationPanel");
-
-        if (panel.style.display === "block") {
-
-            panel.style.display = "none";
-
-        } else {
-
-            panel.style.display = "block";
-
-        }
-
-    });
-
-
-/* ==================================================
-   SEARCH POSTS
-================================================== */
-
-document
-    .getElementById("searchButton")
-    .addEventListener("click", function() {
-
-        const searchText =
-            document
-                .getElementById("searchInput")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const posts =
-            document.querySelectorAll(".post");
-
-        posts.forEach(function(post) {
-
-            const text =
-                post.textContent.toLowerCase();
-
-            if (
-                searchText === "" ||
-                text.includes(searchText)
-            ) {
-
-                post.style.display = "block";
-
-            } else {
-
-                post.style.display = "none";
-
-            }
-
-        });
-
-    });
-    // =====================
-// BOTTOM NAVIGATION
-// =====================
-
-document.getElementById("navHome").addEventListener("click", function() {
-    document.getElementById("profilePage").style.display = "none";
-    document.getElementById("homePage").style.display = "block";
-});
-
-document.getElementById("navProfile").addEventListener("click", function() {
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("profilePage").style.display = "block";
-    loadUser();
-});
-
-document.getElementById("navChat").addEventListener("click", function() {
-    alert("💬 Zuno Chat जल्द ही आएगा!");
-});
-
-document.getElementById("navSearch").addEventListener("click", function() {
-    document.getElementById("searchInput").focus();
-});
-
-document.getElementById("navReels").addEventListener("click", function() {
-    alert("🎬 Reels जल्द ही Zuno में आएगा!");
-});
-    /* ==================================================
-   SETTINGS LOGOUT
-================================================== */
-
-document
-    .getElementById("settingsLogoutButton")
-    .addEventListener("click", function() {
-
-        localStorage.removeItem("zunoLoggedIn");
-
-        document.getElementById("settingsPage").style.display = "none";
-        document.getElementById("profilePage").style.display = "none";
-        document.getElementById("homePage").style.display = "none";
-
-        document.getElementById("authPage").style.display = "flex";
-
-        document.getElementById("loginBox").style.display = "block";
-        document.getElementById("signupBox").style.display = "none";
-
-        document.getElementById("loginEmail").value = "";
-        document.getElementById("loginPassword").value = "";
-
-    });
-    /* ==================================================
-   SAVED PAGE
-================================================== */
-
-document.getElementById("savedButton").addEventListener("click", function() {
-    document.getElementById("settingsPage").style.display = "none";
-    document.getElementById("savedPage").style.display = "block";
-});
-
-document.getElementById("savedBackButton").addEventListener("click", function() {
-    document.getElementById("savedPage").style.display = "none";
-    document.getElementById("settingsPage").style.display = "block";
-});
-    /* ==================================================
-   PRIVATE ACCOUNT
-================================================== */
-
-const privateAccountToggle =
-    document.getElementById("privateAccountToggle");
-
-if (privateAccountToggle) {
-
-    // पहले से saved setting load करें
-    privateAccountToggle.checked =
-        localStorage.getItem("zunoPrivateAccount") === "true";
-
-    // Setting बदलने पर save करें
-    privateAccountToggle.addEventListener("change", function() {
-
-        localStorage.setItem(
-            "zunoPrivateAccount",
-            this.checked
-        );
-
-        if (this.checked) {
-            alert("🔒 आपका account अब Private है।");
-        } else {
-            alert("🌍 आपका account अब Public है।");
-        }
-    });
 }
-    /* ==================================================
-   ZUNO ACCOUNTS CENTRE
-================================================== */
 
-document
-    .getElementById("accountsCentreButton")
-    .addEventListener("click", function() {
 
-        document
-            .getElementById("settingsPage")
-            .style.display = "none";
+/* =========================
+   LIKE POST
+========================= */
 
-        document
-            .getElementById("accountsCentrePage")
-            .style.display = "block";
+function likePost(article){
+
+    const button =
+        article.querySelector(".like-btn");
+
+
+    const count =
+        article.querySelector(".like-count");
+
+
+    let value =
+        Number(count.textContent);
+
+
+    if(button.classList.contains("liked")){
+
+        value =
+            Math.max(0,value - 1);
+
+        button.classList.remove("liked");
+
+        button.textContent =
+            "❤️ Like";
+
+    }else{
+
+        value++;
+
+        button.classList.add("liked");
+
+        button.textContent =
+            "❤️ Liked";
+
+    }
+
+
+    count.textContent = value;
+
+}
+
+
+/* =========================
+   COMMENTS
+========================= */
+
+function toggleComments(article){
+
+    const box =
+        article.querySelector(".comments-box");
+
+
+    box.classList.toggle("show");
+
+}
+
+
+function addComment(article){
+
+    const input =
+        article.querySelector(
+            ".comment-form input"
+        );
+
+
+    const list =
+        article.querySelector(
+            ".comment-list"
+        );
+
+
+    const count =
+        article.querySelector(
+            ".comment-count"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(text === ""){
+
+        showToast(
+            "Comment लिखें"
+        );
+
+        return;
+
+    }
+
+
+    const comment =
+        document.createElement("div");
+
+
+    comment.className = "comment";
+
+
+    comment.textContent =
+        `${
+            currentUser?.name ||
+            "Zuno User"
+        }: ${text}`;
+
+
+    list.appendChild(comment);
+
+
+    count.textContent =
+        Number(count.textContent) + 1;
+
+
+    input.value = "";
+
+
+    showToast(
+        "Comment जोड़ दिया 👍"
+    );
+
+}
+
+
+/* =========================
+   SHARE POST
+========================= */
+
+function sharePost(article){
+
+    const text =
+        "Zuno की यह post देखें! 🎉";
+
+
+    if(navigator.share){
+
+        navigator.share({
+
+            title:"Zuno Post",
+
+            text:text
+
+        }).catch(() => {});
+
+    }else{
+
+        navigator.clipboard
+        ?.writeText(text);
+
+        showToast(
+            "Post Share text Copy हो गया"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SAVE POST
+========================= */
+
+function savePost(article){
+
+    const button =
+        article.querySelector(".save-btn");
+
+
+    const text =
+        article.querySelector(".post-text")
+        ?.textContent ||
+        "Zuno Post";
+
+
+    if(button.classList.contains("saved")){
+
+        button.classList.remove("saved");
+
+        button.textContent =
+            "🔖 Save";
+
+        showToast(
+            "Saved से हटाया गया"
+        );
+
+        return;
+
+    }
+
+
+    button.classList.add("saved");
+
+    button.textContent =
+        "🔖 Saved";
+
+
+    savedPosts.push({
+
+        id:
+            article.dataset.postId,
+
+        text:text,
+
+        image:
+            article.querySelector(
+                ".post-image"
+            )?.src || ""
 
     });
 
 
-document
-    .getElementById("accountsCentreBackButton")
-    .addEventListener("click", function() {
+    showToast(
+        "Post Saved 🔖"
+    );
 
-        document
-            .getElementById("accountsCentrePage")
-            .style.display = "none";
-
-        document
-            .getElementById("settingsPage")
-            .style.display = "block";
-
-    });
-</script>
-</body>
-</html>
-               
+}
