@@ -845,6 +845,82 @@
         color: #777;
         margin: 0;
     }
+        /* ==================================================
+   ZUNO ACCOUNTS CENTRE
+================================================== */
+
+.accounts-centre-page {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #f7f7f7;
+    z-index: 13000;
+    overflow-y: auto;
+}
+
+.accounts-centre-header {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accounts-centre-header button {
+    border: none;
+    background: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.accounts-centre-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.accounts-centre-content {
+    background: white;
+    margin-top: 8px;
+    padding: 15px 0;
+}
+
+.accounts-centre-content h3 {
+    margin: 10px 15px;
+    color: #777;
+    font-size: 15px;
+}
+
+.accounts-centre-item {
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 18px;
+    border: none;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.accounts-centre-item:hover {
+    background: #f5f5f5;
+}
+
+.accounts-centre-item span {
+    flex: 1;
+    font-size: 16px;
+    color: #222;
+}
+
+.accounts-centre-item b {
+    font-size: 25px;
+    font-weight: normal;
+    color: #777;
+}
 
 </style>
 
@@ -1685,6 +1761,37 @@
         
     </div>
     
+</div>
+    <!-- ZUNO ACCOUNTS CENTRE PAGE -->
+<div id="accountsCentrePage" class="accounts-centre-page">
+
+    <div class="accounts-centre-header">
+        <button type="button" id="accountsCentreBackButton">←</button>
+        <h2>Accounts Centre</h2>
+    </div>
+
+    <div class="accounts-centre-content">
+
+        <h3>Your Zuno account</h3>
+
+        <button type="button" class="accounts-centre-item">
+            👤 <span>Personal details</span> <b>›</b>
+        </button>
+
+        <button type="button" class="accounts-centre-item">
+            🔐 <span>Password and security</span> <b>›</b>
+        </button>
+
+        <button type="button" class="accounts-centre-item">
+            📱 <span>Your information and permissions</span> <b>›</b>
+        </button>
+
+        <button type="button" class="accounts-centre-item">
+            ⚙️ <span>Account settings</span> <b>›</b>
+        </button>
+
+    </div>
+
 </div>
 
 <script>
@@ -2746,6 +2853,38 @@ if (privateAccountToggle) {
         }
     });
 }
+    /* ==================================================
+   ZUNO ACCOUNTS CENTRE
+================================================== */
+
+document
+    .getElementById("accountsCentreButton")
+    .addEventListener("click", function() {
+
+        document
+            .getElementById("settingsPage")
+            .style.display = "none";
+
+        document
+            .getElementById("accountsCentrePage")
+            .style.display = "block";
+
+    });
+
+
+document
+    .getElementById("accountsCentreBackButton")
+    .addEventListener("click", function() {
+
+        document
+            .getElementById("accountsCentrePage")
+            .style.display = "none";
+
+        document
+            .getElementById("settingsPage")
+            .style.display = "block";
+
+    });
 </script>
 </body>
 </html>
