@@ -4282,3 +4282,869 @@ function savePost(article){
     );
 
 }
+    /* =========================
+   PHOTO
+========================= */
+
+function removePhoto(){
+
+    $("postImage").value = "";
+
+    $("previewImage").src = "";
+
+    $("photoPreview").classList.remove("show");
+
+}
+
+
+function handlePhoto(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e){
+
+        $("previewImage").src =
+            e.target.result;
+
+        $("photoPreview")
+            .classList.add("show");
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================
+   EMOJI
+========================= */
+
+function addEmoji(){
+
+    const textarea =
+        $("postText");
+
+    textarea.value += " 😊";
+
+    textarea.focus();
+
+}
+
+
+/* =========================
+   STORIES
+========================= */
+
+function openStory(text){
+
+    $("storyViewerText")
+        .textContent = text;
+
+    $("storyViewer")
+        .classList.add("show");
+
+}
+
+
+function closeStory(){
+
+    $("storyViewer")
+        .classList.remove("show");
+
+}
+
+
+/* =========================
+   ADD STORY
+========================= */
+
+function addStory(){
+
+    const text =
+        prompt(
+            "अपनी Story लिखें:"
+        );
+
+
+    if(!text || text.trim() === ""){
+
+        return;
+
+    }
+
+
+    const story =
+        document.createElement("div");
+
+
+    story.className = "story";
+
+
+    story.dataset.story =
+        text.trim();
+
+
+    story.innerHTML = `
+
+        <div class="story-circle">
+
+            <div class="story-inner">
+                📝
+            </div>
+
+        </div>
+
+        <div class="story-name">
+            आपकी Story
+        </div>
+
+    `;
+
+
+    story.addEventListener(
+        "click",
+        () => openStory(text.trim())
+    );
+
+
+    $("stories").appendChild(story);
+
+
+    showToast(
+        "Story जोड़ दी गई 🎉"
+    );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchUsers(){
+
+    const input =
+        $("searchInput");
+
+    const query =
+        input.value
+        .trim()
+        .toLowerCase();
+
+
+    const results =
+        $("searchResults");
+
+
+    if(!query){
+
+        results.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔍
+                </div>
+
+                <strong>
+                    किसी को खोजें
+                </strong>
+
+                <p>
+                    ऊपर Search box में नाम लिखें।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const users = [
+
+        {
+            name:"Rahul",
+            username:"@rahul",
+            avatar:"👨‍💻"
+        },
+
+        {
+            name:"Aman",
+            username:"@aman",
+            avatar:"👨"
+        },
+
+        {
+            name:"Priya",
+            username:"@priya",
+            avatar:"👩"
+        },
+
+        {
+            name:"Zuno Team",
+            username:"@zuno",
+            avatar:"💙"
+        }
+
+    ];
+
+
+    const filtered =
+        users.filter(user =>
+
+            user.name
+            .toLowerCase()
+            .includes(query)
+
+            ||
+
+            user.username
+            .toLowerCase()
+            .includes(query)
+
+        );
+
+
+    if(filtered.length === 0){
+
+        results.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    😕
+                </div>
+
+                <strong>
+                    कोई user नहीं मिला
+                </strong>
+
+                <p>
+                    दूसरा नाम खोजें।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    results.innerHTML =
+        filtered.map(user => `
+
+            <div class="search-result">
+
+                <div class="search-result-avatar">
+                    ${user.avatar}
+                </div>
+
+                <div class="search-result-info">
+
+                    <strong>
+                        ${user.name}
+                    </strong>
+
+                    <small>
+                        ${user.username}
+                    </small>
+
+                </div>
+
+                <button
+                    class="secondary-btn search-follow-btn"
+                    data-user="${user.name}">
+
+                    Follow
+
+                </button>
+
+            </div>
+
+        `).join("");
+
+
+    results
+        .querySelectorAll(
+            ".search-follow-btn"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    if(
+                        this.textContent
+                        .trim()
+                        === "Follow"
+                    ){
+
+                        this.textContent =
+                            "Following ✓";
+
+                        showToast(
+                            `${this.dataset.user} को Follow किया`
+                        );
+
+                    }else{
+
+                        this.textContent =
+                            "Follow";
+
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function openChat(name){
+
+    currentChatUser = name;
+
+
+    $("chatWindowName")
+        .textContent = name;
+
+
+    $("chatMessages").innerHTML = `
+
+        <div class="message received">
+            Hello 👋
+        </div>
+
+        <div class="message received">
+            कैसे हो?
+        </div>
+
+    `;
+
+
+    $("chatWindow")
+        .classList.add("show");
+
+
+    $("chatInput").focus();
+
+}
+
+
+function closeChat(){
+
+    $("chatWindow")
+        .classList.remove("show");
+
+}
+
+
+function sendMessage(){
+
+    const input =
+        $("chatInput");
+
+
+    const text =
+        input.value.trim();
+
+
+    if(text === ""){
+
+        return;
+
+    }
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        "message sent";
+
+
+    message.textContent =
+        text;
+
+
+    $("chatMessages")
+        .appendChild(message);
+
+
+    input.value = "";
+
+
+    $("chatMessages")
+        .scrollTop =
+        $("chatMessages").scrollHeight;
+
+}
+
+
+/* =========================
+   NEW HIGHLIGHT
+========================= */
+
+function newHighlight(){
+
+    const name =
+        prompt(
+            "Highlight का नाम लिखें:"
+        );
+
+
+    if(!name || name.trim() === ""){
+
+        return;
+
+    }
+
+
+    const highlight =
+        document.createElement("div");
+
+
+    highlight.className =
+        "highlight";
+
+
+    highlight.innerHTML = `
+
+        <div class="highlight-circle">
+            ⭐
+        </div>
+
+        ${escapeHTML(name.trim())}
+
+    `;
+
+
+    document
+        .querySelector(".highlights")
+        .appendChild(highlight);
+
+
+    showToast(
+        "New Highlight बन गया ⭐"
+    );
+
+}
+
+
+/* =========================
+   ABOUT ZUNO
+========================= */
+
+function aboutZuno(){
+
+    alert(
+        "Zuno Social Media 🚀\n\n" +
+        "यह Zuno का Demo Version है।\n\n" +
+        "आप यहाँ Post, Like, Comment, " +
+        "Share, Save, Story और Chat जैसे " +
+        "features इस्तेमाल कर सकते हैं।"
+    );
+
+}
+
+
+/* =========================
+   HELP
+========================= */
+
+function showHelp(){
+
+    alert(
+        "Zuno Help\n\n" +
+        "• Post बनाने के लिए Home खोलें।\n" +
+        "• Like के लिए ❤️ Like दबाएँ।\n" +
+        "• Comment के लिए 💬 Comment दबाएँ।\n" +
+        "• Profile बदलने के लिए Edit Profile खोलें।\n" +
+        "• Chat के लिए Chat tab खोलें।\n" +
+        "• Settings से account options खोलें।"
+    );
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function showSecurity(){
+
+    alert(
+        "Password & Security\n\n" +
+        "यह Demo Version है।\n\n" +
+        "Real security और database के लिए " +
+        "बाद में Supabase/Firebase जोड़ेंगे।"
+    );
+
+}
+
+
+/* =========================
+   PRIVACY OPTIONS
+========================= */
+
+let privateAccount = false;
+
+let activityStatus = true;
+
+
+function togglePrivateAccount(){
+
+    privateAccount =
+        !privateAccount;
+
+
+    showToast(
+        privateAccount
+        ? "Private Account ON 🔐"
+        : "Private Account OFF 🔓"
+    );
+
+}
+
+
+function toggleActivityStatus(){
+
+    activityStatus =
+        !activityStatus;
+
+
+    showToast(
+        activityStatus
+        ? "Activity Status ON 🟢"
+        : "Activity Status OFF ⚪"
+    );
+
+}
+
+
+function showBlockedAccounts(){
+
+    alert(
+        "Blocked Accounts\n\n" +
+        "अभी कोई blocked account नहीं है।"
+    );
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function toggleNotifications(){
+
+    $("notificationPanel")
+        .classList.toggle("show");
+
+}
+
+
+/* =========================
+   PROFILE TAB
+========================= */
+
+function profileTab(tab){
+
+    document
+        .querySelectorAll(
+            ".profile-tabs button"
+        )
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const activeButton =
+        document.querySelector(
+            `[data-profile-tab="${tab}"]`
+        );
+
+
+    if(activeButton){
+
+        activeButton.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if(tab === "posts"){
+
+        showToast(
+            "आपकी Posts"
+        );
+
+    }
+
+
+    if(tab === "saved"){
+
+        showPage("savedPage");
+
+    }
+
+
+    if(tab === "liked"){
+
+        showToast(
+            "Liked Posts"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SETTINGS NAVIGATION
+========================= */
+
+function openSettings(){
+
+    showPage(
+        "settingsPage"
+    );
+
+}
+
+
+function openSaved(){
+
+    showPage(
+        "savedPage"
+    );
+
+}
+
+
+function openPrivacy(){
+
+    showPage(
+        "privacyPage"
+    );
+
+}
+
+
+function openAccountsCentre(){
+
+    showPage(
+        "accountsCentrePage"
+    );
+
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+function handleBack(button){
+
+    const back =
+        button.dataset.back;
+
+
+    if(back === "home"){
+
+        showPage("homePage");
+
+    }
+
+
+    if(back === "settings"){
+
+        showPage("settingsPage");
+
+    }
+
+}
+
+
+/* =========================
+   NAVIGATION BUTTONS
+========================= */
+
+function setupNavigation(){
+
+    document
+        .querySelectorAll(
+            ".bottom-nav button"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const nav =
+                        this.dataset.nav;
+
+
+                    if(nav === "home"){
+
+                        showPage(
+                            "homePage"
+                        );
+
+                    }
+
+
+                    if(nav === "reels"){
+
+                        showPage(
+                            "reelsPage"
+                        );
+
+                    }
+
+
+                    if(nav === "chat"){
+
+                        showPage(
+                            "chatPage"
+                        );
+
+                    }
+
+
+                    if(nav === "search"){
+
+                        showPage(
+                            "searchPage"
+                        );
+
+                    }
+
+
+                    if(nav === "profile"){
+
+                        showPage(
+                            "profilePage"
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   SETTINGS EVENTS
+========================= */
+
+function setupSettings(){
+
+    $("accountsCentreButton")
+        ?.addEventListener(
+            "click",
+            openAccountsCentre
+        );
+
+
+    $("editSettingsButton")
+        ?.addEventListener(
+            "click",
+            openEditProfile
+        );
+
+
+    $("savedSettingsButton")
+        ?.addEventListener(
+            "click",
+            openSaved
+        );
+
+
+    $("privacySettingsButton")
+        ?.addEventListener(
+            "click",
+            openPrivacy
+        );
+
+
+    $("logoutSettingsButton")
+        ?.addEventListener(
+            "click",
+            logout
+        );
+
+
+    $("aboutZunoButton")
+        ?.addEventListener(
+            "click",
+            aboutZuno
+        );
+
+
+    $("helpButton")
+        ?.addEventListener(
+            "click",
+            showHelp
+        );
+
+
+    $("securityButton")
+        ?.addEventListener(
+            "click",
+            showSecurity
+        );
+
+
+    $("privateAccountButton")
+        ?.addEventListener(
+            "click",
+            togglePrivateAccount
+        );
+
+
+    $("activityStatusButton")
+        ?.addEventListener(
+            "click",
+            toggleActivityStatus
+        );
+
+
+    $("blockedAccountsButton")
+        ?.addEventListener(
+            "click",
+            showBlockedAccounts
+        );
+
+        }
